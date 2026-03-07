@@ -4,6 +4,7 @@
     const navLinks = document.querySelectorAll(".nav-links a");
     const navLinksWrap = document.querySelector(".nav-links");
     const homeLinks = document.querySelectorAll('a[href="#home"]');
+    const portfolioGrid = document.querySelector(".portfolio-grid");
     const heroVisual = document.querySelector(".hero-visual");
     const contactForm = document.querySelector(".form-card");
     const contactFormProgressBar = document.querySelector("#contact-form-progress-bar");
@@ -15,14 +16,29 @@
     const projectVideos = document.querySelectorAll(".project-video");
     const sections = document.querySelectorAll("header[id], main section[id]");
     const yearEl = document.querySelector("#year");
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isCoarsePointer = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+    const prefersReducedData = Boolean(
+      connection && (connection.saveData || /2g/.test(connection.effectiveType || ""))
+    );
     const backToTopCircumference = 2 * Math.PI * 19;
+    let lastScrollY = window.scrollY;
 
     if (yearEl) {
       yearEl.textContent = new Date().getFullYear();
     }
 
     document.body.classList.add("is-ready");
+    document.body.classList.toggle("is-touch-device", isCoarsePointer);
+    document.body.classList.toggle("save-data-mode", prefersReducedData);
+
+    const closeMobileMenu = () => {
+      if (!navShell || !menuToggle) return;
+      navShell.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("menu-open");
+    };
 
     if (menuToggle && navShell) {
       menuToggle.addEventListener("click", () => {
@@ -35,9 +51,7 @@
         link.addEventListener("click", () => {
           navLinks.forEach((item) => item.classList.remove("active"));
           link.classList.add("active");
-          navShell.classList.remove("open");
-          menuToggle.setAttribute("aria-expanded", "false");
-          document.body.classList.remove("menu-open");
+          closeMobileMenu();
           requestAnimationFrame(updateNavIndicator);
         });
       });
@@ -48,16 +62,12 @@
         if (!(target instanceof Element)) return;
         if (navShell.contains(target) || menuToggle.contains(target)) return;
 
-        navShell.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        document.body.classList.remove("menu-open");
+        closeMobileMenu();
       });
 
       document.addEventListener("keydown", (event) => {
         if (event.key !== "Escape" || !navShell.classList.contains("open")) return;
-        navShell.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        document.body.classList.remove("menu-open");
+        closeMobileMenu();
       });
     }
 
@@ -72,11 +82,7 @@
         if (window.location.hash !== "#home") {
           window.history.replaceState(null, "", "#home");
         }
-        if (navShell && menuToggle) {
-          navShell.classList.remove("open");
-          menuToggle.setAttribute("aria-expanded", "false");
-          document.body.classList.remove("menu-open");
-        }
+        closeMobileMenu();
       });
     });
 
@@ -211,10 +217,16 @@
       if (!projectVideos.length) return;
 
       const videos = Array.from(projectVideos);
+      const allowAutoplay = !reduceMotion && !prefersReducedData && !isCoarsePointer;
+      const isMobilePortfolio = () => window.matchMedia("(max-width: 860px)").matches;
 
       videos.forEach((video) => {
         video.defaultPlaybackRate = 1;
         video.playbackRate = 1;
+        video.preload = "metadata";
+        if (!allowAutoplay) {
+          video.removeAttribute("autoplay");
+        }
       });
 
       const tryPlay = async (video) => {
@@ -237,13 +249,13 @@
           }
         });
 
-        if (nextVideo && nextVideo.dataset.inView === "true") {
+        if (allowAutoplay && nextVideo && nextVideo.dataset.inView === "true") {
           void tryPlay(nextVideo);
         }
       };
 
       if (!("IntersectionObserver" in window)) {
-        if (activeVideo) {
+        if (activeVideo && allowAutoplay) {
           activeVideo.preload = "auto";
           void tryPlay(activeVideo);
         }
@@ -260,8 +272,10 @@
             target.dataset.inView = String(isVisible);
 
             if (isVisible && target === activeVideo) {
-              target.preload = "auto";
-              void tryPlay(target);
+              if (allowAutoplay) {
+                target.preload = "auto";
+                void tryPlay(target);
+              }
             } else {
               target.pause();
             }
@@ -275,7 +289,7 @@
 
       videos.forEach((video) => {
         video.addEventListener("canplay", () => {
-          if (video === activeVideo && video.paused) {
+          if (allowAutoplay && video === activeVideo && video.paused) {
             void tryPlay(video);
           }
         });
@@ -292,12 +306,72 @@
             setActiveVideo(video);
           });
 
-          card.addEventListener("click", () => {
+          card.addEventListener("click", (event) => {
+            const target = event.target;
+            if (target instanceof Element && target.closest("a")) return;
             setActiveVideo(video);
+            if (!allowAutoplay) {
+              if (video.paused) {
+                void tryPlay(video);
+              } else {
+                video.pause();
+              }
+            }
           });
         }
 
         observer.observe(video);
+      });
+
+      if (portfolioGrid && isCoarsePointer) {
+        let scrollTimeoutId = 0;
+
+        const syncActiveCardFromScroll = () => {
+          if (!isMobilePortfolio()) return;
+
+          const cards = Array.from(portfolioGrid.querySelectorAll(".project-card"));
+          if (!cards.length) return;
+
+          const viewportCenter = portfolioGrid.scrollLeft + portfolioGrid.clientWidth / 2;
+          let closestCard = cards[0];
+          let closestDistance = Number.POSITIVE_INFINITY;
+
+          cards.forEach((card) => {
+            const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+            const distance = Math.abs(cardCenter - viewportCenter);
+            if (distance < closestDistance) {
+              closestDistance = distance;
+              closestCard = card;
+            }
+          });
+
+          const closestVideo = closestCard.querySelector(".project-video");
+          if (closestVideo instanceof HTMLVideoElement) {
+            setActiveVideo(closestVideo);
+          }
+        };
+
+        portfolioGrid.addEventListener(
+          "scroll",
+          () => {
+            window.clearTimeout(scrollTimeoutId);
+            scrollTimeoutId = window.setTimeout(syncActiveCardFromScroll, 120);
+          },
+          { passive: true }
+        );
+
+        syncActiveCardFromScroll();
+      }
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          videos.forEach((video) => video.pause());
+          return;
+        }
+
+        if (allowAutoplay && activeVideo && activeVideo.dataset.inView === "true") {
+          void tryPlay(activeVideo);
+        }
       });
 
       if (activeVideo) {
@@ -354,19 +428,23 @@
 
     // Update active nav link on scroll
     const setActiveLink = () => {
-      const y = window.scrollY + 110;
-      let activeId = "home";
+      const headerOffset = siteHeader ? siteHeader.offsetHeight : 0;
+      const y = window.scrollY + headerOffset + 36;
+      const sectionList = Array.from(sections).filter((section) => section.id);
+      if (sectionList.length === 0) return;
 
-      sections.forEach((section) => {
-        const id = section.getAttribute("id");
-        if (!id) return;
+      let activeId = sectionList[0].id;
 
-        const top = section.offsetTop;
-        const bottom = top + section.offsetHeight;
-        if (y >= top && y < bottom) {
-          activeId = id;
+      sectionList.forEach((section) => {
+        if (y >= section.offsetTop) {
+          activeId = section.id;
         }
       });
+
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      if (atBottom) {
+        activeId = sectionList[sectionList.length - 1].id;
+      }
 
       navLinks.forEach((link) => {
         const isActive = link.getAttribute("href") === `#${activeId}`;
@@ -396,10 +474,57 @@
       siteHeader.classList.toggle("is-scrolled", window.scrollY > 12);
     };
 
+    const updateMobileHeaderVisibility = () => {
+      if (!siteHeader) return;
+
+      const isMobile = window.matchMedia("(max-width: 860px)").matches;
+      const currentY = window.scrollY;
+
+      if (!isMobile) {
+        siteHeader.classList.remove("is-hidden-mobile");
+        lastScrollY = currentY;
+        return;
+      }
+
+      const isMenuOpen = document.body.classList.contains("menu-open");
+      const nearTop = currentY <= 24;
+      const delta = currentY - lastScrollY;
+
+      if (nearTop || isMenuOpen) {
+        siteHeader.classList.remove("is-hidden-mobile");
+      } else if (delta > 6) {
+        siteHeader.classList.add("is-hidden-mobile");
+      } else if (delta < -4) {
+        siteHeader.classList.remove("is-hidden-mobile");
+      }
+
+      lastScrollY = currentY;
+    };
+
     const onScroll = () => {
       setActiveLink();
       updateBackToTop();
       updateHeaderState();
+      updateMobileHeaderVisibility();
+    };
+
+    let scrollFramePending = false;
+    const handleScroll = () => {
+      if (scrollFramePending) return;
+      scrollFramePending = true;
+      window.requestAnimationFrame(() => {
+        scrollFramePending = false;
+        onScroll();
+      });
+    };
+
+    let resizeTimeoutId = 0;
+    const handleResize = () => {
+      window.clearTimeout(resizeTimeoutId);
+      resizeTimeoutId = window.setTimeout(() => {
+        updateNavIndicator();
+        onScroll();
+      }, 120);
     };
 
     setupRevealAnimations();
@@ -409,6 +534,6 @@
     setupPortfolioVideoPlayback();
     setupContactFormProgress();
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", updateNavIndicator);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
     onScroll();
