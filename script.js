@@ -12,6 +12,7 @@
     const backToTopProgressBar = document.querySelector(".back-to-top-bar");
     const siteHeader = document.querySelector(".site-header");
     const serviceCards = document.querySelectorAll("[data-service-card]");
+    const projectVideos = document.querySelectorAll(".project-video");
     const sections = document.querySelectorAll("header[id], main section[id]");
     const yearEl = document.querySelector("#year");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -121,7 +122,7 @@
       if (reduceMotion || window.matchMedia("(hover: none)").matches) return;
 
       const tiltCards = document.querySelectorAll(
-        ".service-card, .project-card, .step-card, .testimonial-card, .benefits-proof, .benefits-list-card"
+        ".service-card, .step-card, .testimonial-card, .benefits-proof, .benefits-list-card"
       );
 
       tiltCards.forEach((card) => {
@@ -204,6 +205,104 @@
           setActiveCard(card);
         });
       });
+    };
+
+    const setupPortfolioVideoPlayback = () => {
+      if (!projectVideos.length) return;
+
+      const videos = Array.from(projectVideos);
+
+      videos.forEach((video) => {
+        video.defaultPlaybackRate = 1;
+        video.playbackRate = 1;
+      });
+
+      const tryPlay = async (video) => {
+        try {
+          await video.play();
+        } catch {
+          // Autoplay can still be blocked in some browser states.
+        }
+      };
+
+      let activeVideo = videos[0] ?? null;
+
+      const setActiveVideo = (nextVideo) => {
+        activeVideo = nextVideo;
+        videos.forEach((video) => {
+          const isActive = video === nextVideo;
+          video.dataset.active = String(isActive);
+          if (!isActive) {
+            video.pause();
+          }
+        });
+
+        if (nextVideo && nextVideo.dataset.inView === "true") {
+          void tryPlay(nextVideo);
+        }
+      };
+
+      if (!("IntersectionObserver" in window)) {
+        if (activeVideo) {
+          activeVideo.preload = "auto";
+          void tryPlay(activeVideo);
+        }
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const target = entry.target;
+            if (!(target instanceof HTMLVideoElement)) return;
+
+            const isVisible = entry.isIntersecting && entry.intersectionRatio > 0.28;
+            target.dataset.inView = String(isVisible);
+
+            if (isVisible && target === activeVideo) {
+              target.preload = "auto";
+              void tryPlay(target);
+            } else {
+              target.pause();
+            }
+          });
+        },
+        {
+          threshold: [0, 0.28, 0.55],
+          rootMargin: "120px 0px 120px 0px",
+        }
+      );
+
+      videos.forEach((video) => {
+        video.addEventListener("canplay", () => {
+          if (video === activeVideo && video.paused) {
+            void tryPlay(video);
+          }
+        });
+
+        const card = video.closest(".project-card");
+        if (card) {
+          card.addEventListener("mouseenter", () => {
+            if (window.matchMedia("(hover: hover)").matches) {
+              setActiveVideo(video);
+            }
+          });
+
+          card.addEventListener("focusin", () => {
+            setActiveVideo(video);
+          });
+
+          card.addEventListener("click", () => {
+            setActiveVideo(video);
+          });
+        }
+
+        observer.observe(video);
+      });
+
+      if (activeVideo) {
+        setActiveVideo(activeVideo);
+      }
     };
 
     const setupContactFormProgress = () => {
@@ -307,6 +406,7 @@
     setupCardTiltEffects();
     setupHeroVisualParallax();
     setupServiceCardInteractions();
+    setupPortfolioVideoPlayback();
     setupContactFormProgress();
 
     window.addEventListener("scroll", onScroll, { passive: true });

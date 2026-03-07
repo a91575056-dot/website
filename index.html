@@ -8,7 +8,7 @@
   <meta name="robots" content="index, follow">
   <meta name="author" content="Dionis Web Studio">
   <meta name="theme-color" content="#0b67ff">
-  <link rel="icon" type="image/png" href="assets/images/logo1.png">
+  <link rel="icon" type="image/png" href="assets/images/logopng.png">
   <link rel="canonical" href="https://www.yourdomain.com/">
 
   <!-- Open Graph -->
@@ -62,8 +62,8 @@
   <header class="site-header" id="home">
     <div class="container header-shell">
       <a href="#home" class="brand" aria-label="Dionis Web Studio home">
-        <span class="brand-logo-wrap" aria-hidden="true">
-          <img src="assets/images/logo1.png" alt="" class="brand-logo" width="1536" height="1024">
+        <span class="brand-logo-wrap">
+          <img src="assets/images/logopng.png" alt="Dionis Web Studio logo" class="brand-logo" width="1536" height="1024">
         </span>
         <span class="brand-text">Dionis Web Studio</span>
       </a>
@@ -299,8 +299,8 @@
     <section class="section" id="portfolio">
       <div class="container">
         <span class="eyebrow">Portfolio</span>
-        <h2 class="section-title">Sample Projects Designed for Real Results</h2>
-        <p class="section-lead">Use these as proof that your websites can look premium and still stay practical, fast, and conversion-oriented.</p>
+        <h2 class="section-title">Live Video Portfolio</h2>
+        <p class="section-lead">Only 2 selected projects, shown as live video previews so details are easy to see.</p>
         <div class="portfolio-grid">
           <article class="card project-card">
             <div class="project-image">
@@ -311,7 +311,8 @@
                 muted
                 loop
                 playsinline
-                preload="metadata"
+                preload="auto"
+                disablepictureinpicture
                 poster="assets/images/project-real-estate.jpg"
                 aria-label="Real estate landing page portfolio video preview"
               ></video>
@@ -331,7 +332,8 @@
                 muted
                 loop
                 playsinline
-                preload="metadata"
+                preload="auto"
+                disablepictureinpicture
                 poster="assets/images/project-brand.jpg"
                 aria-label="Personal brand website portfolio video preview"
               ></video>
@@ -340,16 +342,6 @@
               <span class="project-type">Personal Brand Website</span>
               <h3>Coach Elena Authority Site</h3>
               <p>A refined personal brand site that turned social traffic into consultation requests.</p>
-            </div>
-          </article>
-          <article class="card project-card">
-            <div class="project-image">
-              <img src="assets/images/project-repair.jpg" alt="Local repair business website preview for mobile visitors" loading="lazy">
-            </div>
-            <div class="project-body">
-              <span class="project-type">Local Business Mini Site</span>
-              <h3>Northline Repair Services</h3>
-              <p>Mobile-first mini website with clearer service pages and higher consistency in lead capture.</p>
             </div>
           </article>
         </div>
@@ -549,22 +541,52 @@
   <!-- 10. Footer -->
   <footer class="site-footer">
     <div class="container footer-shell">
-      <div class="footer-brand">
-        <img src="assets/images/logo1.png" alt="Dionis Web Studio logo" class="footer-logo" width="1536" height="1024" loading="lazy">
-        <span class="footer-copy">&copy; <span id="year"></span> Dionis Web Studio. All rights reserved.</span>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#home" class="footer-brand-link" aria-label="Dionis Web Studio home">
+            <span class="footer-logo-wrap">
+              <img src="assets/images/logo.png" alt="Dionis Web Studio logo" class="footer-logo" width="1536" height="1024" loading="lazy">
+            </span>
+            <span class="footer-brand-text">Dionis Web Studio</span>
+          </a>
+          <p class="footer-tagline">Premium websites for freelancers and local businesses that need trust and leads.</p>
+          <div class="footer-contact-quick">
+            <a href="mailto:hello@yourbrand.com">hello@yourbrand.com</a>
+            <a href="tel:+10000000000">+1 000 000 0000</a>
+          </div>
+        </div>
+
+        <div class="footer-nav-group">
+          <p class="footer-group-title">Navigation</p>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-group">
+          <p class="footer-group-title">Platforms</p>
+          <ul class="social-links">
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Dribbble</a></li>
+            <li><a href="#">Behance</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-cta">
+          <p class="footer-group-title">Ready to launch?</p>
+          <p>Book your next website build and get a clear roadmap in the first call.</p>
+          <a href="#contact" class="btn btn-primary footer-btn">Get a Quote</a>
+        </div>
       </div>
-      <ul class="footer-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <ul class="social-links">
-        <li><a href="#">LinkedIn</a></li>
-        <li><a href="#">Dribbble</a></li>
-        <li><a href="#">Behance</a></li>
-      </ul>
+
+      <div class="footer-bottom">
+        <span class="footer-copy">&copy; <span id="year"></span> Dionis Web Studio. All rights reserved.</span>
+        <span class="footer-meta">Currently booking projects starting April 2026.</span>
+      </div>
     </div>
   </footer>
 
