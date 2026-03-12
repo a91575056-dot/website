@@ -4,6 +4,13 @@ const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector(".site-nav");
 const navLinks = siteNav ? Array.from(siteNav.querySelectorAll('a:not(.button)')) : [];
 const navIndicator = document.querySelector(".nav-indicator");
+const portfolioVideos = document.querySelectorAll(".portfolio-video");
+const portfolioVideoTriggers = document.querySelectorAll("[data-video-dialog-trigger]");
+const videoDialog = document.querySelector(".video-dialog");
+const videoDialogTitle = document.querySelector(".video-dialog-title");
+const videoDialogPlayer = document.querySelector(".video-dialog-player");
+const videoDialogCloseControls = document.querySelectorAll("[data-video-dialog-close]");
+const videoDialogCloseButton = document.querySelector(".video-dialog-close");
 const quickDock = document.querySelector(".quick-dock");
 const quickDockTrigger = document.querySelector(".quick-dock-trigger");
 const quickDockActions = document.querySelector(".quick-dock-actions");
@@ -15,6 +22,8 @@ const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
 let lastScrollY = window.scrollY;
 let quickDockSuspendTimer = 0;
 let highlightedNavLink = null;
+let portfolioVideoObserver = null;
+let activeVideoTrigger = null;
 const clearNavHighlight = () => {
   navLinks.forEach((link) => {
     link.removeAttribute("data-nav-highlighted");
@@ -52,6 +61,122 @@ const setNavHighlight = (link = null) => {
   link.setAttribute("data-nav-highlighted", "true");
   syncNavIndicator(link);
 };
+const pausePortfolioVideo = (video) => {
+  if (!(video instanceof HTMLVideoElement)) {
+    return;
+  }
+
+  video.pause();
+};
+const playPortfolioVideo = (video) => {
+  if (!(video instanceof HTMLVideoElement) || reducedMotionQuery.matches || document.hidden) {
+    return;
+  }
+
+  video.muted = true;
+  const playPromise = video.play();
+
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch(() => {});
+  }
+};
+const syncPortfolioVideos = () => {
+  if (!portfolioVideos.length) {
+    return;
+  }
+
+  if (portfolioVideoObserver) {
+    portfolioVideoObserver.disconnect();
+    portfolioVideoObserver = null;
+  }
+
+  if (reducedMotionQuery.matches) {
+    portfolioVideos.forEach((video) => pausePortfolioVideo(video));
+    return;
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    portfolioVideos.forEach((video) => playPortfolioVideo(video));
+    return;
+  }
+
+  portfolioVideoObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+          playPortfolioVideo(video);
+        } else {
+          pausePortfolioVideo(video);
+        }
+      });
+    },
+    {
+      threshold: [0.15, 0.35, 0.65],
+      rootMargin: "0px 0px -10% 0px",
+    }
+  );
+
+  portfolioVideos.forEach((video) => {
+    if (!(video instanceof HTMLVideoElement)) {
+      return;
+    }
+
+    video.muted = true;
+    video.playsInline = true;
+    portfolioVideoObserver.observe(video);
+  });
+};
+const closeVideoDialog = (restoreFocus = true) => {
+  if (!videoDialog || !videoDialogPlayer) {
+    return;
+  }
+
+  videoDialog.classList.remove("is-open");
+  videoDialog.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+  videoDialogPlayer.pause();
+  videoDialogPlayer.removeAttribute("src");
+  videoDialogPlayer.load();
+
+  if (restoreFocus && activeVideoTrigger instanceof HTMLElement) {
+    activeVideoTrigger.focus();
+  }
+
+  activeVideoTrigger = null;
+  syncPortfolioVideos();
+};
+const openVideoDialog = (trigger) => {
+  if (!videoDialog || !videoDialogPlayer || !(trigger instanceof HTMLElement)) {
+    return;
+  }
+
+  const videoSrc = trigger.getAttribute("data-video-src");
+  const videoTitle = trigger.getAttribute("data-video-title") || "Website preview";
+
+  if (!videoSrc) {
+    return;
+  }
+
+  activeVideoTrigger = trigger;
+  portfolioVideos.forEach((video) => pausePortfolioVideo(video));
+  videoDialogTitle.textContent = videoTitle;
+  videoDialogPlayer.src = videoSrc;
+  videoDialog.classList.add("is-open");
+  videoDialog.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+
+  const playPromise = videoDialogPlayer.play();
+
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch(() => {});
+  }
+
+  if (videoDialogCloseButton instanceof HTMLElement) {
+    videoDialogCloseButton.focus();
+  }
+};
 const setMenuState = (isOpen) => {
   if (!menuToggle || !siteNav) {
     return;
@@ -85,7 +210,7 @@ const setQuickDockState = (isOpen) => {
 const closeQuickDockMenu = (temporarilySuspend = false) => {
   setQuickDockState(false);
 
-  if (!temporarilySuspend || !quickDock) {
+  if (!quickDock) {
     return;
   }
 
@@ -93,6 +218,10 @@ const closeQuickDockMenu = (temporarilySuspend = false) => {
 
   if (activeElement instanceof HTMLElement && quickDock.contains(activeElement)) {
     activeElement.blur();
+  }
+
+  if (!temporarilySuspend) {
+    return;
   }
 
   window.clearTimeout(quickDockSuspendTimer);
@@ -294,6 +423,26 @@ if (siteNav && navLinks.length > 0) {
   });
 }
 
+if (portfolioVideoTriggers.length > 0 && videoDialog && videoDialogPlayer) {
+  portfolioVideoTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      openVideoDialog(trigger);
+    });
+  });
+
+  videoDialogCloseControls.forEach((control) => {
+    control.addEventListener("click", () => {
+      closeVideoDialog();
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && videoDialog.classList.contains("is-open")) {
+      closeVideoDialog();
+    }
+  });
+}
+
 if (brandLink) {
   brandLink.addEventListener("click", (event) => {
     event.preventDefault();
@@ -306,13 +455,18 @@ if (brandLink) {
 if (quickDock && quickDockTrigger) {
   quickDockTrigger.addEventListener("click", (event) => {
     const isKeyboardTrigger = event.detail === 0;
+    const isOpen = quickDock.classList.contains("is-open");
+
+    if (isOpen) {
+      closeQuickDockMenu(true);
+      return;
+    }
 
     if (finePointerQuery.matches && !isKeyboardTrigger) {
       return;
     }
 
-    const isOpen = !quickDock.classList.contains("is-open");
-    setQuickDockState(isOpen);
+    setQuickDockState(true);
   });
 
   quickDockActions?.querySelectorAll("a, button").forEach((action) => {
@@ -402,6 +556,40 @@ if (quickDock) {
   syncQuickDock(Math.max(window.scrollY, 0));
 }
 
+if (portfolioVideos.length > 0) {
+  document.addEventListener("visibilitychange", () => {
+    if (videoDialog?.classList.contains("is-open")) {
+      if (document.hidden) {
+        videoDialogPlayer?.pause();
+      } else if (videoDialogPlayer instanceof HTMLVideoElement) {
+        const playPromise = videoDialogPlayer.play();
+
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(() => {});
+        }
+      }
+      return;
+    }
+
+    if (document.hidden) {
+      portfolioVideos.forEach((video) => pausePortfolioVideo(video));
+      return;
+    }
+
+    syncPortfolioVideos();
+  });
+
+  const handleMotionPreferenceChange = () => {
+    syncPortfolioVideos();
+  };
+
+  if (typeof reducedMotionQuery.addEventListener === "function") {
+    reducedMotionQuery.addEventListener("change", handleMotionPreferenceChange);
+  } else if (typeof reducedMotionQuery.addListener === "function") {
+    reducedMotionQuery.addListener(handleMotionPreferenceChange);
+  }
+}
+
 if ("IntersectionObserver" in window) {
   const revealObserver = new IntersectionObserver(
     (entries) => {
@@ -422,3 +610,5 @@ if ("IntersectionObserver" in window) {
 } else {
   revealItems.forEach((item) => item.classList.add("is-visible"));
 }
+
+syncPortfolioVideos();
