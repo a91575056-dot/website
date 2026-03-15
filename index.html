@@ -10,44 +10,74 @@
   >
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <meta name="author" content="Dionis Grecu">
-  <meta name="theme-color" content="#111a1f">
+  <meta name="theme-color" content="#0b1020">
+  <link rel="canonical" href="https://dionisweb.com/">
+  <link rel="icon" type="image/png" sizes="414x394" href="assets/logo-cropped.png">
+  <link rel="shortcut icon" href="assets/logo-cropped.png">
+  <link rel="apple-touch-icon" href="assets/logo-cropped.png">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dionisweb.com/">
+  <meta property="og:site_name" content="Dionis Grecu">
   <meta property="og:title" content="Dionis Grecu | Front-End Developer for Landing Pages and Business Websites">
   <meta property="og:description" content="Freelance front-end developer building fast, responsive landing pages and business websites.">
-  <meta property="og:image" content="assets/dionis-g-front-end-freelancer.jpg">
+  <meta property="og:image" content="https://dionisweb.com/assets/111.png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="1536">
   <meta property="og:image:alt" content="Dionis Grecu, freelance front-end developer">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Dionis Grecu | Front-End Developer for Landing Pages and Business Websites">
   <meta name="twitter:description" content="Freelance front-end developer building fast, responsive landing pages and business websites.">
-  <meta name="twitter:image" content="assets/dionis-g-front-end-freelancer.jpg">
-  <link rel="preload" as="image" href="assets/photo_5879690527945460483_y (1).jpg">
+  <meta name="twitter:image" content="https://dionisweb.com/assets/111.png">
+  <meta name="twitter:image:alt" content="Dionis Grecu, freelance front-end developer">
+  <link rel="sitemap" type="application/xml" title="Sitemap" href="https://dionisweb.com/sitemap.xml">
+  <link rel="preload" as="image" href="assets/111.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Sora:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap"
     rel="stylesheet"
   >
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W9C04LB8FF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("js", new Date());
+    gtag("config", "G-W9C04LB8FF");
+  </script>
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "Person",
-          "@id": "#person",
+          "@type": "WebSite",
+          "@id": "https://dionisweb.com/#website",
+          "url": "https://dionisweb.com/",
           "name": "Dionis Grecu",
+          "description": "Freelance front-end developer building landing pages and business websites for modern brands and businesses."
+        },
+        {
+          "@type": "Person",
+          "@id": "https://dionisweb.com/#person",
+          "name": "Dionis Grecu",
+          "url": "https://dionisweb.com/",
+          "image": "https://dionisweb.com/assets/111.png",
           "jobTitle": "Front-end freelancer",
           "description": "Freelance front-end developer building landing pages and business websites for modern brands and businesses.",
           "knowsLanguage": ["Romanian", "Russian", "English", "French"],
-          "sameAs": ["https://www.fiverr.com/dgrecu011"]
+          "sameAs": [
+            "https://dionisweb.com/",
+            "https://www.instagram.com/dionis.grecu?igsh=MW85eWY4bzZnaGdsbA%3D%3D&utm_source=qr",
+            "https://www.fiverr.com/dgrecu011"
+          ]
         },
         {
           "@type": "Service",
-          "@id": "#service",
+          "@id": "https://dionisweb.com/#service",
           "name": "Landing page and business website development",
           "description": "Responsive landing pages and business websites for startups, small businesses, personal brands and freelancers.",
           "provider": {
-            "@id": "#person"
+            "@id": "https://dionisweb.com/#person"
           },
           "serviceType": [
             "Landing page development",
@@ -111,12 +141,14 @@
   </script>
 </head>
 <body>
-  <div class="page-orb page-orb-left" aria-hidden="true"></div>
-  <div class="page-orb page-orb-right" aria-hidden="true"></div>
-
+  <div class="page-ambient" aria-hidden="true">
+    <span class="page-ambient-orb page-ambient-orb-a"></span>
+    <span class="page-ambient-orb page-ambient-orb-b"></span>
+    <span class="page-ambient-grid"></span>
+  </div>
   <header class="site-header" id="top">
     <div class="container header-shell">
-      <a class="brand" href="#top" aria-label="Go to top">
+      <a class="brand" href="#top" data-scroll-target="top" aria-label="Go to top">
         <span class="brand-mark">
           <img
             class="brand-logo"
@@ -133,238 +165,234 @@
         </span>
       </a>
 
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open navigation">
         <span></span>
         <span></span>
       </button>
 
-      <nav class="site-nav" id="site-nav">
-        <a href="#services">Services</a>
-        <a href="#work">Portfolio</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
+      <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+        <a href="#services" data-scroll-target="services">Services</a>
+        <a href="#work" data-scroll-target="work">Portfolio</a>
+        <a href="#pricing" data-scroll-target="pricing">Pricing</a>
+        <a href="#faq" data-scroll-target="faq">FAQ</a>
+        <a href="#brief" data-scroll-target="brief">Contact</a>
         <span class="nav-indicator" aria-hidden="true"></span>
         <a
           class="button button-small button-whatsapp"
-          href="https://wa.me/?text=Hello%20Dionis%20Grecu%2C%20I%20want%20a%20custom%20website%20quote."
+          data-whatsapp-location="header_nav"
+          href="https://api.whatsapp.com/message/SG2JWLAO726VK1?autoload=1&app_absent=0"
           target="_blank"
           rel="noreferrer"
-        >WhatsApp</a>
+        >Start on WhatsApp</a>
       </nav>
     </div>
   </header>
 
   <div class="nav-scrim" aria-hidden="true"></div>
 
-  <main>
-    <section class="hero section">
+  <main class="site-main">
+    <section class="hero section" aria-labelledby="hero-title">
+      <div class="hero-aurora" aria-hidden="true">
+        <span class="hero-aurora-orb hero-aurora-orb-a"></span>
+        <span class="hero-aurora-orb hero-aurora-orb-b"></span>
+        <span class="hero-aurora-line"></span>
+      </div>
       <div class="container hero-shell">
         <div class="hero-copy reveal">
-          <p class="eyebrow">Front-end developer for businesses that need to launch fast</p>
-          <h1>Premium landing pages and business websites built for Google and real clients.</h1>
+          <p class="eyebrow">Front-end developer for launch-ready business websites</p>
+
+          <h1 id="hero-title">
+            <span class="hero-title-line">Landing pages and business websites</span>
+            <span class="hero-title-accent">that make your brand look credible and convert</span>
+          </h1>
+
           <p class="hero-lead">
-            Modern, responsive and SEO-friendly pages built to look sharp, load fast and convert.
-            Ideal for service businesses, startups, personal brands and local companies that need a polished online presence fast, with basic landing pages available in 24 hours.
+            Modern, responsive and SEO-friendly websites for service businesses, startups,
+            personal brands and local companies. Clear structure, sharp UI and fast delivery,
+            with basic landing pages available in 24 hours.
           </p>
 
           <div class="hero-actions">
             <a
-              class="button button-primary"
-              href="#pricing"
-            >See pricing</a>
-            <a
               class="button button-whatsapp"
-              href="https://wa.me/?text=Hello%20Dionis%20Grecu%2C%20I%20want%20a%20custom%20quote%20for%20my%20website."
+              data-whatsapp-location="hero_primary"
+              href="https://api.whatsapp.com/message/SG2JWLAO726VK1?autoload=1&app_absent=0"
               target="_blank"
               rel="noreferrer"
             >Chat on WhatsApp</a>
+            <a class="button button-secondary" href="#work" data-scroll-target="work">See selected projects</a>
           </div>
 
-          <ul class="hero-list" aria-label="Key benefits">
-            <li>Fast-loading one-page or multi-page business websites</li>
-            <li>Responsive across mobile, tablet and desktop</li>
-            <li>Front-end only, easy to upload on Netlify or any hosting</li>
-          </ul>
         </div>
 
-        <aside class="hero-card reveal" aria-label="Freelancer highlights">
-          <div class="hero-card-top">
-            <span class="availability">
-              <span class="availability-dot"></span>
-              Available for quick-start projects
-            </span>
-            <span class="hero-pill">Starting from $40</span>
+      </div>
+    </section>
+
+    <section class="proof-band">
+      <div class="container">
+        <div class="proof-band-shell reveal">
+          <div class="proof-band-intro">
+            <p class="proof-band-meta">Available for quick-start projects | Starting from 40 USD</p>
+            <p>Made for businesses that need a clean website without a slow process.</p>
           </div>
 
-          <figure class="hero-portrait">
-            <img
-              src="assets/photo_5879690527945460483_y (1).jpg"
-              alt="Dionis Grecu portrait"
-              decoding="async"
-              fetchpriority="high"
-              width="1024"
-              height="1536"
-            >
-            <figcaption>
-              <strong>Dionis Grecu</strong>
-              <span>Front-end freelancer</span>
-            </figcaption>
-          </figure>
+          <div class="proof-logos" aria-label="Best fit for">
+            <span>Small businesses</span>
+            <span>Startups</span>
+            <span>Personal brands</span>
+            <span>Portfolios</span>
+            <span>Landing pages</span>
+          </div>
 
-          <div class="stat-grid">
-            <article class="stat-card">
+          <div class="proof-band-metrics" aria-label="Quick highlights">
+            <article class="hero-proof-card">
               <strong>24h</strong>
               <span>Basic landing page delivery</span>
             </article>
-            <article class="stat-card">
-              <strong>Custom-built</strong>
-              <span>Designed around your offer, audience and goals</span>
+            <article class="hero-proof-card">
+              <strong>From 40 USD</strong>
+              <span>Clear pricing based on scope and deadline</span>
             </article>
-            <article class="stat-card">
-              <strong>SEO-ready</strong>
-              <span>Clear structure and semantic markup</span>
-            </article>
-            <article class="stat-card">
-              <strong>Easy to edit</strong>
-              <span>Source files included</span>
+            <article class="hero-proof-card">
+              <strong>Launch-ready</strong>
+              <span>Prepared for Netlify or your hosting platform</span>
             </article>
           </div>
 
-          <div class="offer-panel">
-            <p class="offer-label">Best fit for</p>
-            <div class="tag-row">
-              <span>Small businesses</span>
-              <span>Startups</span>
-              <span>Personal brands</span>
-              <span>Portfolios</span>
-              <span>Landing pages</span>
-            </div>
-            <div class="timeline">
-              <article class="timeline-step">
-                <strong>Share your content</strong>
-                <p>Send your text, images, references and the goal of the website.</p>
-              </article>
-              <article class="timeline-step">
-                <strong>I design and build</strong>
-                <p>I create the layout, structure and responsive front-end for your project.</p>
-              </article>
-              <article class="timeline-step">
-                <strong>You launch fast</strong>
-                <p>You receive the final website ready for review, approval and launch.</p>
-              </article>
-            </div>
+          <div class="proof-band-summary">
+            <ul class="hero-list proof-inline-list" aria-label="Key benefits">
+              <li>Fast-loading one-page or multi-page business websites</li>
+              <li>Responsive across mobile, tablet and desktop</li>
+              <li>Front-end only, easy to upload on Netlify or any hosting</li>
+            </ul>
           </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="proof-bar">
-      <div class="container proof-shell reveal">
-        <p>Built for business owners who need a clean website without a slow process.</p>
-        <div class="proof-tags" aria-label="Specialties">
-          <span>Fast delivery</span>
-          <span>Modern UI</span>
-          <span>Cross-browser support</span>
-          <span>Performance-focused</span>
-          <span>Deployment-ready</span>
         </div>
       </div>
     </section>
 
-    <section class="section" id="services">
+    <section class="section" id="services" aria-labelledby="services-title">
       <div class="container">
         <div class="section-heading reveal">
-          <p class="eyebrow">What you get</p>
-          <h2>Designed to help your business look credible, clear and ready to convert.</h2>
+          <p class="eyebrow">Services</p>
+          <h2 id="services-title">A clean front-end setup focused on clarity, speed and credibility.</h2>
           <p>
-            Each build is structured for speed, clarity and straightforward handoff. No bulky templates,
-            no visual clutter, and no backend complexity unless discussed in advance.
+            Each project is designed to look modern, load fast and be easy to launch.
+            Front-end only, with no unnecessary complexity unless discussed in advance.
           </p>
         </div>
 
         <div class="service-grid">
           <article class="info-card reveal">
+            <p class="card-kicker">01</p>
             <h3>Premium UI direction</h3>
             <p>Sharp layouts, confident typography and a professional visual style tailored for service-based businesses.</p>
           </article>
           <article class="info-card reveal">
-            <h3>Responsive by default</h3>
-            <p>Your page is optimized for desktop, tablet and mobile from the start, not patched at the end.</p>
+            <p class="card-kicker">02</p>
+            <h3>Responsive and SEO-ready</h3>
+            <p>Your website is optimized for desktop, tablet and mobile from the start, with semantic structure and clear content hierarchy.</p>
           </article>
           <article class="info-card reveal">
-            <h3>Fast and lightweight</h3>
-            <p>Clean front-end code for better load speed, smoother experience and easier future edits.</p>
-          </article>
-          <article class="info-card reveal">
-            <h3>Launch-ready delivery</h3>
-            <p>Source files are included and the final build is ready for upload to Netlify or your hosting platform.</p>
-          </article>
-        </div>
-
-        <div class="about-grid">
-          <article class="about-card reveal">
-            <div class="about-profile">
-              <div class="about-profile-copy">
-                <p class="eyebrow">About me</p>
-                <h3>Dionis Grecu, front-end developer for landing pages and business websites.</h3>
-                <p class="about-role">Clean design, clear structure and fast delivery for business-focused websites.</p>
-              </div>
-            </div>
-            <p>
-              I build clean, responsive websites for businesses and freelancers who want a stronger online presence
-              with a professional look and clear structure.
-            </p>
-          </article>
-          <article class="about-metrics reveal">
-            <div>
-              <strong>Languages</strong>
-              <span>Romanian, Russian, English and French</span>
-            </div>
-            <div>
-              <strong>Project focus</strong>
-              <span>Landing pages, business websites, portfolios and service-based websites</span>
-            </div>
-            <div>
-              <strong>Working style</strong>
-              <span>Clear communication, responsive builds and delivery ready for launch</span>
-            </div>
+            <p class="card-kicker">03</p>
+            <h3>Fast, lightweight and launch-ready</h3>
+            <p>Clean front-end code, source files included after delivery and a final build ready for upload to Netlify or your hosting platform.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section-dark" id="work">
+    <section class="section section-soft" id="why" aria-labelledby="why-title">
       <div class="container">
         <div class="section-heading reveal">
-          <p class="eyebrow">Portfolio</p>
-          <h2>Real website presentation videos, captured from my own projects instead of static mockups.</h2>
+          <p class="eyebrow">Why work with me</p>
+          <h2 id="why-title">Direct collaboration, clean execution and delivery ready for launch.</h2>
           <p>
-            These are actual website walkthrough clips from my work. They show how the final layouts feel in motion,
-            how sections flow and the level of polish clients can expect from the finished front-end.
+            The goal is not to overwhelm you with systems. It is to give your business a clean, modern and
+            trustworthy online presence that feels premium from the first screen.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-story reveal">
+            <p class="panel-label">About me</p>
+            <h3>Dionis Grecu, front-end developer for landing pages and business websites.</h3>
+            <p class="feature-story-lead">Clean design, clear structure and fast delivery.</p>
+            <p>
+              I build clean, responsive websites for businesses and freelancers who want a stronger online presence
+              with a professional look and clear structure.
+            </p>
+          </article>
+
+          <div class="feature-list reveal" aria-label="Why work with me details">
+            <figure class="feature-portrait-block" data-protected-media>
+              <img
+                src="assets/111.png"
+                alt="Dionis Grecu portrait"
+                decoding="async"
+                loading="lazy"
+                width="1024"
+                height="1536"
+                draggable="false"
+              >
+              <span class="hero-portrait-guard" aria-hidden="true"></span>
+              <figcaption>
+                <strong>Dionis Grecu</strong>
+                <span>Front-end freelancer</span>
+              </figcaption>
+            </figure>
+            <article class="feature-list-item">
+              <strong>Services covered</strong>
+              <p>Landing pages, business websites, portfolios and service-based websites.</p>
+            </article>
+            <article class="feature-list-item">
+              <strong>Collaboration</strong>
+              <p>Clear communication, responsive builds, delivery ready for launch and support in Romanian, Russian, English and French.</p>
+            </article>
+            <article class="feature-list-item">
+              <strong>Build standard</strong>
+              <p>Custom-built around your offer, audience and goals, with semantic structure, clear hierarchy and performance-focused front-end.</p>
+            </article>
+            <article class="feature-list-item">
+              <strong>Delivery</strong>
+              <p>Source files included after delivery, easy upload on Netlify or your hosting platform, ideal for businesses that want a faster path from idea to launch.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="work" aria-labelledby="work-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Selected projects</p>
+          <h2 id="work-title">Three demo website concepts that show the quality and direction you can expect.</h2>
+          <p>
+            These are demo website walkthrough clips designed and developed by me. They show how the layouts feel in motion,
+            how sections flow and the level of polish you can expect from my front-end work.
           </p>
         </div>
 
         <div class="portfolio-note reveal">
           <div>
-            <p class="portfolio-note-label">How to read this section</p>
-            <h3>Each card below uses one of your real portfolio videos as the visual proof.</h3>
+            <p class="panel-label">Portfolio note</p>
+            <h3>These are demo website videos, not client projects.</h3>
           </div>
           <div class="portfolio-note-copy">
             <p>
-              No stock mockups and no invented outcomes. Just real presentation clips, practical context
-              and the type of front-end direction a client can use as a reference before ordering.
+              No stock mockups and no fake client claims. Just demo presentation clips, practical context
+              and a clear reference before ordering.
             </p>
             <div class="portfolio-note-tags" aria-label="Portfolio qualities">
-              <span>Real preview videos</span>
-              <span>Actual website motion</span>
+              <span>Demo website videos</span>
+              <span>Built by me</span>
               <span>Responsive front-end</span>
-              <span>Client-ready direction</span>
+              <span>Reference direction</span>
             </div>
           </div>
         </div>
 
-        <div class="work-grid portfolio-grid">
-          <article class="work-card portfolio-card portfolio-card-amber portfolio-card-showcase reveal">
+        <div class="portfolio-grid">
+          <article class="portfolio-card portfolio-card-amber reveal">
             <button
               class="portfolio-preview"
               type="button"
@@ -391,19 +419,19 @@
                   <source src="assets/portfolio-showcase-01.mp4" type="video/mp4">
                 </video>
                 <div class="portfolio-media-overlay" aria-hidden="true">
-                  <span class="portfolio-media-pill">Real preview video</span>
+                  <span class="portfolio-media-pill">Demo website video</span>
                   <span class="portfolio-media-time">00:26</span>
                 </div>
               </div>
             </button>
             <div class="portfolio-body">
               <div class="portfolio-topline">
-                <p class="portfolio-type">From February 2026</p>
+                <p class="portfolio-type">Demo concept, February 2026</p>
                 <span class="portfolio-badge">Auto repair landing page</span>
               </div>
               <h3>Auto Repair Landing Page</h3>
               <p class="portfolio-copy">
-                This project is a high-converting landing page designed for an auto repair service business.
+                This demo concept is a high-converting landing page direction for an auto repair service business.
               </p>
               <div class="portfolio-spec-grid">
                 <div>
@@ -411,7 +439,7 @@
                   <span>Create a modern, trustworthy and conversion-focused website that communicates professionalism and fast turnaround service.</span>
                 </div>
                 <div>
-                  <strong>Design Direction</strong>
+                  <strong>Design direction</strong>
                   <span>Use a dark premium aesthetic with accent colors to increase contrast and highlight important actions.</span>
                 </div>
                 <div>
@@ -420,7 +448,7 @@
                 </div>
               </div>
               <div class="portfolio-detail-block" aria-label="Key objectives">
-                <strong class="portfolio-detail-title">Key Objectives</strong>
+                <strong class="portfolio-detail-title">Key objectives</strong>
                 <ul class="portfolio-detail-list">
                   <li>Strong hero section with clear value proposition</li>
                   <li>Clear call-to-action buttons like "Get My Quote" and "Call Now"</li>
@@ -431,10 +459,11 @@
                 </ul>
               </div>
               <div class="portfolio-actions">
-                <a class="button button-secondary button-small" href="#brief">Use this as reference</a>
+                <a class="button button-secondary button-small" href="/" data-scroll-target="brief">Use this as reference</a>
                 <a
                   class="button button-whatsapp button-small"
-                  href="https://wa.me/?text=Hello%20Dionis%20Grecu%2C%20I%20want%20an%20auto%20repair%20landing%20page%20similar%20to%20your%20portfolio%20video%2001."
+                  data-whatsapp-location="portfolio_auto_repair"
+                  href="https://api.whatsapp.com/message/SG2JWLAO726VK1?autoload=1&app_absent=0"
                   target="_blank"
                   rel="noreferrer"
                 >Discuss this style</a>
@@ -442,7 +471,7 @@
             </div>
           </article>
 
-          <article class="work-card portfolio-card portfolio-card-sand portfolio-card-showcase reveal">
+          <article class="portfolio-card portfolio-card-sand reveal">
             <button
               class="portfolio-preview"
               type="button"
@@ -469,20 +498,19 @@
                   <source src="assets/portfolio-showcase-02.mp4" type="video/mp4">
                 </video>
                 <div class="portfolio-media-overlay" aria-hidden="true">
-                  <span class="portfolio-media-pill">Real preview video</span>
+                  <span class="portfolio-media-pill">Demo website video</span>
                   <span class="portfolio-media-time">00:36</span>
                 </div>
               </div>
             </button>
             <div class="portfolio-body">
               <div class="portfolio-topline">
-                <p class="portfolio-type">From February 2026</p>
+                <p class="portfolio-type">Demo concept, February 2026</p>
                 <span class="portfolio-badge">Agency landing page</span>
               </div>
               <h3>Luxury Web Design Landing Page - NEXA Studio</h3>
               <p class="portfolio-copy">
-                This project involved designing and developing a high-converting luxury landing page
-                for a web design agency brand.
+                This demo concept explores a high-converting luxury landing page for a web design agency brand.
               </p>
               <div class="portfolio-spec-grid">
                 <div>
@@ -499,7 +527,7 @@
                 </div>
               </div>
               <div class="portfolio-detail-block" aria-label="Key focus">
-                <strong class="portfolio-detail-title">Key Focus</strong>
+                <strong class="portfolio-detail-title">Key focus</strong>
                 <ul class="portfolio-detail-list">
                   <li>Conversion-optimized hero section</li>
                   <li>Strong value proposition</li>
@@ -510,10 +538,11 @@
                 </ul>
               </div>
               <div class="portfolio-actions">
-                <a class="button button-secondary button-small" href="#brief">Use this as reference</a>
+                <a class="button button-secondary button-small" href="/" data-scroll-target="brief">Use this as reference</a>
                 <a
                   class="button button-whatsapp button-small"
-                  href="https://wa.me/?text=Hello%20Dionis%20Grecu%2C%20I%20want%20a%20website%20similar%20to%20your%20portfolio%20video%2002."
+                  data-whatsapp-location="portfolio_agency"
+                  href="https://api.whatsapp.com/message/SG2JWLAO726VK1?autoload=1&app_absent=0"
                   target="_blank"
                   rel="noreferrer"
                 >Discuss this style</a>
@@ -521,7 +550,7 @@
             </div>
           </article>
 
-          <article class="work-card portfolio-card portfolio-card-coral portfolio-card-showcase reveal">
+          <article class="portfolio-card portfolio-card-coral portfolio-card-tertiary reveal">
             <button
               class="portfolio-preview"
               type="button"
@@ -548,19 +577,19 @@
                   <source src="assets/portfolio-showcase-03.mp4" type="video/mp4">
                 </video>
                 <div class="portfolio-media-overlay" aria-hidden="true">
-                  <span class="portfolio-media-pill">Real preview video</span>
+                  <span class="portfolio-media-pill">Demo website video</span>
                   <span class="portfolio-media-time">00:35</span>
                 </div>
               </div>
             </button>
             <div class="portfolio-body">
               <div class="portfolio-topline">
-                <p class="portfolio-type">From February 2026</p>
+                <p class="portfolio-type">Demo concept, February 2026</p>
                 <span class="portfolio-badge">Luxury barber landing page</span>
               </div>
               <h3>Noir &amp; Gold - Barber Landing Page</h3>
               <p class="portfolio-copy">
-                This project was designed for a modern luxury barbershop looking to elevate its online presence
+                This demo concept was designed for a modern luxury barbershop looking to elevate its online presence
                 and increase direct bookings.
               </p>
               <div class="portfolio-spec-grid">
@@ -578,7 +607,7 @@
                 </div>
               </div>
               <div class="portfolio-detail-block" aria-label="Key features">
-                <strong class="portfolio-detail-title">Key Features</strong>
+                <strong class="portfolio-detail-title">Key features</strong>
                 <ul class="portfolio-detail-list">
                   <li>Cinematic dark luxury design</li>
                   <li>Clear call-to-action structure</li>
@@ -589,10 +618,11 @@
                 </ul>
               </div>
               <div class="portfolio-actions">
-                <a class="button button-secondary button-small" href="#brief">Use this as reference</a>
+                <a class="button button-secondary button-small" href="/" data-scroll-target="brief">Use this as reference</a>
                 <a
                   class="button button-whatsapp button-small"
-                  href="https://wa.me/?text=Hello%20Dionis%20Grecu%2C%20I%20want%20a%20luxury%20barber%20landing%20page%20similar%20to%20your%20portfolio%20video%2003."
+                  data-whatsapp-location="portfolio_barber"
+                  href="https://api.whatsapp.com/message/SG2JWLAO726VK1?autoload=1&app_absent=0"
                   target="_blank"
                   rel="noreferrer"
                 >Discuss this style</a>
@@ -602,52 +632,98 @@
         </div>
 
         <div class="portfolio-section-cta reveal">
-          <p>Pick the video closest to your direction and I will adapt that visual standard, structure and polish level to your own website.</p>
-          <a class="button button-primary" href="#brief">Send your project brief</a>
+          <p>Pick the demo closest to your direction and I will adapt that standard, structure and polish level to your own website.</p>
+          <a class="button button-primary" href="/" data-scroll-target="brief">Send your project brief</a>
         </div>
       </div>
     </section>
 
-    <section class="section" id="pricing">
+    <section class="section" id="process" aria-labelledby="process-title">
       <div class="container">
         <div class="section-heading reveal">
-          <p class="eyebrow">Custom pricing</p>
-          <h2>Website pricing starts from 40 USD.</h2>
-          <p>Send your project details on WhatsApp and receive a clear price based on the scope, deadline and requirements.</p>
+          <p class="eyebrow">Simple process</p>
+          <h2 id="process-title">A straightforward workflow from brief to launch.</h2>
+          <p>
+            You send the essentials, I handle the structure and front-end build, and you receive a polished website
+            ready for review and launch.
+          </p>
         </div>
 
-        <div class="pricing-panel reveal">
-          <div class="pricing-panel-main">
-            <p class="package-name">Quick quote</p>
-            <h3>Send your project details and get the right price for your website.</h3>
-            <p class="pricing-start">Starting from <strong>40 USD</strong></p>
-            <p class="pricing-copy">The final price depends on the number of sections or pages, the deadline and the overall complexity of the project.</p>
-          </div>
-
-          <ul class="pricing-list" aria-label="What to send on WhatsApp">
-            <li>What type of website or landing page you need</li>
-            <li>How many sections or pages you want</li>
-            <li>Your deadline and any style examples</li>
-          </ul>
-
-          <div class="pricing-panel-cta">
-            <p>Starting price is 40 USD. Send your details on WhatsApp and I will reply with the exact price for your request.</p>
-            <a
-              class="button button-whatsapp"
-              href="https://wa.me/?text=Hello%20Dionis%20Grecu%2C%20I%20want%20a%20custom%20website%20offer.%20I%20know%20projects%20start%20from%2040%20USD."
-              target="_blank"
-              rel="noreferrer"
-            >Get price on WhatsApp</a>
-          </div>
+        <div class="process-grid">
+          <article class="process-card reveal">
+            <span class="process-step">01</span>
+            <h3>Share your content</h3>
+            <p>Send your text, images, references and the goal of the website.</p>
+          </article>
+          <article class="process-card reveal">
+            <span class="process-step">02</span>
+            <h3>I map the structure</h3>
+            <p>I organize the sections, hierarchy and responsive direction around your offer.</p>
+          </article>
+          <article class="process-card reveal">
+            <span class="process-step">03</span>
+            <h3>I design and build</h3>
+            <p>I create the layout, structure and responsive front-end for your project.</p>
+          </article>
+          <article class="process-card reveal">
+            <span class="process-step">04</span>
+            <h3>You review and launch</h3>
+            <p>You receive the final website ready for review, approval and launch.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="faq">
+    <section class="section" id="pricing" aria-labelledby="pricing-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Pricing</p>
+          <h2 id="pricing-title">Simple pricing based on scope, deadline and complexity.</h2>
+          <p>Starting price is 40 USD for smaller landing pages. The final quote depends on the number of pages or sections, the timeline and the overall complexity.</p>
+        </div>
+
+        <div class="pricing-shell">
+          <article class="pricing-card pricing-card-primary reveal">
+            <p class="package-name">What affects the quote</p>
+            <h3>Every project is priced around the website structure, deadline and level of detail.</h3>
+            <p class="pricing-start">Starting from <strong>40 USD</strong></p>
+            <p class="pricing-copy">
+              This keeps pricing clear and flexible instead of forcing every request into the same fixed package.
+            </p>
+            <div class="pricing-meta" aria-label="Included traits">
+              <span>Front-end only</span>
+              <span>Responsive builds</span>
+              <span>Ready for deployment</span>
+            </div>
+          </article>
+
+          <article class="pricing-card pricing-card-secondary reveal">
+            <p class="panel-label">What to send for a quote</p>
+            <ul class="pricing-list" aria-label="What to send on WhatsApp">
+              <li>What type of website or landing page you need</li>
+              <li>How many sections or pages you want</li>
+              <li>Your deadline and any style examples</li>
+            </ul>
+            <div class="pricing-panel-cta">
+              <p>Send the essentials on WhatsApp and I will reply with the exact price for your request.</p>
+              <a
+                class="button button-whatsapp"
+                data-whatsapp-location="pricing_cta"
+                href="https://api.whatsapp.com/message/SG2JWLAO726VK1?autoload=1&app_absent=0"
+                target="_blank"
+                rel="noreferrer"
+              >Get price on WhatsApp</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faq-title">
       <div class="container faq-shell">
         <div class="section-heading reveal">
           <p class="eyebrow">FAQ</p>
-          <h2>Clear expectations before we start.</h2>
+          <h2 id="faq-title">Clear answers before we start.</h2>
           <p>These are the most common questions clients ask before ordering a website or landing page.</p>
         </div>
 
@@ -676,13 +752,14 @@
       </div>
     </section>
 
-    <section class="section brief-section" id="brief">
-      <div class="container brief-grid">
-        <div class="brief-copy reveal">
+    <section class="section cta-section" id="brief" aria-labelledby="brief-title">
+      <div class="container cta-shell">
+        <div class="cta-copy reveal">
           <p class="eyebrow">Contact</p>
-          <h2>Send a WhatsApp message and get a clear price for your project.</h2>
+          <h2 id="brief-title">Ready to discuss your website?</h2>
           <p>
-            Share the type of website you need, your deadline and any examples you like. I will reply with the right price for your request.
+            Send the type of website you need, your deadline and any examples you like.
+            I will reply with the price and the next steps.
           </p>
 
           <div class="brief-notes">
@@ -697,12 +774,10 @@
           </div>
         </div>
 
-        <div class="brief-panel reveal" aria-label="WhatsApp contact">
-          <p class="brief-panel-label">WhatsApp contact</p>
-          <h3>Send the details and receive the exact price on WhatsApp.</h3>
-          <p>
-            Write a short message with your project details and I will reply with the price and the next steps.
-          </p>
+        <div class="cta-card reveal" aria-label="WhatsApp contact">
+          <p class="panel-label">WhatsApp contact</p>
+          <h3>WhatsApp is the fastest way to get the exact quote.</h3>
+          <p>Write a short message with your project details and I will reply with the price and the next steps.</p>
 
           <ul class="brief-points" aria-label="What to send on WhatsApp">
             <li>What type of website or landing page you need</li>
@@ -712,7 +787,8 @@
 
           <a
             class="button button-whatsapp brief-cta"
-            href="https://wa.me/?text=Hello%20Dionis%20Grecu%2C%20I%20want%20a%20custom%20website%20quote.%20Here%20are%20my%20project%20details."
+            data-whatsapp-location="brief_cta"
+            href="https://api.whatsapp.com/message/SG2JWLAO726VK1?autoload=1&app_absent=0"
             target="_blank"
             rel="noreferrer"
           >Send details on WhatsApp</a>
@@ -725,10 +801,22 @@
 
   <footer class="site-footer">
     <div class="container footer-shell">
-      <div>
+      <div class="footer-copy">
         <strong>Dionis Grecu</strong>
         <p>SEO-friendly landing pages and business websites built for speed, clarity and conversion.</p>
       </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="/" data-scroll-target="services">Services</a>
+        <a href="/" data-scroll-target="work">Portfolio</a>
+        <a href="/" data-scroll-target="pricing">Pricing</a>
+        <a href="/" data-scroll-target="faq">FAQ</a>
+        <a href="/" data-scroll-target="brief">Contact</a>
+        <a
+          href="https://www.instagram.com/dionis.grecu?igsh=MW85eWY4bzZnaGdsbA%3D%3D&utm_source=qr"
+          target="_blank"
+          rel="noreferrer"
+        >Instagram</a>
+      </nav>
       <div class="footer-meta">
         <span>Front-end only</span>
         <span>Responsive builds</span>
@@ -746,16 +834,39 @@
         </svg>
       </button>
       <a
+        class="quick-dock-action quick-dock-action-instagram"
+        href="https://www.instagram.com/dionis.grecu?igsh=MW85eWY4bzZnaGdsbA%3D%3D&utm_source=qr"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Open Instagram"
+      >
+        <img
+          class="quick-dock-action-image"
+          src="assets/image.png"
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          width="128"
+          height="128"
+        >
+      </a>
+      <a
         class="quick-dock-action quick-dock-action-whatsapp"
-        href="https://wa.me/?text=Hello%20Dionis%20Grecu%2C%20I%20want%20a%20custom%20website%20quote."
+        data-whatsapp-location="quick_dock"
+        href="https://api.whatsapp.com/message/SG2JWLAO726VK1?autoload=1&app_absent=0"
         target="_blank"
         rel="noreferrer"
         aria-label="Chat on WhatsApp"
       >
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M6.7 17.3L5.3 21l3.8-1.3a8.3 8.3 0 0 0 4 1c4.6 0 8.3-3.6 8.3-8.2S17.7 4.3 13.1 4.3 4.8 8 4.8 12.5c0 1.7.5 3.3 1.5 4.8Z"></path>
-          <path d="M10.1 9.5c.2-.5.4-.5.6-.5h.5c.2 0 .4.1.5.4l.7 1.8c.1.2.1.4 0 .6l-.6 1c.6 1.2 1.5 2.1 2.7 2.7l1-.6c.2-.1.4-.1.6 0l1.8.7c.3.1.4.3.4.5v.5c0 .2 0 .4-.5.6-.4.2-1.3.3-2.2 0-1-.3-2.2-.9-3.6-2.2-1.3-1.3-2-2.5-2.2-3.5-.3-1 0-1.9.3-2.4Z"></path>
-        </svg>
+        <img
+          class="quick-dock-action-image"
+          src="assets/whatsap.png"
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          width="128"
+          height="128"
+        >
       </a>
     </div>
     <button
