@@ -19,6 +19,7 @@ const quickDock = document.querySelector(".quick-dock");
 const quickDockTrigger = document.querySelector(".quick-dock-trigger");
 const quickDockActions = document.querySelector(".quick-dock-actions");
 const quickDockTopAction = document.querySelector(".quick-dock-action-top");
+const siteFooter = document.querySelector(".site-footer");
 const whatsappLinks = Array.from(document.querySelectorAll('a[href*="wa.me/"], a[href*="api.whatsapp.com/"]'));
 const protectedMediaItems = Array.from(document.querySelectorAll("[data-protected-media]"));
 const desktopNavQuery = window.matchMedia("(min-width: 960px)");
@@ -208,13 +209,27 @@ const syncScrollState = () => {
   });
 };
 
+const isFooterCrowdingQuickDock = () => {
+  if (!(siteFooter instanceof HTMLElement) || !(quickDock instanceof HTMLElement)) {
+    return false;
+  }
+
+  const footerTop = siteFooter.getBoundingClientRect().top;
+  const dockClearance = Math.max(quickDock.offsetHeight + 64, 120);
+
+  return footerTop <= window.innerHeight - dockClearance;
+};
+
 const syncQuickDockVisibility = () => {
   if (!quickDock) {
     return;
   }
 
-  const shouldShow = window.scrollY > 220;
+  const shouldHideNearFooter = isFooterCrowdingQuickDock();
+  const shouldShow = window.scrollY > 220 && !shouldHideNearFooter;
+
   quickDock.classList.toggle("is-visible", shouldShow);
+  quickDock.classList.toggle("is-hidden-by-footer", shouldHideNearFooter);
 
   if (!shouldShow) {
     closeQuickDock();
@@ -536,6 +551,7 @@ window.addEventListener("scroll", syncScrollState, { passive: true });
 
 window.addEventListener("resize", () => {
   syncNavIndicator();
+  syncQuickDockVisibility();
 
   if (desktopNavQuery.matches) {
     closeMenu();
