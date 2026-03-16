@@ -28,6 +28,9 @@ let currentNavLink = null;
 let portfolioVideoObserver = null;
 let activeVideoTrigger = null;
 let lastScrollY = Math.max(window.scrollY, 0);
+let headerScrollDirection = 0;
+let headerDirectionStartY = lastScrollY;
+let isScrollTicking = false;
 
 const trackAnalyticsEvent = (eventName, parameters = {}) => {
   if (typeof window.gtag !== "function") {
@@ -158,25 +161,51 @@ const syncHeaderState = () => {
 
   header.classList.toggle("is-scrolled", currentScrollY > 12);
 
-  if (!desktopNavQuery.matches) {
-    header.classList.remove("is-hidden");
-    lastScrollY = currentScrollY;
-    return;
-  }
-
   if (currentScrollY < 36 || siteNav?.classList.contains("is-open")) {
     header.classList.remove("is-hidden");
+    headerScrollDirection = 0;
+    headerDirectionStartY = currentScrollY;
     lastScrollY = currentScrollY;
     return;
   }
 
-  if (scrollDelta > 7 && currentScrollY > 160) {
+  if (Math.abs(scrollDelta) < 0.5) {
+    lastScrollY = currentScrollY;
+    return;
+  }
+
+  const nextDirection = scrollDelta > 0 ? 1 : -1;
+
+  if (nextDirection !== headerScrollDirection) {
+    headerScrollDirection = nextDirection;
+    headerDirectionStartY = lastScrollY;
+  }
+
+  const directionDistance = Math.abs(currentScrollY - headerDirectionStartY);
+
+  if (nextDirection > 0 && currentScrollY > 160 && directionDistance > 20) {
     header.classList.add("is-hidden");
-  } else if (scrollDelta < -7) {
+    headerDirectionStartY = currentScrollY;
+  } else if (nextDirection < 0 && directionDistance > 16) {
     header.classList.remove("is-hidden");
+    headerDirectionStartY = currentScrollY;
   }
 
   lastScrollY = currentScrollY;
+};
+
+const syncScrollState = () => {
+  if (isScrollTicking) {
+    return;
+  }
+
+  isScrollTicking = true;
+
+  window.requestAnimationFrame(() => {
+    syncHeaderState();
+    syncQuickDockVisibility();
+    isScrollTicking = false;
+  });
 };
 
 const syncQuickDockVisibility = () => {
@@ -503,10 +532,7 @@ protectedMediaItems.forEach((item) => {
   );
 });
 
-window.addEventListener("scroll", () => {
-  syncHeaderState();
-  syncQuickDockVisibility();
-});
+window.addEventListener("scroll", syncScrollState, { passive: true });
 
 window.addEventListener("resize", () => {
   syncNavIndicator();
