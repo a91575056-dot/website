@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Play, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { useGSAP } from "@gsap/react";
@@ -23,10 +23,98 @@ const portfolioPreviewImages = [
   "/assets/portfolio-barber.jpg"
 ];
 
+function PortfolioInlineVideo({ item, isActive }: { item: PortfolioItem; isActive: boolean }) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    if (isActive) {
+      setShouldLoad(true);
+    }
+  }, [isActive]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video || !shouldLoad) {
+      return;
+    }
+
+    if (isActive) {
+      const playPromise = video.play();
+      if (playPromise instanceof Promise) {
+        playPromise.catch(() => undefined);
+      }
+      return;
+    }
+
+    video.pause();
+  }, [isActive, shouldLoad]);
+
+  return (
+    <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-black">
+      <video
+        ref={videoRef}
+        src={shouldLoad ? item.video : undefined}
+        muted
+        loop
+        playsInline
+        preload={shouldLoad ? "metadata" : "none"}
+        className="pointer-events-none aspect-video w-full bg-[#050814] object-contain"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(6,11,24,0.1),rgba(6,11,24,0.02)_45%,rgba(6,11,24,0.82))]" />
+      <div className="pointer-events-none absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/10 bg-black/35 px-3 py-1.5 backdrop-blur-xl">
+        <Play className="h-3.5 w-3.5 fill-current text-white" />
+        <span className="text-[10px] uppercase tracking-[0.22em] text-white/70">{item.duration}</span>
+      </div>
+      <div className="pointer-events-none absolute inset-x-4 bottom-4 rounded-[22px] border border-white/10 bg-black/30 p-4 backdrop-blur-xl">
+        <div className="text-[10px] uppercase tracking-[0.24em] text-cyan-200/80">{item.meta}</div>
+        <div className="mt-2 font-display text-2xl leading-none text-white">{item.title}</div>
+      </div>
+    </div>
+  );
+}
+
 export function PortfolioSection() {
   const scope = useRef<HTMLElement | null>(null);
+  const mobileScrollerRef = useRef<HTMLDivElement | null>(null);
   const [activeItem, setActiveItem] = useState<PortfolioItem | null>(null);
+  const [activeMobileIndex, setActiveMobileIndex] = useState(0);
   const { isConstrained } = usePerformanceMode();
+
+  const updateActiveMobileIndex = () => {
+    const scroller = mobileScrollerRef.current;
+
+    if (!scroller) {
+      return;
+    }
+
+    const cards = Array.from(scroller.querySelectorAll<HTMLElement>("[data-mobile-card]"));
+
+    if (!cards.length) {
+      return;
+    }
+
+    const viewportCenter = scroller.scrollLeft + scroller.clientWidth / 2;
+    let closestIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    cards.forEach((card, index) => {
+      const cardCenter = card.offsetLeft + card.clientWidth / 2;
+      const distance = Math.abs(cardCenter - viewportCenter);
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setActiveMobileIndex(closestIndex);
+  };
+
+  useEffect(() => {
+    updateActiveMobileIndex();
+  }, []);
 
   useGSAP(
     () => {
@@ -69,12 +157,73 @@ export function PortfolioSection() {
           <div className="glass-panel max-w-md rounded-[24px] px-5 py-5">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-3 py-1.5 text-[11px] uppercase tracking-[0.24em] text-white/58">
               <Sparkles className="h-3.5 w-3.5 text-cyan-200" />
-              Open any example to preview the style and structure.
+              Scroll through the examples and open any one for a closer preview.
             </div>
           </div>
         </div>
 
-        <div className="hide-scrollbar mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-4 touch-pan-x [scrollbar-width:none] [-webkit-overflow-scrolling:touch] lg:grid lg:grid-cols-3 lg:overflow-visible">
+        <div className="mt-10 lg:hidden">
+          <div className="mb-4 flex items-center justify-between gap-4 px-1">
+            <div className="text-[11px] uppercase tracking-[0.24em] text-white/46">Swipe to see more projects</div>
+            <div className="flex items-center gap-2">
+              {portfolioItems.map((item, index) => (
+                <span
+                  key={item.title}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    index === activeMobileIndex ? "w-7 bg-cyan-200" : "w-1.5 bg-white/24"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div
+            ref={mobileScrollerRef}
+            onScroll={updateActiveMobileIndex}
+            className="hide-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 overscroll-x-contain [-webkit-overflow-scrolling:touch]"
+          >
+          {portfolioItems.map((item, index) => (
+            <article
+              key={item.title}
+              data-mobile-card
+              className="glass-panel min-w-[88vw] shrink-0 snap-center rounded-[28px] border-white/10 p-4 sm:min-w-[32rem] sm:p-5"
+            >
+              <PortfolioInlineVideo item={item} isActive={index === activeMobileIndex} />
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                {item.stack.map((tag) => (
+                  <span key={tag} className="tag-chip bg-white/[0.03] text-white/64">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-5">
+                <div className="text-sm uppercase tracking-[0.24em] text-white/40">{item.label}</div>
+                <p className="mt-3 text-sm leading-7 text-white/62">{item.copy}</p>
+              </div>
+
+              <div className="soft-divider mt-6" />
+              <div className="mt-5 flex flex-col gap-3">
+                <p className="text-sm leading-6 text-white/52">{item.result}</p>
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <Button type="button" variant="secondary" onClick={() => setActiveItem(item)} className="justify-center">
+                    Open video preview
+                  </Button>
+                  <Button asChild variant="ghost" className="justify-center">
+                    <a href={whatsappUrl} target="_blank" rel="noreferrer">
+                      Ask for a similar website
+                      <ArrowUpRight className="ml-2 h-4 w-4" />
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </article>
+          ))}
+          </div>
+        </div>
+
+        <div className="hidden gap-5 lg:grid lg:grid-cols-3">
           {portfolioItems.map((item, index) => (
             <motion.article
               key={item.title}
@@ -89,7 +238,7 @@ export function PortfolioSection() {
               <button
                 type="button"
                 onClick={() => setActiveItem(item)}
-                className="block w-full touch-pan-x select-none text-left"
+                className="block w-full select-none text-left"
                 data-cursor="interactive"
               >
                 <div className="relative overflow-hidden rounded-t-[28px] border-b border-white/10">
