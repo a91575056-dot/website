@@ -1,14 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight, BadgeCheck, Clock3, MessageCircleMore, Sparkles } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 import { BlurRevealText } from "@/components/blur-reveal-text";
+import { SectionLink } from "@/components/section-link";
 import { Button } from "@/components/ui/button";
 import { heroBadges, heroHighlights, whatsappUrl } from "@/lib/site-data";
+import { usePerformanceMode } from "@/lib/use-performance-mode";
 
 const particlePositions = [
   { left: "8%", top: "16%" },
@@ -24,6 +25,7 @@ const particlePositions = [
 export function HeroSection() {
   const scope = useRef<HTMLElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
+  const { isConstrained } = usePerformanceMode();
   const { scrollYProgress } = useScroll({
     target: scope,
     offset: ["start start", "end start"]
@@ -45,7 +47,7 @@ export function HeroSection() {
           className="pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-cyan-200/70 shadow-[0_0_18px_rgba(103,232,249,0.9)]"
           style={particle}
           animate={
-            shouldReduceMotion
+            shouldReduceMotion || isConstrained
               ? undefined
               : {
                   y: [0, -16, 0],
@@ -109,10 +111,10 @@ export function HeroSection() {
                 </a>
               </Button>
               <Button asChild variant="secondary" size="lg">
-                <Link href="#portfolio">
+                <SectionLink targetId="portfolio">
                   See examples
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+                </SectionLink>
               </Button>
             </motion.div>
 
@@ -142,7 +144,10 @@ export function HeroSection() {
             </div>
           </div>
 
-          <motion.div style={{ y: visualY, rotate: visualRotate }} className="relative mx-auto w-full max-w-[30rem] xl:max-w-[33rem]">
+          <motion.div
+            style={isConstrained ? undefined : { y: visualY, rotate: visualRotate }}
+            className="relative mx-auto w-full max-w-[30rem] xl:max-w-[33rem]"
+          >
             <div className="glass-panel rounded-[32px] p-4 sm:p-5">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.16),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(236,72,153,0.14),transparent_28%)]" />
 
@@ -166,6 +171,7 @@ export function HeroSection() {
                       width={1024}
                       height={1536}
                       priority
+                      sizes="(max-width: 640px) 92vw, (max-width: 1280px) 48vw, 528px"
                       className="h-[23rem] w-full object-cover object-[center_12%] sm:h-[27rem] lg:h-[30rem]"
                     />
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,9,20,0.02),rgba(5,9,20,0.05)_46%,rgba(5,9,20,0.36))]" />
@@ -187,7 +193,7 @@ export function HeroSection() {
                   {heroBadges.map((badge, index) => (
                     <motion.div
                       key={badge.label}
-                      animate={shouldReduceMotion ? undefined : { y: [0, -4, 0] }}
+                      animate={shouldReduceMotion || isConstrained ? undefined : { y: [0, -4, 0] }}
                       transition={{
                         duration: 4.6 + index * 0.5,
                         repeat: Number.POSITIVE_INFINITY,

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { ArrowUpRight, Play, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
@@ -11,17 +12,28 @@ import { SectionIntro } from "@/components/section-intro";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { portfolioItems, whatsappUrl } from "@/lib/site-data";
+import { usePerformanceMode } from "@/lib/use-performance-mode";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 type PortfolioItem = (typeof portfolioItems)[number];
+const portfolioPreviewImages = [
+  "/assets/portfolio-auto.jpg",
+  "/assets/portfolio-agency.jpg",
+  "/assets/portfolio-barber.jpg"
+];
 
 export function PortfolioSection() {
   const scope = useRef<HTMLElement | null>(null);
   const [activeItem, setActiveItem] = useState<PortfolioItem | null>(null);
+  const { isConstrained } = usePerformanceMode();
 
   useGSAP(
     () => {
+      if (isConstrained) {
+        return;
+      }
+
       const cards = gsap.utils.toArray<HTMLElement>("[data-portfolio-card]");
 
       cards.forEach((card, index) => {
@@ -41,7 +53,7 @@ export function PortfolioSection() {
         );
       });
     },
-    { scope }
+    { scope, dependencies: [isConstrained] }
   );
 
   return (
@@ -62,33 +74,32 @@ export function PortfolioSection() {
           </div>
         </div>
 
-        <div className="hide-scrollbar mt-10 flex snap-x gap-5 overflow-x-auto pb-4 lg:grid lg:grid-cols-3 lg:overflow-visible">
+        <div className="hide-scrollbar mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-4 touch-pan-x [scrollbar-width:none] [-webkit-overflow-scrolling:touch] lg:grid lg:grid-cols-3 lg:overflow-visible">
           {portfolioItems.map((item, index) => (
             <motion.article
               key={item.title}
               data-portfolio-card
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={isConstrained ? false : { opacity: 0, y: 30 }}
+              whileInView={isConstrained ? undefined : { opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.75, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -10, scale: 1.01 }}
-              className="group interactive-card glass-panel min-w-[86vw] snap-start rounded-[28px] border-white/10 sm:min-w-[420px] lg:min-w-0"
+              whileHover={isConstrained ? undefined : { y: -10, scale: 1.01 }}
+              className="group interactive-card glass-panel min-w-[86vw] shrink-0 snap-start rounded-[28px] border-white/10 sm:min-w-[420px] lg:min-w-0 lg:shrink"
             >
               <button
                 type="button"
                 onClick={() => setActiveItem(item)}
-                className="block w-full text-left"
+                className="block w-full touch-pan-x select-none text-left"
                 data-cursor="interactive"
               >
                 <div className="relative overflow-hidden rounded-t-[28px] border-b border-white/10">
-                  <video
+                  <Image
+                    src={portfolioPreviewImages[index]}
+                    alt={`${item.title} preview`}
+                    width={960}
+                    height={1280}
                     className="h-[23rem] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                    src={item.video}
-                    muted
-                    autoPlay
-                    loop
-                    playsInline
-                    preload="metadata"
+                    sizes="(max-width: 640px) 86vw, (max-width: 1024px) 420px, 33vw"
                   />
                   <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,11,24,0.12),rgba(6,11,24,0.05)_35%,rgba(6,11,24,0.86))]" />
 
@@ -148,7 +159,15 @@ export function PortfolioSection() {
                 </div>
 
                 <div className="overflow-hidden rounded-[26px] border border-white/10 bg-black">
-                  <video key={activeItem.video} src={activeItem.video} controls autoPlay playsInline className="aspect-video w-full" />
+                  <video
+                    key={activeItem.video}
+                    src={activeItem.video}
+                    controls
+                    autoPlay
+                    playsInline
+                    preload="metadata"
+                    className="aspect-video w-full"
+                  />
                 </div>
               </div>
             ) : null}

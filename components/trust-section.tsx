@@ -6,8 +6,11 @@ import { Sparkles } from "lucide-react";
 import { AnimatedCounter } from "@/components/animated-counter";
 import { SectionIntro } from "@/components/section-intro";
 import { trustStats, trustStrip } from "@/lib/site-data";
+import { usePerformanceMode } from "@/lib/use-performance-mode";
 
 export function TrustSection() {
+  const { isConstrained } = usePerformanceMode();
+
   return (
     <section className="pb-16 sm:pb-24">
       <div className="section-shell">
@@ -24,8 +27,8 @@ export function TrustSection() {
               {trustStats.map((item, index) => (
                 <motion.article
                   key={item.label}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={isConstrained ? false : { opacity: 0, y: 24 }}
+                  whileInView={isConstrained ? undefined : { opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                   className="interactive-card glass-panel rounded-[24px] border-white/10 px-5 py-6"
@@ -48,8 +51,8 @@ export function TrustSection() {
             {trustStrip.map((item, index) => (
               <motion.div
                 key={item}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={isConstrained ? false : { opacity: 0, y: 12 }}
+                whileInView={isConstrained ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 transition={{ duration: 0.6, delay: 0.1 + index * 0.05, ease: [0.22, 1, 0.36, 1] }}
                 className="tag-chip"

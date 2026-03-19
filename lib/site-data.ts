@@ -5,10 +5,10 @@ export const instagramUrl =
   "https://www.instagram.com/dionis.grecu?igsh=MW85eWY4bzZnaGdsbA%3D%3D&utm_source=qr";
 
 export const navItems = [
-  { label: "Services", href: "#services" },
-  { label: "Examples", href: "#portfolio" },
-  { label: "Process", href: "#process" },
-  { label: "Contact", href: "#contact" }
+  { label: "Services", targetId: "services" },
+  { label: "Examples", targetId: "portfolio" },
+  { label: "Process", targetId: "process" },
+  { label: "Contact", targetId: "contact" }
 ];
 
 export const heroHighlights = [

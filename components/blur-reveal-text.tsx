@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 
+import { usePerformanceMode } from "@/lib/use-performance-mode";
 import { cn } from "@/lib/utils";
 
 type BlurRevealTextProps = {
@@ -12,9 +13,10 @@ type BlurRevealTextProps = {
 
 export function BlurRevealText({ text, className, delay = 0 }: BlurRevealTextProps) {
   const shouldReduceMotion = useReducedMotion();
+  const { isConstrained } = usePerformanceMode();
   const words = text.split(" ");
 
-  if (shouldReduceMotion) {
+  if (shouldReduceMotion || isConstrained) {
     return <span className={className}>{text}</span>;
   }
 

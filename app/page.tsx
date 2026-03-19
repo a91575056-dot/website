@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 
+import { HashScrollManager } from "@/components/hash-scroll-manager";
 import { HeroSection } from "@/components/hero-section";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -76,6 +77,7 @@ const jsonLd = {
 export default function HomePage() {
   return (
     <main className="relative isolate overflow-hidden">
+      <HashScrollManager />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_15%_8%,rgba(56,189,248,0.18),transparent_28%),radial-gradient(circle_at_82%_4%,rgba(168,85,247,0.18),transparent_30%),radial-gradient(circle_at_52%_18%,rgba(236,72,153,0.14),transparent_26%)]" />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_22%_36%,rgba(59,130,246,0.08),transparent_22%),radial-gradient(circle_at_78%_42%,rgba(192,132,252,0.08),transparent_18%),radial-gradient(circle_at_50%_76%,rgba(244,114,182,0.06),transparent_20%)]" />

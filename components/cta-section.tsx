@@ -5,14 +5,17 @@ import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
 import { ctaPoints, instagramUrl, whatsappUrl } from "@/lib/site-data";
+import { usePerformanceMode } from "@/lib/use-performance-mode";
 
 export function CtaSection() {
+  const { isConstrained } = usePerformanceMode();
+
   return (
     <section id="contact" className="pb-20 pt-6 sm:pb-28">
       <div className="section-shell">
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isConstrained ? false : { opacity: 0, y: 28 }}
+          whileInView={isConstrained ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="glass-panel overflow-hidden rounded-[34px] border border-cyan-300/16 bg-[linear-gradient(135deg,rgba(56,189,248,0.12),rgba(99,102,241,0.12)_40%,rgba(236,72,153,0.12)_100%)] px-5 py-7 sm:px-8 sm:py-9 lg:px-10 lg:py-12"
@@ -52,7 +55,7 @@ export function CtaSection() {
 
               <div className="mt-6 flex flex-col gap-3">
                 <motion.div
-                  animate={{ y: [0, -4, 0] }}
+                  animate={isConstrained ? undefined : { y: [0, -4, 0] }}
                   transition={{ duration: 2.8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
                 >
                   <Button asChild className="w-full justify-center">

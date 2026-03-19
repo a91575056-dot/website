@@ -9,15 +9,21 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { SectionIntro } from "@/components/section-intro";
 import { processHighlights, processSteps } from "@/lib/site-data";
+import { usePerformanceMode } from "@/lib/use-performance-mode";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function ProcessSection() {
   const scope = useRef<HTMLElement | null>(null);
   const progressRef = useRef<HTMLDivElement | null>(null);
+  const { isConstrained } = usePerformanceMode();
 
   useGSAP(
     () => {
+      if (isConstrained) {
+        return;
+      }
+
       if (!progressRef.current) {
         return;
       }
@@ -56,7 +62,7 @@ export function ProcessSection() {
         );
       });
     },
-    { scope }
+    { scope, dependencies: [isConstrained] }
   );
 
   return (
@@ -93,8 +99,8 @@ export function ProcessSection() {
                 <motion.article
                   key={step.step}
                   data-process-card
-                  initial={{ opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={isConstrained ? false : { opacity: 0, y: 28 }}
+                  whileInView={isConstrained ? undefined : { opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.75, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                   className="interactive-card glass-panel rounded-[28px] border-white/10 px-5 py-6 sm:px-6 sm:py-7"

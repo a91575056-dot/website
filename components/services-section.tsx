@@ -5,6 +5,7 @@ import { Code2, Layers3, MonitorSmartphone, Rocket, Sparkles } from "lucide-reac
 
 import { SectionIntro } from "@/components/section-intro";
 import { services } from "@/lib/site-data";
+import { usePerformanceMode } from "@/lib/use-performance-mode";
 import { cn } from "@/lib/utils";
 
 const iconMap = {
@@ -16,6 +17,8 @@ const iconMap = {
 } as const;
 
 export function ServicesSection() {
+  const { isConstrained } = usePerformanceMode();
+
   return (
     <section id="services" className="py-16 sm:py-24">
       <div className="section-shell">
@@ -33,11 +36,11 @@ export function ServicesSection() {
             return (
               <motion.article
                 key={service.title}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={isConstrained ? false : { opacity: 0, y: 28 }}
+                whileInView={isConstrained ? undefined : { opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.75, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -10 }}
+                whileHover={isConstrained ? undefined : { y: -10 }}
                 className={cn(
                   "interactive-card glass-panel h-full border-white/10 px-5 py-6 sm:px-6 sm:py-7",
                   isFeatured &&

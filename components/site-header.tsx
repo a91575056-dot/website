@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { Menu, MessageCircleMore } from "lucide-react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useRef, useState } from "react";
 
+import { SectionLink } from "@/components/section-link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { navItems, whatsappUrl } from "@/lib/site-data";
@@ -73,7 +73,7 @@ export function SiteHeader() {
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="flex items-center justify-between gap-4">
-            <Link href="#top" className="flex min-w-0 items-center gap-3">
+            <SectionLink targetId="top" className="flex min-w-0 items-center gap-3" onNavigate={() => setIsOpen(false)}>
               <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[linear-gradient(135deg,rgba(56,189,248,0.14),rgba(168,85,247,0.12),rgba(236,72,153,0.14))] shadow-[0_0_32px_rgba(96,165,250,0.14)]">
                 <Image src="/assets/logo-cropped.png" alt="Dionis Grecu logo" width={34} height={34} className="h-8 w-8" />
               </div>
@@ -81,17 +81,17 @@ export function SiteHeader() {
                 <div className="truncate text-sm font-semibold text-white">Dionis Grecu</div>
                 <div className="truncate text-[11px] uppercase tracking-[0.24em] text-white/46">Front-end developer</div>
               </div>
-            </Link>
+            </SectionLink>
 
             <nav className="hidden items-center gap-7 text-sm text-white/62 lg:flex">
               {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
+                <SectionLink
+                  key={item.targetId}
+                  targetId={item.targetId}
                   className="relative transition hover:text-white after:absolute after:bottom-[-0.45rem] after:left-0 after:h-px after:w-0 after:bg-[linear-gradient(90deg,rgba(103,232,249,0.9),rgba(236,72,153,0.9))] after:transition-all after:duration-300 hover:after:w-full"
                 >
                   {item.label}
-                </Link>
+                </SectionLink>
               ))}
             </nav>
 
@@ -124,14 +124,14 @@ export function SiteHeader() {
 
                   <div className="flex flex-col gap-4">
                     {navItems.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setIsOpen(false)}
+                      <SectionLink
+                        key={item.targetId}
+                        targetId={item.targetId}
+                        onNavigate={() => setIsOpen(false)}
                         className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-base text-white transition hover:border-white/20 hover:bg-white/[0.08]"
                       >
                         {item.label}
-                      </Link>
+                      </SectionLink>
                     ))}
                   </div>
 

@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { SiFiverr, SiInstagram, SiWhatsapp } from "react-icons/si";
 
+import { SectionLink } from "@/components/section-link";
 import { navItems, socialLinks } from "@/lib/site-data";
 
 const socialIconMap = {
@@ -25,9 +25,9 @@ export function SiteFooter() {
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex flex-wrap gap-4 text-sm text-white/58">
                 {navItems.map((item) => (
-                  <Link key={item.href} href={item.href} className="transition hover:text-white">
+                  <SectionLink key={item.targetId} targetId={item.targetId} className="transition hover:text-white">
                     {item.label}
-                  </Link>
+                  </SectionLink>
                 ))}
               </div>
 
