@@ -27,6 +27,7 @@
 
   html {
     scroll-behavior: auto;
+    scroll-padding-top: 6rem;
   }
 
   body {
