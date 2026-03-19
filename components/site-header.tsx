@@ -29,17 +29,18 @@ export function SiteHeader() {
     const previous = lastScrollY.current;
     const delta = latest - previous;
 
-    if (latest <= 24) {
+    if (latest <= 72) {
       setIsHidden(false);
       lastScrollY.current = latest;
       return;
     }
 
-    if (Math.abs(delta) < 6) {
+    if (Math.abs(delta) < 8) {
+      lastScrollY.current = latest;
       return;
     }
 
-    if (delta > 0) {
+    if (delta > 0 && latest > 140) {
       setIsHidden(true);
     } else {
       setIsHidden(false);
@@ -50,12 +51,12 @@ export function SiteHeader() {
 
   return (
     <motion.header
-      className="sticky top-0 z-40 px-4 pt-4 sm:px-6"
+      className="sticky top-0 z-40 px-4 pt-4 will-change-transform sm:px-6"
       animate={{
         y: isHidden ? "-140%" : "0%",
         opacity: isHidden ? 0.92 : 1
       }}
-      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
     >
       <motion.div
         className="section-shell max-w-7xl rounded-full border border-white/10 bg-white/[0.05] px-4 py-3 backdrop-blur-2xl sm:px-5"
