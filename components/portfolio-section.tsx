@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Play, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Play, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -10,7 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { SectionIntro } from "@/components/section-intro";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { portfolioItems, whatsappUrl } from "@/lib/site-data";
 import { usePerformanceMode } from "@/lib/use-performance-mode";
 
@@ -23,15 +23,18 @@ const portfolioPreviewImages = [
   "/assets/portfolio-barber.jpg"
 ];
 
-function PortfolioInlineVideo({ item, isActive }: { item: PortfolioItem; isActive: boolean }) {
+function PortfolioInlineVideo({
+  item,
+  isActive,
+  shouldLoad,
+  onOpen
+}: {
+  item: PortfolioItem;
+  isActive: boolean;
+  shouldLoad: boolean;
+  onOpen: () => void;
+}) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [shouldLoad, setShouldLoad] = useState(false);
-
-  useEffect(() => {
-    if (isActive) {
-      setShouldLoad(true);
-    }
-  }, [isActive]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -52,26 +55,32 @@ function PortfolioInlineVideo({ item, isActive }: { item: PortfolioItem; isActiv
   }, [isActive, shouldLoad]);
 
   return (
-    <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-black">
-      <video
-        ref={videoRef}
-        src={shouldLoad ? item.video : undefined}
-        muted
-        loop
-        playsInline
-        preload={shouldLoad ? "metadata" : "none"}
-        className="pointer-events-none aspect-video w-full bg-[#050814] object-contain"
-      />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(6,11,24,0.1),rgba(6,11,24,0.02)_45%,rgba(6,11,24,0.82))]" />
+    <button
+      type="button"
+      onClick={onOpen}
+      className="group relative block aspect-[16/10] w-full overflow-hidden rounded-[24px] border border-white/10 bg-[#050814] text-left touch-manipulation"
+      aria-label={`Open full screen preview for ${item.title}`}
+    >
+      <div className="absolute inset-0 overflow-hidden">
+        <video
+          ref={videoRef}
+          src={shouldLoad ? item.video : undefined}
+          muted
+          loop
+          playsInline
+          preload={shouldLoad ? "metadata" : "none"}
+          className="pointer-events-none h-full w-full object-contain"
+        />
+      </div>
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(6,11,24,0.1),rgba(6,11,24,0.02)_48%,rgba(6,11,24,0.22))]" />
       <div className="pointer-events-none absolute left-4 top-4 flex items-center gap-2 rounded-full border border-white/10 bg-black/35 px-3 py-1.5 backdrop-blur-xl">
         <Play className="h-3.5 w-3.5 fill-current text-white" />
         <span className="text-[10px] uppercase tracking-[0.22em] text-white/70">{item.duration}</span>
       </div>
-      <div className="pointer-events-none absolute inset-x-4 bottom-4 rounded-[22px] border border-white/10 bg-black/30 p-4 backdrop-blur-xl">
-        <div className="text-[10px] uppercase tracking-[0.24em] text-cyan-200/80">{item.meta}</div>
-        <div className="mt-2 font-display text-2xl leading-none text-white">{item.title}</div>
+      <div className="pointer-events-none absolute bottom-4 right-4 rounded-full border border-white/10 bg-black/35 px-3 py-1.5 text-[10px] uppercase tracking-[0.22em] text-white/70 backdrop-blur-xl">
+        Tap for full screen
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -80,6 +89,7 @@ export function PortfolioSection() {
   const mobileScrollerRef = useRef<HTMLDivElement | null>(null);
   const [activeItem, setActiveItem] = useState<PortfolioItem | null>(null);
   const [activeMobileIndex, setActiveMobileIndex] = useState(0);
+  const [loadedMobileIndexes, setLoadedMobileIndexes] = useState<number[]>([0, 1]);
   const { isConstrained } = usePerformanceMode();
 
   const updateActiveMobileIndex = () => {
@@ -115,6 +125,24 @@ export function PortfolioSection() {
   useEffect(() => {
     updateActiveMobileIndex();
   }, []);
+
+  useEffect(() => {
+    setLoadedMobileIndexes((previous) => {
+      const next = new Set(previous);
+
+      next.add(activeMobileIndex);
+
+      if (activeMobileIndex > 0) {
+        next.add(activeMobileIndex - 1);
+      }
+
+      if (activeMobileIndex < portfolioItems.length - 1) {
+        next.add(activeMobileIndex + 1);
+      }
+
+      return Array.from(next).sort((a, b) => a - b);
+    });
+  }, [activeMobileIndex]);
 
   useGSAP(
     () => {
@@ -164,7 +192,10 @@ export function PortfolioSection() {
 
         <div className="mt-10 lg:hidden">
           <div className="mb-4 flex items-center justify-between gap-4 px-1">
-            <div className="text-[11px] uppercase tracking-[0.24em] text-white/46">Swipe to see more projects</div>
+            <div className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.24em] text-white/46">
+              <span>Swipe to see more projects</span>
+              <ArrowRight className="h-3.5 w-3.5 text-cyan-200" />
+            </div>
             <div className="flex items-center gap-2">
               {portfolioItems.map((item, index) => (
                 <span
@@ -180,46 +211,56 @@ export function PortfolioSection() {
           <div
             ref={mobileScrollerRef}
             onScroll={updateActiveMobileIndex}
-            className="hide-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 overscroll-x-contain [-webkit-overflow-scrolling:touch]"
+            className="hide-scrollbar -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 overscroll-x-contain scroll-pl-4 touch-manipulation [-webkit-overflow-scrolling:touch]"
           >
-          {portfolioItems.map((item, index) => (
-            <article
-              key={item.title}
-              data-mobile-card
-              className="glass-panel min-w-[88vw] shrink-0 snap-center rounded-[28px] border-white/10 p-4 sm:min-w-[32rem] sm:p-5"
-            >
-              <PortfolioInlineVideo item={item} isActive={index === activeMobileIndex} />
+            {portfolioItems.map((item, index) => (
+              <article
+                key={item.title}
+                data-mobile-card
+                className="glass-panel w-[84vw] max-w-[23rem] shrink-0 snap-start rounded-[28px] border-white/10 p-4 sm:w-[24rem] sm:max-w-none sm:p-5"
+              >
+                <PortfolioInlineVideo
+                  item={item}
+                  isActive={index === activeMobileIndex && activeItem === null}
+                  shouldLoad={loadedMobileIndexes.includes(index)}
+                  onOpen={() => setActiveItem(item)}
+                />
 
-              <div className="mt-5 flex flex-wrap gap-2">
-                {item.stack.map((tag) => (
-                  <span key={tag} className="tag-chip bg-white/[0.03] text-white/64">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-5">
-                <div className="text-sm uppercase tracking-[0.24em] text-white/40">{item.label}</div>
-                <p className="mt-3 text-sm leading-7 text-white/62">{item.copy}</p>
-              </div>
-
-              <div className="soft-divider mt-6" />
-              <div className="mt-5 flex flex-col gap-3">
-                <p className="text-sm leading-6 text-white/52">{item.result}</p>
-                <div className="flex flex-col gap-2 sm:flex-row">
-                  <Button type="button" variant="secondary" onClick={() => setActiveItem(item)} className="justify-center">
-                    Open video preview
-                  </Button>
-                  <Button asChild variant="ghost" className="justify-center">
-                    <a href={whatsappUrl} target="_blank" rel="noreferrer">
-                      Ask for a similar website
-                      <ArrowUpRight className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
+                <div className="mt-4">
+                  <div className="text-[10px] uppercase tracking-[0.24em] text-cyan-200/80">{item.meta}</div>
+                  <div className="mt-2 font-display text-[1.9rem] leading-none text-white">{item.title}</div>
                 </div>
-              </div>
-            </article>
-          ))}
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {item.stack.map((tag) => (
+                    <span key={tag} className="tag-chip bg-white/[0.03] text-white/64">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-5">
+                  <div className="text-sm uppercase tracking-[0.24em] text-white/40">{item.label}</div>
+                  <p className="mt-3 text-sm leading-7 text-white/62">{item.copy}</p>
+                </div>
+
+                <div className="soft-divider mt-6" />
+                <div className="mt-5 flex flex-col gap-3">
+                  <p className="text-sm leading-6 text-white/52">{item.result}</p>
+                  <div className="flex flex-col gap-2">
+                    <Button type="button" variant="secondary" onClick={() => setActiveItem(item)} className="justify-center">
+                      Open video preview
+                    </Button>
+                    <Button asChild variant="ghost" className="justify-center">
+                      <a href={whatsappUrl} target="_blank" rel="noreferrer">
+                        Ask for a similar website
+                        <ArrowUpRight className="ml-2 h-4 w-4" />
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
 
@@ -298,16 +339,15 @@ export function PortfolioSection() {
         </div>
 
         <Dialog open={Boolean(activeItem)} onOpenChange={(open) => !open && setActiveItem(null)}>
-          <DialogContent className="max-w-5xl p-4 sm:p-6">
+          <DialogContent className="left-0 top-0 h-[100dvh] w-screen max-w-none translate-x-0 translate-y-0 rounded-none border-0 bg-black p-0 text-white [&>button]:right-4 [&>button]:top-4 [&>button]:z-20 [&>button]:rounded-full [&>button]:border [&>button]:border-white/10 [&>button]:bg-black/60 [&>button]:p-2 [&>button]:text-white [&>button]:opacity-100 sm:left-1/2 sm:top-1/2 sm:h-auto sm:w-[calc(100%-1.5rem)] sm:max-w-5xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[2rem] sm:border sm:p-4 sm:pt-6">
             {activeItem ? (
-              <div>
-                <div className="mb-5 pr-10">
-                  <div className="text-[11px] uppercase tracking-[0.28em] text-white/44">{activeItem.label}</div>
-                  <h3 className="mt-2 font-display text-3xl text-white sm:text-4xl">{activeItem.title}</h3>
-                  <p className="mt-3 max-w-2xl text-sm leading-7 text-white/62">{activeItem.copy}</p>
-                </div>
+              <>
+                <DialogTitle className="sr-only">{activeItem.title} video preview</DialogTitle>
+                <DialogDescription className="sr-only">
+                  Full-screen portfolio video preview for {activeItem.title}. Tap or click outside to close.
+                </DialogDescription>
 
-                <div className="overflow-hidden rounded-[26px] border border-white/10 bg-black">
+                <div className="relative h-full sm:hidden">
                   <video
                     key={activeItem.video}
                     src={activeItem.video}
@@ -315,10 +355,36 @@ export function PortfolioSection() {
                     autoPlay
                     playsInline
                     preload="metadata"
-                    className="aspect-video w-full"
+                    className="h-full w-full object-contain"
                   />
+
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(6,8,18,0),rgba(6,8,18,0.92)_54%,rgba(6,8,18,0.98))] px-5 pb-6 pt-16">
+                    <div className="text-[10px] uppercase tracking-[0.24em] text-cyan-200/78">{activeItem.meta}</div>
+                    <h3 className="mt-2 font-display text-2xl text-white">{activeItem.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-white/62">{activeItem.copy}</p>
+                  </div>
                 </div>
-              </div>
+
+                <div className="hidden bg-[linear-gradient(180deg,rgba(8,12,26,0.98),rgba(6,8,18,0.98))] sm:block">
+                  <div className="mb-5 px-0 pb-0 pt-0 pr-10">
+                    <div className="text-[11px] uppercase tracking-[0.28em] text-white/44">{activeItem.label}</div>
+                    <h3 className="mt-2 font-display text-4xl text-white">{activeItem.title}</h3>
+                    <p className="mt-3 max-w-2xl text-sm leading-7 text-white/62">{activeItem.copy}</p>
+                  </div>
+
+                  <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-black sm:rounded-[26px] sm:border sm:border-white/10">
+                    <video
+                      key={activeItem.video}
+                      src={activeItem.video}
+                      controls
+                      autoPlay
+                      playsInline
+                      preload="metadata"
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
+                </div>
+              </>
             ) : null}
           </DialogContent>
         </Dialog>

@@ -87,11 +87,11 @@ export function ProcessSection() {
             </div>
           </div>
 
-          <div className="relative pl-12 sm:pl-16">
-            <div className="absolute left-4 top-4 h-[calc(100%-2rem)] w-px bg-white/10 sm:left-6" />
+          <div className="relative sm:pl-16">
+            <div className="absolute left-4 top-4 hidden h-[calc(100%-2rem)] w-px bg-white/10 sm:block sm:left-6" />
             <div
               ref={progressRef}
-              className="absolute left-4 top-4 h-[calc(100%-2rem)] w-px origin-top bg-[linear-gradient(180deg,rgba(103,232,249,0.95),rgba(99,102,241,0.92),rgba(236,72,153,0.9))] sm:left-6"
+              className="absolute left-4 top-4 hidden h-[calc(100%-2rem)] w-px origin-top bg-[linear-gradient(180deg,rgba(103,232,249,0.95),rgba(99,102,241,0.92),rgba(236,72,153,0.9))] sm:block sm:left-6"
             />
 
             <div className="space-y-5">
@@ -105,7 +105,7 @@ export function ProcessSection() {
                   transition={{ duration: 0.75, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                   className="interactive-card glass-panel rounded-[28px] border-white/10 px-5 py-6 sm:px-6 sm:py-7"
                 >
-                  <div className="absolute -left-12 top-6 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-slate-950/80 text-sm font-semibold text-white shadow-[0_0_24px_rgba(96,165,250,0.12)] sm:-left-[3.65rem] sm:top-7">
+                  <div className="absolute -left-12 top-6 hidden h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-slate-950/80 text-sm font-semibold text-white shadow-[0_0_24px_rgba(96,165,250,0.12)] sm:flex sm:-left-[3.65rem] sm:top-7">
                     {step.step}
                   </div>
 

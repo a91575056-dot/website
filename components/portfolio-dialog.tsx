@@ -5,7 +5,7 @@ import { Play } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { portfolioItems, whatsappUrl } from "@/lib/site-data";
 
 export function PortfolioDialogGrid() {
@@ -74,6 +74,11 @@ export function PortfolioDialogGrid() {
             </div>
 
             <DialogContent>
+              <DialogTitle className="sr-only">{activeVideo?.title ?? "Portfolio"} video preview</DialogTitle>
+              <DialogDescription className="sr-only">
+                Video preview for the selected portfolio project.
+              </DialogDescription>
+
               <div className="mb-4 pr-10">
                 <p className="text-xs uppercase tracking-[0.28em] text-[hsl(var(--muted-foreground))]">Portfolio video</p>
                 <h3 className="mt-2 text-2xl font-semibold text-white">{activeVideo?.title}</h3>

@@ -22,6 +22,20 @@ const particlePositions = [
   { left: "54%", top: "14%" }
 ];
 
+const particleTones = [
+  "bg-cyan-200 shadow-[0_0_20px_rgba(103,232,249,0.92)]",
+  "bg-fuchsia-300 shadow-[0_0_20px_rgba(244,114,182,0.88)]",
+  "bg-sky-300 shadow-[0_0_20px_rgba(125,211,252,0.9)]",
+  "bg-violet-300 shadow-[0_0_20px_rgba(196,181,253,0.88)]"
+];
+
+const particleGlows = [
+  "bg-cyan-300/28",
+  "bg-fuchsia-400/24",
+  "bg-sky-300/24",
+  "bg-violet-300/24"
+];
+
 export function HeroSection() {
   const scope = useRef<HTMLElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -44,23 +58,38 @@ export function HeroSection() {
       {particlePositions.map((particle, index) => (
         <motion.span
           key={`${particle.left}-${particle.top}`}
-          className="pointer-events-none absolute h-1.5 w-1.5 rounded-full bg-cyan-200/70 shadow-[0_0_18px_rgba(103,232,249,0.9)]"
+          className="pointer-events-none absolute block h-2 w-2"
           style={particle}
           animate={
-            shouldReduceMotion || isConstrained
+            shouldReduceMotion
               ? undefined
-              : {
-                  y: [0, -16, 0],
-                  opacity: [0.3, 0.9, 0.3],
-                  scale: [1, 1.2, 1]
-                }
+              : isConstrained
+                ? {
+                    x: [0, index % 2 === 0 ? 4 : -4, 0],
+                    y: [0, -8, 0],
+                    opacity: [0.42, 0.95, 0.48],
+                    scale: [1, 1.45, 1]
+                  }
+                : {
+                    x: [0, index % 2 === 0 ? 7 : -7, 0],
+                    y: [0, -16, 0],
+                    opacity: [0.3, 1, 0.36],
+                    scale: [1, 1.7, 1]
+                  }
           }
           transition={{
-            duration: 5 + index * 0.8,
+            duration: (isConstrained ? 3.2 : 4.8) + index * 0.35,
+            delay: index * 0.22,
             repeat: Number.POSITIVE_INFINITY,
             ease: "easeInOut"
           }}
-        />
+        >
+          <span
+            className={`absolute inset-[-6px] rounded-full blur-[8px] ${particleGlows[index % particleGlows.length]}`}
+            aria-hidden
+          />
+          <span className={`absolute inset-0 rounded-full ${particleTones[index % particleTones.length]}`} aria-hidden />
+        </motion.span>
       ))}
 
       <div className="section-shell">
