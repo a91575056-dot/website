@@ -1,9 +1,7 @@
-import Link from "next/link";
 import { SiFiverr, SiInstagram, SiWhatsapp } from "react-icons/si";
 
 import { Reveal } from "@/components/reveal";
 import { SectionLink } from "@/components/section-link";
-import { servicePageLinks } from "@/lib/service-page-data";
 import { navItems, socialLinks } from "@/lib/site-data";
 
 const socialIconMap = {
@@ -58,15 +56,6 @@ export function SiteFooter() {
           <div className="mt-6 flex flex-col gap-2 text-xs uppercase tracking-[0.22em] text-stone-400 sm:flex-row sm:items-center sm:justify-between">
             <span>{new Date().getFullYear()} Dionis Grecu</span>
             <span>Next.js, Astro, React/Vite, Tailwind CSS, GSAP, Framer Motion</span>
-          </div>
-
-          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-stone-300/70 pt-5 text-sm text-stone-500">
-            <span className="text-[10px] uppercase tracking-[0.24em] text-stone-400">Service pages</span>
-            {servicePageLinks.map((item) => (
-              <Link key={item.href} href={item.href} className="transition hover:text-stone-950">
-                {item.label}
-              </Link>
-            ))}
           </div>
         </Reveal>
       </div>
