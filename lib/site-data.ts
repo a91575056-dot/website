@@ -4,6 +4,10 @@ export const whatsappUrl =
 export const instagramUrl =
   "https://www.instagram.com/dionis.grecu?igsh=MW85eWY4bzZnaGdsbA%3D%3D&utm_source=qr";
 
+export const emailAddress = "dioniswebstudio@gmail.com";
+
+export const emailHref = `mailto:${emailAddress}`;
+
 export const navItems = [
   { label: "Work", targetId: "portfolio" },
   { label: "Services", targetId: "services" },
@@ -166,6 +170,7 @@ export const processSteps = [
 ];
 
 export const socialLinks = [
+  { label: "Email", href: emailHref },
   { label: "Instagram", href: instagramUrl },
   { label: "Fiverr", href: "https://www.fiverr.com/dgrecu011" },
   { label: "WhatsApp", href: whatsappUrl }

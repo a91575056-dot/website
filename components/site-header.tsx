@@ -8,22 +8,39 @@ import { SectionLink } from "@/components/section-link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { navItems, whatsappUrl } from "@/lib/site-data";
+import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
   const { scrollY, scrollYProgress } = useScroll();
   const [isCompact, setIsCompact] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const lastScrollY = useRef(0);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const delta = latest - lastScrollY.current;
+    const current = Math.max(latest, 0);
+    const delta = current - lastScrollY.current;
+    const isNearTop = current <= 24;
 
-    if (Math.abs(delta) < 6) {
+    setIsCompact(current > 20);
+
+    if (isNearTop || isOpen) {
+      setIsHidden(false);
+      lastScrollY.current = current;
       return;
     }
 
-    setIsCompact(latest > 20);
-    lastScrollY.current = latest;
+    if (Math.abs(delta) < 8) {
+      return;
+    }
+
+    if (delta > 0 && current > 120) {
+      setIsHidden(true);
+    } else if (delta < 0) {
+      setIsHidden(false);
+    }
+
+    lastScrollY.current = current;
   });
 
   return (
@@ -31,14 +48,26 @@ export function SiteHeader() {
       <div aria-hidden className="h-16 sm:h-[4.5rem]" />
 
       <motion.header
-        className="fixed inset-x-0 top-0 z-40"
+        className={cn("fixed inset-x-0 top-0 z-40", isHidden && "pointer-events-none")}
         animate={{
+          y: isHidden ? "-118%" : "0%",
+          opacity: isHidden ? 0 : 1,
           backgroundColor: isCompact ? "rgba(244,239,231,0.9)" : "rgba(244,239,231,0.72)",
           borderBottomColor: isCompact ? "rgba(120,113,108,0.14)" : "rgba(120,113,108,0.08)",
           boxShadow: isCompact ? "0 18px 42px rgba(28,25,23,0.08)" : "0 10px 24px rgba(28,25,23,0.03)"
         }}
-        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-        style={{ backdropFilter: "blur(20px) saturate(160%)", WebkitBackdropFilter: "blur(20px) saturate(160%)" }}
+        transition={{
+          y: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
+          opacity: { duration: 0.22, ease: [0.4, 0, 0.2, 1] },
+          backgroundColor: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+          borderBottomColor: { duration: 0.28, ease: [0.22, 1, 0.36, 1] },
+          boxShadow: { duration: 0.28, ease: [0.22, 1, 0.36, 1] }
+        }}
+        style={{
+          willChange: "transform, opacity",
+          backdropFilter: "blur(20px) saturate(160%)",
+          WebkitBackdropFilter: "blur(20px) saturate(160%)"
+        }}
       >
         <div className="section-shell">
           <div className="flex h-16 items-center justify-between gap-4 border-b border-transparent sm:h-[4.5rem]">

@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TrustSection } from "@/components/trust-section";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
-import { instagramUrl, whatsappUrl } from "@/lib/site-data";
+import { emailAddress, instagramUrl, whatsappUrl } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 const ServicesSection = dynamic(() => import("@/components/services-section"), {
@@ -69,6 +69,7 @@ const jsonLd = {
       url: "https://dionisweb.com/",
       image: "https://dionisweb.com/assets/111.png",
       jobTitle: "Freelance Landing Page Developer",
+      email: emailAddress,
       worksFor: {
         "@id": "https://dionisweb.com/#service"
       },
@@ -85,6 +86,7 @@ const jsonLd = {
       areaServed: "Worldwide",
       serviceType: ["Landing Page Development", "Business Website Development", "Portfolio Website Development"],
       url: "https://dionisweb.com/",
+      email: emailAddress,
       description: "Custom landing pages, business websites and portfolio websites built by a freelancer in Next.js, React with Vite, Astro or static HTML and Tailwind.",
       offers: {
         "@type": "Offer",

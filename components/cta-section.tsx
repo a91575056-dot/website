@@ -5,7 +5,7 @@ import { ArrowRight, MessageCircleMore } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import { Button } from "@/components/ui/button";
-import { ctaPoints, instagramUrl, whatsappUrl } from "@/lib/site-data";
+import { ctaPoints, emailAddress, emailHref, instagramUrl, whatsappUrl } from "@/lib/site-data";
 import { usePerformanceMode } from "@/lib/use-performance-mode";
 
 export function CtaSection() {
@@ -86,7 +86,12 @@ export function CtaSection() {
                 </a>
               </Button>
 
-              <p className="text-sm leading-7 text-white/46">A short brief is enough to start the conversation.</p>
+              <p className="text-sm leading-7 text-white/46">
+                Prefer email?{" "}
+                <a href={emailHref} className="text-white transition hover:text-white/72">
+                  {emailAddress}
+                </a>
+              </p>
             </div>
           </div>
         </motion.div>

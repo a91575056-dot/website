@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/site-header";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { Button } from "@/components/ui/button";
 import { servicePageLinks, type ServicePageData } from "@/lib/service-page-data";
-import { whatsappUrl } from "@/lib/site-data";
+import { emailAddress, whatsappUrl } from "@/lib/site-data";
 
 export function ServicePageTemplate({ page }: { page: ServicePageData }) {
   const relatedPages = servicePageLinks.filter((item) => item.href !== page.route);
@@ -34,6 +34,7 @@ export function ServicePageTemplate({ page }: { page: ServicePageData }) {
         url: "https://dionisweb.com/",
         image: "https://dionisweb.com/assets/111.png",
         jobTitle: "Freelance Front-End Developer",
+        email: emailAddress,
         sameAs: ["https://www.instagram.com/dionis.grecu", "https://www.fiverr.com/dgrecu011", whatsappUrl]
       },
       {
@@ -41,6 +42,7 @@ export function ServicePageTemplate({ page }: { page: ServicePageData }) {
         "@id": `https://dionisweb.com${page.route}#service`,
         name: page.schemaServiceName,
         url: `https://dionisweb.com${page.route}`,
+        email: emailAddress,
         description: page.metadataDescription,
         serviceType: page.schemaServiceTypes,
         areaServed: "Worldwide",

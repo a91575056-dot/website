@@ -1,3 +1,4 @@
+import { MdOutlineEmail } from "react-icons/md";
 import { SiFiverr, SiInstagram, SiWhatsapp } from "react-icons/si";
 
 import { Reveal } from "@/components/reveal";
@@ -5,6 +6,7 @@ import { SectionLink } from "@/components/section-link";
 import { navItems, socialLinks } from "@/lib/site-data";
 
 const socialIconMap = {
+  Email: MdOutlineEmail,
   Instagram: SiInstagram,
   Fiverr: SiFiverr,
   WhatsApp: SiWhatsapp
