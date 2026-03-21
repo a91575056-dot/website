@@ -27,7 +27,7 @@ export function ScrollToTopButton() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 12, scale: 0.92 }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.24, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-4 left-4 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-slate-950/62 text-white/82 shadow-[0_18px_48px_rgba(3,8,24,0.3)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-white/16 hover:bg-slate-900/82 hover:text-white md:bottom-6 md:left-6"
+          className="fixed bottom-4 left-4 z-50 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/80 bg-white/84 text-slate-700 shadow-[0_18px_48px_rgba(15,23,42,0.14)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white hover:text-slate-950 md:bottom-6 md:left-6"
           aria-label="Scroll to top"
         >
           <ArrowUp className="h-4.5 w-4.5" />

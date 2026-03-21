@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 
 import { Providers } from "@/components/providers";
 import "@/app/globals.css";
@@ -9,34 +9,71 @@ const inter = Inter({
   variable: "--font-sans"
 });
 
-const spaceGrotesk = Space_Grotesk({
+const interTight = Inter_Tight({
   subsets: ["latin"],
   variable: "--font-display"
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dionisweb.com"),
-  title: "Dionis Grecu | Front-End Developer for Business Websites and Landing Pages",
+  title: "Dionis Grecu | Freelance Landing Page Developer and Website Builder",
   description:
-    "Front-end developer building landing pages, business websites and portfolio sites in Next.js, React with Vite, Astro or static HTML and Tailwind.",
+    "Freelance front-end developer building landing pages, business websites and portfolio websites for brands, freelancers and service businesses at dionisweb.com.",
+  keywords: [
+    "dionisweb",
+    "dionisweb.com",
+    "Dionis Grecu",
+    "freelance landing page developer",
+    "landing page developer",
+    "landing pages",
+    "business websites",
+    "website developer",
+    "freelance web developer",
+    "front-end developer",
+    "portfolio websites",
+    "Next.js developer",
+    "React developer",
+    "website freelancer"
+  ],
+  applicationName: "DionisWeb",
+  authors: [{ name: "Dionis Grecu", url: "https://dionisweb.com" }],
+  creator: "Dionis Grecu",
+  publisher: "Dionis Grecu",
+  alternates: {
+    canonical: "https://dionisweb.com"
+  },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1
+    }
+  },
   openGraph: {
-    title: "Dionis Grecu | Front-End Developer for Business Websites and Landing Pages",
-    description: "Landing pages, service websites and portfolio sites built with the right framework for the project.",
+    type: "website",
+    locale: "en_US",
+    title: "Dionis Grecu | Freelance Landing Page Developer and Website Builder",
+    description: "Landing pages and business websites built for service businesses, freelancers and personal brands.",
     url: "https://dionisweb.com",
-    siteName: "Dionis Grecu",
+    siteName: "DionisWeb",
     images: [
       {
         url: "/assets/111.png",
         width: 1024,
         height: 1536,
-        alt: "Dionis Grecu, freelance front-end developer"
+        alt: "Dionis Grecu, freelance landing page developer and website builder"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dionis Grecu | Front-End Developer for Business Websites and Landing Pages",
-    description: "Landing pages, service websites and portfolio sites built with the right framework for the project.",
+    title: "Dionis Grecu | Freelance Landing Page Developer and Website Builder",
+    description: "Landing pages and business websites built for service businesses, freelancers and personal brands.",
     images: ["/assets/111.png"]
   }
 };
@@ -44,7 +81,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${spaceGrotesk.variable} bg-background font-sans text-foreground antialiased`}>
+      <body className={`${inter.variable} ${interTight.variable} bg-background font-sans text-foreground antialiased`}>
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -3,8 +3,6 @@
 import { animate, useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-import { usePerformanceMode } from "@/lib/use-performance-mode";
-
 type AnimatedCounterProps = {
   value: number;
   prefix?: string;
@@ -23,7 +21,6 @@ export function AnimatedCounter({
   const ref = useRef<HTMLSpanElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
   const shouldReduceMotion = useReducedMotion();
-  const { isConstrained } = usePerformanceMode();
   const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
@@ -31,7 +28,7 @@ export function AnimatedCounter({
       return;
     }
 
-    if (shouldReduceMotion || isConstrained) {
+    if (shouldReduceMotion) {
       setDisplayValue(value);
       return;
     }
@@ -47,7 +44,7 @@ export function AnimatedCounter({
     return () => {
       controls.stop();
     };
-  }, [duration, isConstrained, isInView, shouldReduceMotion, value]);
+  }, [duration, isInView, shouldReduceMotion, value]);
 
   return (
     <span ref={ref} className={className}>

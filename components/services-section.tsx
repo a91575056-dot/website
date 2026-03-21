@@ -1,77 +1,84 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Code2, Layers3, MonitorSmartphone, Rocket, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 import { SectionIntro } from "@/components/section-intro";
-import { services } from "@/lib/site-data";
+import { services, whatsappUrl } from "@/lib/site-data";
 import { usePerformanceMode } from "@/lib/use-performance-mode";
-import { cn } from "@/lib/utils";
 
-const iconMap = {
-  Sparkles,
-  Layers3,
-  MonitorSmartphone,
-  Rocket,
-  Code2
-} as const;
+const featuredServices = services;
 
 export function ServicesSection() {
-  const { isConstrained } = usePerformanceMode();
+  const { isConstrained, hasMounted } = usePerformanceMode();
+  const enableMotion = hasMounted && !isConstrained;
 
   return (
-    <section id="services" className="py-16 sm:py-24">
+    <section id="services" className="py-14 sm:py-20">
       <div className="section-shell">
-        <SectionIntro
-          eyebrow="Services"
-          title="Website services for businesses, freelancers and personal brands."
-          copy="From landing pages to service websites and portfolios, the goal is a clear structure, good mobile experience and a stack that matches the project."
-        />
+        <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12">
+          <SectionIntro
+            eyebrow="Services"
+            title="Website services for businesses, freelancers and personal brands."
+            copy="From landing pages to service websites and portfolios, the goal is a clear structure, good mobile experience and a stack that matches the project."
+            className="max-w-none"
+          />
 
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {services.map((service, index) => {
-            const Icon = iconMap[service.icon as keyof typeof iconMap] ?? Sparkles;
-            const isFeatured = index === 0;
-
-            return (
+          <div className="space-y-4">
+            {featuredServices.map((service, index) => (
               <motion.article
-                key={service.title}
-                initial={isConstrained ? false : { opacity: 0, y: 28 }}
-                whileInView={isConstrained ? undefined : { opacity: 1, y: 0 }}
+                key={`${enableMotion ? "motion" : "static"}-${service.title}`}
+                initial={enableMotion ? { opacity: 0, y: 22, scale: 0.985, filter: "blur(10px)" } : false}
+                whileInView={enableMotion ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : undefined}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.75, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={isConstrained ? undefined : { y: -10 }}
-                className={cn(
-                  "interactive-card glass-panel h-full border-white/10 px-5 py-6 sm:px-6 sm:py-7",
-                  isFeatured &&
-                    "bg-[linear-gradient(180deg,rgba(56,189,248,0.14),rgba(99,102,241,0.08)_36%,rgba(255,255,255,0.04))] md:col-span-2 xl:col-span-2"
-                )}
+                transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={enableMotion ? { y: -10, scale: 1.01 } : undefined}
+                className="interactive-card glass-panel relative rounded-[28px] px-5 py-5 sm:px-6"
               >
-                <div className="mb-6 flex items-center justify-between gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(56,189,248,0.18),rgba(168,85,247,0.18),rgba(236,72,153,0.18))] text-white shadow-[0_0_26px_rgba(96,165,250,0.18)]">
-                    <Icon className="h-5 w-5" />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -right-12 top-0 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(47,77,224,0.14),transparent_70%)] blur-2xl"
+                />
+                <div className="grid gap-4 lg:grid-cols-[7rem_minmax(0,1fr)_auto] lg:items-start lg:gap-6">
+                  <div className="text-[11px] uppercase tracking-[0.24em] text-[#2f4de0]/82">{service.eyebrow}</div>
+
+                  <div>
+                    <h3 className="font-display text-[2rem] leading-none tracking-[-0.05em] text-stone-950">{service.title}</h3>
+                    <p className="mt-3 max-w-2xl text-sm leading-7 text-stone-700">{service.copy}</p>
+
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {service.benefits.map((benefit) => (
+                        <span key={benefit} className="tag-chip">
+                          {benefit}
+                        </span>
+                      ))}
+                    </div>
+
+                    <p className="mt-4 text-sm leading-6 text-stone-500">{service.footer}</p>
                   </div>
-                  <span className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-[10px] uppercase tracking-[0.26em] text-white/46">
-                    {service.eyebrow}
-                  </span>
+
+                  <div className="flex flex-wrap items-center gap-2 self-start lg:justify-end">
+                    <Link
+                      href={service.href}
+                      className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white/88 px-3 py-2 text-xs uppercase tracking-[0.2em] text-stone-700 transition duration-300 hover:-translate-y-0.5 hover:border-stone-400 hover:bg-white hover:text-stone-950"
+                    >
+                      Learn more
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-transparent px-3 py-2 text-xs uppercase tracking-[0.2em] text-stone-500 transition duration-300 hover:text-stone-950"
+                    >
+                      Ask
+                    </a>
+                  </div>
                 </div>
-
-                <h3 className="font-display text-[1.7rem] leading-[1.05] tracking-[-0.04em] text-white">{service.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-white/64">{service.copy}</p>
-
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {service.benefits.map((benefit) => (
-                    <span key={benefit} className="tag-chip bg-white/[0.03] text-white/66">
-                      {benefit}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="soft-divider mt-6" />
-                <p className="mt-5 text-sm leading-7 text-white/52">{service.footer}</p>
               </motion.article>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
     </section>

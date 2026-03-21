@@ -12,11 +12,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "premium-outline gradient-button border-white/15 bg-[linear-gradient(120deg,rgba(56,189,248,0.96),rgba(99,102,241,0.92)_34%,rgba(168,85,247,0.92)_68%,rgba(236,72,153,0.94))] px-6 py-3 text-white shadow-[0_18px_48px_rgba(99,102,241,0.35)] hover:-translate-y-0.5 hover:shadow-[0_24px_64px_rgba(99,102,241,0.4)]",
+          "border-[#2f4de0] bg-[#2f4de0] px-6 py-3 text-white shadow-[0_18px_40px_rgba(47,77,224,0.24)] hover:-translate-y-0.5 hover:bg-[#243fd0] hover:shadow-[0_22px_52px_rgba(47,77,224,0.3)]",
         secondary:
-          "border-white/12 bg-white/[0.06] px-6 py-3 text-white backdrop-blur-xl hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.1]",
+          "border-stone-300 bg-[#fbf7f1] px-6 py-3 text-stone-900 hover:-translate-y-0.5 hover:border-stone-400 hover:bg-white",
         ghost:
-          "border-transparent bg-transparent px-4 py-2 text-white/72 hover:bg-white/[0.06] hover:text-white"
+          "border-transparent bg-transparent px-4 py-2 text-stone-600 hover:bg-stone-950/[0.04] hover:text-stone-950"
       },
       size: {
         default: "",

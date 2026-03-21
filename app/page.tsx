@@ -29,7 +29,7 @@ function SectionFallback({ className }: { className?: string }) {
   return (
     <section className="py-16 sm:py-24">
       <div className="section-shell">
-        <div className={cn("glass-panel animate-pulse bg-white/[0.04]", className)} />
+        <div className={cn("glass-panel animate-pulse bg-white/70", className)} />
       </div>
     </section>
   );
@@ -42,8 +42,25 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": "https://dionisweb.com/#website",
       url: "https://dionisweb.com/",
-      name: "Dionis Grecu",
-      description: "Front-end developer website for landing pages, business websites and portfolio sites."
+      name: "DionisWeb",
+      description: "Freelance website for landing pages, business websites and portfolio websites.",
+      inLanguage: "en",
+      publisher: {
+        "@id": "https://dionisweb.com/#person"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://dionisweb.com/#webpage",
+      url: "https://dionisweb.com/",
+      name: "Dionis Grecu | Freelance Landing Page Developer and Website Builder",
+      isPartOf: {
+        "@id": "https://dionisweb.com/#website"
+      },
+      about: {
+        "@id": "https://dionisweb.com/#person"
+      },
+      description: "Landing pages and business websites built by a freelance front-end developer for service businesses and personal brands."
     },
     {
       "@type": "Person",
@@ -51,24 +68,30 @@ const jsonLd = {
       name: "Dionis Grecu",
       url: "https://dionisweb.com/",
       image: "https://dionisweb.com/assets/111.png",
-      jobTitle: "Freelance Front-End Developer",
-      description: "Front-end developer building landing pages, business websites and portfolio sites in Next.js, React, Astro and static HTML with Tailwind.",
+      jobTitle: "Freelance Landing Page Developer",
+      worksFor: {
+        "@id": "https://dionisweb.com/#service"
+      },
+      description: "Freelance front-end developer building landing pages, business websites and portfolio websites in Next.js, React, Astro and static HTML with Tailwind.",
       sameAs: [instagramUrl, whatsappUrl, "https://www.fiverr.com/dgrecu011"]
     },
     {
       "@type": "ProfessionalService",
       "@id": "https://dionisweb.com/#service",
-      name: "Landing Page and Front-End Development",
+      name: "Landing Page and Website Development",
       provider: {
         "@id": "https://dionisweb.com/#person"
       },
       areaServed: "Worldwide",
-      description: "Custom landing pages, business websites and portfolio sites built in Next.js, React with Vite, Astro or static HTML and Tailwind.",
+      serviceType: ["Landing Page Development", "Business Website Development", "Portfolio Website Development"],
+      url: "https://dionisweb.com/",
+      description: "Custom landing pages, business websites and portfolio websites built by a freelancer in Next.js, React with Vite, Astro or static HTML and Tailwind.",
       offers: {
         "@type": "Offer",
         priceCurrency: "USD",
         price: "40",
-        description: "Front-end development for landing pages, business websites and portfolio websites."
+        availability: "https://schema.org/InStock",
+        description: "Freelance front-end development for landing pages, business websites and portfolio websites."
       }
     }
   ]
@@ -79,14 +102,15 @@ export default function HomePage() {
     <main className="relative isolate overflow-hidden">
       <HashScrollManager />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] bg-[radial-gradient(circle_at_15%_8%,rgba(56,189,248,0.18),transparent_28%),radial-gradient(circle_at_82%_4%,rgba(168,85,247,0.18),transparent_30%),radial-gradient(circle_at_52%_18%,rgba(236,72,153,0.14),transparent_26%)]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_22%_36%,rgba(59,130,246,0.08),transparent_22%),radial-gradient(circle_at_78%_42%,rgba(192,132,252,0.08),transparent_18%),radial-gradient(circle_at_50%_76%,rgba(244,114,182,0.06),transparent_20%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-[-12rem] -z-10 h-[34rem] bg-[radial-gradient(circle_at_20%_20%,rgba(47,77,224,0.12),transparent_26%),radial-gradient(circle_at_82%_10%,rgba(255,255,255,0.54),transparent_28%)]" />
+      <div className="pointer-events-none absolute left-[-8rem] top-[22rem] -z-10 h-[18rem] w-[18rem] rounded-full bg-[radial-gradient(circle,rgba(47,77,224,0.12),transparent_68%)] blur-3xl animate-[float-soft_18s_ease-in-out_infinite]" />
+      <div className="pointer-events-none absolute right-[-7rem] top-[40rem] -z-10 h-[18rem] w-[18rem] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.42),transparent_68%)] blur-3xl animate-[float-soft_22s_ease-in-out_infinite]" />
 
       <SiteHeader />
       <HeroSection />
       <TrustSection />
-      <ServicesSection />
       <PortfolioSection />
+      <ServicesSection />
       <ProcessSection />
       <CtaSection />
       <WhatsAppFloat />

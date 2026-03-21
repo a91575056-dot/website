@@ -27,16 +27,16 @@ const SheetContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
   <DialogPrimitive.Portal>
-    <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm" />
+    <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-stone-950/24 backdrop-blur-md" />
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed inset-y-0 right-0 z-50 flex w-[88vw] max-w-sm flex-col border-l border-cyan-300/10 bg-[linear-gradient(180deg,rgba(8,12,26,0.96),rgba(8,8,18,0.98))] p-6 shadow-panel",
+        "fixed inset-y-0 right-0 z-50 flex w-[88vw] max-w-sm flex-col border-l border-stone-300/80 bg-[linear-gradient(180deg,rgba(251,247,241,0.98),rgba(245,239,231,0.98))] p-6 shadow-[0_26px_70px_rgba(28,25,23,0.14)]",
         className
       )}
       {...props}
     >
-      <SheetClose className="ml-auto rounded-full border border-white/10 bg-white/5 p-2 text-white transition hover:bg-white/10">
+      <SheetClose className="ml-auto rounded-full border border-stone-300 bg-white/90 p-2 text-stone-700 transition hover:bg-white">
         <X className="h-4 w-4" />
         <span className="sr-only">Close menu</span>
       </SheetClose>

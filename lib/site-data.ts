@@ -5,42 +5,41 @@ export const instagramUrl =
   "https://www.instagram.com/dionis.grecu?igsh=MW85eWY4bzZnaGdsbA%3D%3D&utm_source=qr";
 
 export const navItems = [
+  { label: "Work", targetId: "portfolio" },
   { label: "Services", targetId: "services" },
-  { label: "Examples", targetId: "portfolio" },
-  { label: "Process", targetId: "process" },
   { label: "Contact", targetId: "contact" }
 ];
 
 export const heroHighlights = [
-  "Next.js, Astro, React / Vite",
-  "Tailwind CSS, GSAP, Framer Motion, Lenis",
-  "Landing pages, business websites, portfolio sites"
+  "Landing pages that explain the offer fast",
+  "Business websites with a cleaner mobile layout",
+  "Portfolio websites with stronger presentation"
 ];
 
 export const heroBadges = [
-  { label: "Frameworks", value: "Next.js / Astro / React" },
-  { label: "Libraries", value: "GSAP + Motion + Lenis" },
-  { label: "Best fit", value: "Business / Portfolio / Landing" }
+  { label: "Built with", value: "Next.js / Astro / React" },
+  { label: "Motion", value: "GSAP + Motion + Lenis" },
+  { label: "Best for", value: "Landing / Business / Portfolio" }
 ];
 
 export const trustStats = [
   {
     value: 24,
     suffix: "h",
-    label: "average reply window",
-    description: "Quick answers on scope, timeline and the right setup for the project."
+    label: "reply window",
+    description: "Fast answers on scope, timeline and setup."
   },
   {
     value: 4,
     suffix: "+",
-    label: "framework options",
-    description: "Next.js, React with Vite, Astro or a static HTML and Tailwind setup, depending on what the project needs."
+    label: "stack options",
+    description: "Next.js, Astro, React or a lighter static build."
   },
   {
     value: 375,
     suffix: "px",
-    label: "mobile-first baseline",
-    description: "Layouts are built from phone width first, then scaled cleanly to tablet and desktop."
+    label: "mobile baseline",
+    description: "Built from phone width first, then scaled up cleanly."
   }
 ];
 
@@ -50,124 +49,117 @@ export const proofItems = trustStats.map((item) => ({
 }));
 
 export const trustStrip = [
-  "Auto service websites",
-  "Barbershop and salon pages",
-  "Restaurant and menu websites",
-  "Personal brand portfolios",
-  "Next.js / Astro / React / Tailwind"
+  "Clean hierarchy",
+  "Mobile-first layout",
+  "Fast contact path",
+  "Responsive from 375px",
+  "UI polish with motion"
 ];
 
 export const services = [
   {
     icon: "Sparkles",
-    eyebrow: "Business websites",
-    title: "Landing pages and business websites built to look clear, modern and easy to trust.",
+    eyebrow: "Landing pages",
+    title: "Landing pages",
+    href: "/landing-page-development",
     copy:
-      "Good for local businesses, service providers and teams that need a serious online presence, a clear offer and a simple path to contact.",
-    benefits: ["Service sections", "Lead form or WhatsApp", "Mobile-first structure"],
-    footer: "Examples: auto service, clinic, restaurant, salon, consulting."
+      "Clear offer, strong first impression and a contact flow that feels obvious from the first screen.",
+    benefits: ["Clear offer", "Trust sections", "Fast contact"],
+    footer: "Good for services, launches and paid traffic."
   },
   {
     icon: "Layers3",
     eyebrow: "Portfolio websites",
-    title: "Portfolio and personal brand websites for freelancers, creators and small agencies.",
+    title: "Portfolio websites",
+    href: "/website-development",
     copy:
-      "A clean way to present services, selected work, testimonials and contact details without the site feeling generic or outdated.",
-    benefits: ["Projects and case studies", "About and services", "Fast presentation flow"],
-    footer: "Examples: designer, marketer, agency, consultant, creator."
+      "A cleaner way to show your work, services and positioning without the site feeling generic.",
+    benefits: ["Selected work", "Services", "About"],
+    footer: "Good for freelancers, consultants and small agencies."
   },
   {
     icon: "MonitorSmartphone",
-    eyebrow: "Frameworks and stack",
-    title: "Built in the setup that fits the project: Next.js, React with Vite, Astro or static HTML and Tailwind.",
+    eyebrow: "Stack and motion",
+    title: "Custom front-end builds",
+    href: "/freelance-front-end-developer",
     copy:
-      "For UI and animation I can work with Tailwind CSS, GSAP, Framer Motion, Lenis, shadcn/ui and lightweight custom components where needed.",
+      "Next.js, React with Vite, Astro or static HTML and Tailwind, with motion used only where it improves the experience.",
     benefits: ["Next.js", "Astro", "GSAP", "Framer Motion"],
-    footer: "Useful when you need a custom build instead of a page builder."
+    footer: "Best when you want a custom result instead of a page-builder look."
   },
   {
     icon: "Rocket",
     eyebrow: "Redesign and upgrades",
-    title: "Rebuilds, refreshes and front-end upgrades for websites that already exist but need a better result.",
+    title: "Website redesigns",
+    href: "/website-development",
     copy:
-      "If the current site feels old, crowded or weak on mobile, I can redesign the structure, modernize the UI and improve the overall presentation.",
-    benefits: ["Cleaner UI", "Better mobile UX", "Modern front-end refresh"],
-    footer: "Best for sites that need a more professional first impression."
+      "If the current site feels dated, crowded or weak on mobile, I can rebuild the structure and refresh the front-end.",
+    benefits: ["Cleaner UI", "Better mobile UX", "Modern refresh"],
+    footer: "Best for websites that need a stronger first impression."
   }
 ];
 
 export const portfolioItems = [
   {
-    title: "Auto Service Website",
-    label: "Business website example",
-    meta: "Example for local services",
+    title: "Beauty Landing Page",
+    label: "Landing page example",
+    meta: "Beauty studio direction",
     duration: "00:24",
-    copy:
-      "A website structure focused on services, trust sections, quote requests and a fast contact path for local businesses.",
-    video: "/assets/portfolio-showcase-01.mp4",
-    stack: ["Service list", "Quote CTA", "Trust and reviews"],
-    result: "Good fit for auto service, detailing, repair, cleaning or home services."
+    copy: "A landing page focused on services, treatments, trust and a faster booking path for beauty businesses.",
+    image: "/assets/portfolio-barber.jpg",
+    video: "/assets/2026-02-09 21-31-55 (2).mp4",
+    stack: ["Service sections", "Booking CTA", "Trust blocks"],
+    result: "Good fit for beauty studio, salon, lashes, brows, skincare or appointment-based services."
   },
   {
-    title: "Agency or Freelancer Website",
-    label: "Portfolio website example",
-    meta: "Example for services and positioning",
-    duration: "00:36",
-    copy:
-      "A service-focused website that presents what you do, selected work, pricing direction and a clear contact flow.",
-    video: "/assets/portfolio-showcase-02.mp4",
-    stack: ["Services", "Work examples", "Contact section"],
-    result: "Good fit for agencies, consultants, freelancers and personal brands."
-  },
-  {
-    title: "Barbershop or Salon Website",
-    label: "Booking website example",
-    meta: "Example for appointments and local traffic",
+    title: "Barber Shop Landing Page",
+    label: "Landing page example",
+    meta: "Barber shop direction",
     duration: "00:35",
-    copy:
-      "A presentation website with services, prices, gallery, booking CTA and a stronger visual identity for local service businesses.",
+    copy: "A landing page with prices, gallery, services and a clearer booking flow for barber shops.",
+    image: "/assets/portfolio-barber.jpg",
     video: "/assets/portfolio-showcase-03.mp4",
     stack: ["Booking CTA", "Pricing", "Gallery"],
-    result: "Good fit for barber, salon, beauty studio, dental clinic or appointment-based businesses."
+    result: "Good fit for barber shops, grooming studios and other appointment-based local businesses."
   }
 ];
 
 export const processHighlights = [
-  "Direct freelancer communication",
+  "Direct communication",
   "Clear scope and timeline",
-  "Framework chosen by project"
+  "Right stack for the project"
 ];
 
 export const processSteps = [
   {
     step: "01",
-    title: "Brief, business type and examples",
+    title: "Brief and direction",
     copy:
-      "You send what the business does, what sections you need, a few references and the deadline. From there I outline the right structure and contact flow.",
+      "You send what the business does, the sections you need, a few references and the deadline. From there I shape the structure and contact path.",
     deliverable: "Clear scope, page structure and content direction",
     timeframe: "Same-day clarity"
   },
   {
     step: "02",
-    title: "Layout and visual direction",
+    title: "Layout and visual tone",
     copy:
-      "I shape the hierarchy, section order, typography and UI style so the website looks modern, readable and consistent on mobile and desktop.",
-    deliverable: "Approved visual direction and section layout",
+      "I define hierarchy, section order, typography and UI style so the website feels calm, modern and readable.",
+    deliverable: "Approved visual direction and layout",
     timeframe: "Fast first pass"
   },
   {
     step: "03",
-    title: "Development in the chosen stack",
+    title: "Build in the chosen stack",
     copy:
-      "The site is built in the framework that fits best: Next.js, React with Vite, Astro or static HTML and Tailwind, with libraries added only when useful.",
+      "The site is built in the framework that fits best, with libraries added only where they improve the result.",
     deliverable: "Responsive build with clean front-end implementation",
     timeframe: "Launch-ready code"
   },
   {
     step: "04",
-    title: "Review, adjustments and handoff",
+    title: "Polish and handoff",
     copy:
-      "After review, I handle the final adjustments so the website is ready to publish and easy for visitors to use on every device.",
+      "After review, I handle the final adjustments so the website is ready to publish and easy to use on every device.",
     deliverable: "Final polish, fixes and handoff support",
     timeframe: "Quick close-out"
   }
@@ -180,9 +172,9 @@ export const socialLinks = [
 ];
 
 export const ctaPoints = [
-  "Next.js, React / Vite, Astro or static HTML",
-  "Tailwind CSS, GSAP, Framer Motion, Lenis, shadcn/ui",
-  "Examples: auto service, salon, restaurant, portfolio, agency"
+  "Landing pages and business websites",
+  "Portfolio websites for freelancers",
+  "Mobile-first front-end with clean structure"
 ];
 
 export const aboutPoints = [

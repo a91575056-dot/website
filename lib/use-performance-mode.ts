@@ -11,26 +11,27 @@ type NavigatorWithHints = Navigator & {
 
 function detectConstrainedDevice() {
   if (typeof window === "undefined") {
-    return true;
+    return false;
   }
 
   const navigatorWithHints = navigator as NavigatorWithHints;
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-  const narrowViewport = window.matchMedia("(max-width: 900px)").matches;
   const saveData = Boolean(navigatorWithHints.connection?.saveData);
-  const lowCpu = navigator.hardwareConcurrency <= 4;
-  const lowMemory = typeof navigatorWithHints.deviceMemory === "number" && navigatorWithHints.deviceMemory <= 4;
+  const cpuThreads = navigator.hardwareConcurrency || 4;
+  const lowCpu = cpuThreads <= 2;
+  const lowMemory = typeof navigatorWithHints.deviceMemory === "number" && navigatorWithHints.deviceMemory <= 2;
 
-  return prefersReducedMotion || coarsePointer || narrowViewport || saveData || lowCpu || lowMemory;
+  return prefersReducedMotion || saveData || (lowCpu && lowMemory);
 }
 
 export function usePerformanceMode() {
-  const [isConstrained, setIsConstrained] = useState(true);
+  const [isConstrained, setIsConstrained] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
     setIsConstrained(detectConstrainedDevice());
+    setHasMounted(true);
   }, []);
 
-  return { isConstrained };
+  return { isConstrained, hasMounted };
 }

@@ -1,6 +1,9 @@
+import Link from "next/link";
 import { SiFiverr, SiInstagram, SiWhatsapp } from "react-icons/si";
 
+import { Reveal } from "@/components/reveal";
 import { SectionLink } from "@/components/section-link";
+import { servicePageLinks } from "@/lib/service-page-data";
 import { navItems, socialLinks } from "@/lib/site-data";
 
 const socialIconMap = {
@@ -11,27 +14,27 @@ const socialIconMap = {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/10 pb-10 pt-8">
+    <footer id="site-footer" className="pb-10 pt-4">
       <div className="section-shell">
-        <div className="glass-panel px-5 py-6 sm:px-7 sm:py-7">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+        <Reveal className="border-t border-stone-300/80 pt-6" y={20} blur={8}>
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-md">
-              <div className="text-lg font-semibold text-white">Dionis Grecu</div>
-              <p className="mt-3 text-sm leading-7 text-white/56">
+              <div className="text-lg font-semibold tracking-[-0.03em] text-stone-950">Dionis Grecu</div>
+              <p className="mt-3 text-sm leading-7 text-stone-600">
                 Landing pages, business websites and portfolio websites built for businesses, freelancers and personal brands.
               </p>
             </div>
 
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex flex-wrap gap-4 text-sm text-white/58">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-wrap gap-4 text-sm text-stone-600">
                 {navItems.map((item) => (
-                  <SectionLink key={item.targetId} targetId={item.targetId} className="transition hover:text-white">
+                  <SectionLink key={item.targetId} targetId={item.targetId} className="transition hover:text-stone-950">
                     {item.label}
                   </SectionLink>
                 ))}
               </div>
 
-              <div className="flex flex-wrap gap-4 text-sm text-white/58">
+              <div className="flex flex-wrap gap-4 text-sm text-stone-600">
                 {socialLinks.map((item) => {
                   const Icon = socialIconMap[item.label as keyof typeof socialIconMap];
 
@@ -41,7 +44,7 @@ export function SiteFooter() {
                       href={item.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-white/68 transition hover:-translate-y-0.5 hover:border-white/18 hover:bg-white/[0.08] hover:text-white"
+                      className="inline-flex items-center gap-2 transition hover:text-stone-950"
                     >
                       {Icon ? <Icon className="h-4 w-4 shrink-0" /> : null}
                       <span>{item.label}</span>
@@ -52,12 +55,20 @@ export function SiteFooter() {
             </div>
           </div>
 
-          <div className="soft-divider mt-6" />
-          <div className="mt-5 flex flex-col gap-2 text-xs uppercase tracking-[0.22em] text-white/36 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-6 flex flex-col gap-2 text-xs uppercase tracking-[0.22em] text-stone-400 sm:flex-row sm:items-center sm:justify-between">
             <span>{new Date().getFullYear()} Dionis Grecu</span>
             <span>Next.js, Astro, React/Vite, Tailwind CSS, GSAP, Framer Motion</span>
           </div>
-        </div>
+
+          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-stone-300/70 pt-5 text-sm text-stone-500">
+            <span className="text-[10px] uppercase tracking-[0.24em] text-stone-400">Service pages</span>
+            {servicePageLinks.map((item) => (
+              <Link key={item.href} href={item.href} className="transition hover:text-stone-950">
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </footer>
   );
