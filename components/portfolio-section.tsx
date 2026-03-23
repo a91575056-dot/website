@@ -62,7 +62,7 @@ export function PortfolioSection() {
                     <div className="absolute inset-x-5 bottom-5">
                       <div className="inline-flex max-w-full rounded-[24px] border border-white/14 bg-black/46 p-4 shadow-[0_20px_40px_rgba(0,0,0,0.28)] backdrop-blur-md">
                         <div>
-                          <div className="max-w-[11ch] font-display text-[clamp(2rem,4vw,3rem)] leading-[0.9] tracking-[-0.065em] text-white [text-shadow:0_4px_18px_rgba(0,0,0,0.42)]">
+                          <div className="display-feature max-w-[11ch] text-white [text-shadow:0_4px_18px_rgba(0,0,0,0.42)]">
                             {item.title}
                           </div>
                           <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/28 bg-white/14 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.24em] text-white shadow-[0_8px_24px_rgba(0,0,0,0.24)] backdrop-blur-md">
@@ -127,7 +127,7 @@ export function PortfolioSection() {
 
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(244,239,231,0),rgba(244,239,231,0.92)_54%,rgba(244,239,231,0.98))] px-5 pb-6 pt-16">
                   <div className="text-[10px] uppercase tracking-[0.24em] text-[#2f4de0]/78">{activeItem.meta}</div>
-                  <h3 className="mt-2 font-display text-2xl text-stone-950">{activeItem.title}</h3>
+                  <h3 className="display-card mt-2 text-stone-950">{activeItem.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-stone-700">{activeItem.copy}</p>
                 </div>
               </div>
@@ -135,7 +135,7 @@ export function PortfolioSection() {
               <div className="hidden bg-[linear-gradient(180deg,rgba(251,247,241,0.98),rgba(245,239,231,0.96))] sm:block">
                 <div className="mb-5 px-0 pb-0 pt-0 pr-10">
                   <div className="text-[11px] uppercase tracking-[0.28em] text-stone-400">{activeItem.label}</div>
-                  <h3 className="mt-2 font-display text-4xl text-stone-950">{activeItem.title}</h3>
+                  <h3 className="display-feature mt-2 text-stone-950">{activeItem.title}</h3>
                   <p className="mt-3 max-w-2xl text-sm leading-7 text-stone-700">{activeItem.copy}</p>
                 </div>
 

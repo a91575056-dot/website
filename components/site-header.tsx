@@ -109,7 +109,7 @@ export function SiteHeader() {
                 <div className="mt-10 flex flex-col gap-8">
                   <div>
                     <div className="text-sm uppercase tracking-[0.24em] text-[#2f4de0]">{header.mobileTitle}</div>
-                    <div className="mt-3 max-w-xs font-display text-2xl leading-tight tracking-[-0.05em] text-stone-950">
+                    <div className="display-card mt-3 max-w-xs text-stone-950">
                       {header.mobileDescription}
                     </div>
                   </div>

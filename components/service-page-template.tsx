@@ -107,7 +107,7 @@ export function ServicePageTemplate({ pageId }: { pageId: ServicePageId }) {
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.02fr)_22rem] lg:gap-12">
             <div className="max-w-4xl">
               <p className="section-kicker">{page.eyebrow}</p>
-              <h1 className="mt-4 max-w-5xl font-display text-[clamp(2.9rem,10vw,5.7rem)] leading-[0.92] tracking-[-0.07em] text-stone-950">
+              <h1 className="display-page mt-4 max-w-5xl text-stone-950">
                 {page.title}
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-8 text-stone-700 sm:text-lg">{page.intro}</p>
@@ -169,7 +169,7 @@ export function ServicePageTemplate({ pageId }: { pageId: ServicePageId }) {
                   className="glass-panel rounded-[28px] px-5 py-5 shadow-[0_14px_32px_rgba(28,25,23,0.04)] sm:px-6 sm:py-6"
                 >
                   <div className="text-[10px] uppercase tracking-[0.24em] text-[#2f4de0]/78">{page.eyebrow}</div>
-                  <h3 className="mt-3 font-display text-[1.9rem] leading-none tracking-[-0.05em] text-stone-950">{item.title}</h3>
+                  <h3 className="display-card mt-3 text-stone-950">{item.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-stone-700">{item.copy}</p>
                 </article>
               ))}
@@ -188,7 +188,7 @@ export function ServicePageTemplate({ pageId }: { pageId: ServicePageId }) {
                   <div className="text-[10px] uppercase tracking-[0.24em] text-[#2f4de0]/76">
                     {copy.stepLabel} {String(index + 1).padStart(2, "0")}
                   </div>
-                  <h3 className="mt-3 font-display text-[1.8rem] leading-none tracking-[-0.05em] text-stone-950">{item.title}</h3>
+                  <h3 className="display-card mt-3 text-stone-950">{item.title}</h3>
                   <p className="mt-3 text-sm leading-7 text-stone-700">{item.copy}</p>
                 </article>
               ))}
@@ -203,7 +203,7 @@ export function ServicePageTemplate({ pageId }: { pageId: ServicePageId }) {
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {page.faqs.map((item) => (
               <article key={item.question} className="rounded-[28px] border border-stone-300/80 bg-[#fbf7f1] px-5 py-5 shadow-[0_14px_32px_rgba(28,25,23,0.04)] sm:px-6">
-                <h3 className="font-display text-[1.8rem] leading-none tracking-[-0.05em] text-stone-950">{item.question}</h3>
+                <h3 className="display-card text-stone-950">{item.question}</h3>
                 <p className="mt-4 text-sm leading-7 text-stone-700">{item.answer}</p>
               </article>
             ))}
@@ -222,7 +222,7 @@ export function ServicePageTemplate({ pageId }: { pageId: ServicePageId }) {
                 className="interactive-card glass-panel rounded-[28px] px-5 py-5 sm:px-6 sm:py-6"
               >
                 <div className="text-[10px] uppercase tracking-[0.24em] text-[#2f4de0]/76">{copy.relatedPageLabel}</div>
-                <h3 className="mt-3 font-display text-[1.9rem] leading-none tracking-[-0.05em] text-stone-950">{item.label}</h3>
+                <h3 className="display-card mt-3 text-stone-950">{item.label}</h3>
                 <p className="mt-3 text-sm leading-7 text-stone-700">{item.description}</p>
                 <div className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-stone-900">
                   {copy.relatedPageCta}
@@ -240,7 +240,7 @@ export function ServicePageTemplate({ pageId }: { pageId: ServicePageId }) {
             <div className="grid gap-8 lg:grid-cols-[1fr_22rem] lg:items-end">
               <div>
                 <div className="text-[11px] uppercase tracking-[0.26em] text-white/48">{copy.finalCtaEyebrow}</div>
-                <h2 className="mt-4 max-w-3xl font-display text-[clamp(2.3rem,8vw,4.6rem)] leading-[0.94] tracking-[-0.06em]">
+                <h2 className="display-section mt-4 max-w-3xl text-white">
                   {copy.finalCtaTitle}
                 </h2>
                 <p className="mt-5 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">{copy.finalCtaCopy}</p>

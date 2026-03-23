@@ -43,7 +43,7 @@ export function ServicesSection() {
                     <div className="text-[11px] uppercase tracking-[0.24em] text-[#2f4de0]/82">{service.eyebrow}</div>
 
                     <div>
-                      <h3 className="font-display text-[2rem] leading-none tracking-[-0.05em] text-stone-950">{service.title}</h3>
+                      <h3 className="display-card text-stone-950">{service.title}</h3>
                       <p className="mt-3 max-w-2xl text-sm leading-7 text-stone-700">{service.copy}</p>
 
                       <div className="mt-4 flex flex-wrap gap-2">

@@ -42,7 +42,7 @@ export function TrustSection() {
                     value={item.value}
                     suffix={item.suffix}
                     duration={1.45 + index * 0.08}
-                    className="font-display text-4xl leading-none tracking-[-0.05em] text-slate-950 tabular-nums sm:text-5xl"
+                    className="display-metric text-slate-950"
                   />
                   <div className="mt-3 text-sm uppercase tracking-[0.24em] text-[#2f4de0]/76">{item.label}</div>
                   <p className="mt-4 text-sm leading-7 text-slate-600">{item.description}</p>

@@ -56,7 +56,7 @@ export function HeroSection() {
               initial={enableIntroMotion ? { opacity: 0, y: 20 } : false}
               animate={enableIntroMotion ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.65, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-4 max-w-4xl font-display text-[clamp(3rem,12vw,6.1rem)] leading-[0.92] tracking-[-0.07em] text-stone-950"
+              className="display-hero mt-4 max-w-4xl text-stone-950"
             >
               {hero.titleLines[0]}
               <br />
@@ -138,7 +138,7 @@ export function HeroSection() {
               <div className="grid gap-4 rounded-[30px] bg-[#161616] p-5 text-white shadow-[0_22px_60px_rgba(28,25,23,0.16)] sm:grid-cols-[minmax(0,1fr)_12rem] sm:p-6">
                 <div>
                   <div className="text-[10px] uppercase tracking-[0.24em] text-white/44">Dionis Grecu</div>
-                  <div className="mt-3 max-w-[12ch] font-display text-[2.2rem] leading-[0.92] tracking-[-0.065em] text-white sm:text-[2.5rem]">
+                  <div className="display-feature mt-3 max-w-[12ch] text-white">
                     {hero.cardTitle}
                   </div>
                   <p className="mt-4 max-w-md text-sm leading-7 text-white/64">

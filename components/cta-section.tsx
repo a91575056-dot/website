@@ -49,7 +49,7 @@ export function CtaSection() {
           <div className="grid gap-8 lg:grid-cols-[1fr_22rem] lg:items-end">
             <div>
               <div className="text-[11px] uppercase tracking-[0.26em] text-white/48">{cta.eyebrow}</div>
-              <h2 className="mt-4 max-w-3xl font-display text-[clamp(2.4rem,8vw,4.8rem)] leading-[0.94] tracking-[-0.06em]">
+              <h2 className="display-section mt-4 max-w-3xl text-white">
                 {cta.title}
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">
@@ -68,7 +68,7 @@ export function CtaSection() {
             <div className="flex flex-col gap-3">
               <div>
                 <div className="text-[11px] uppercase tracking-[0.26em] text-white/48">{cta.fastestWayLabel}</div>
-                <div className="mt-2 font-display text-3xl text-white">{cta.whatsappTitle}</div>
+                <div className="display-card mt-2 text-white">{cta.whatsappTitle}</div>
                 <p className="mt-3 text-sm leading-7 text-white/62">{cta.whatsappCopy}</p>
               </div>
 
