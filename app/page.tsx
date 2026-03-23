@@ -6,6 +6,8 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TrustSection } from "@/components/trust-section";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
+import { getRequestLocale } from "@/lib/get-request-locale";
+import { getSiteMetadata } from "@/lib/site-metadata";
 import { emailAddress, instagramUrl, whatsappUrl } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
@@ -35,71 +37,74 @@ function SectionFallback({ className }: { className?: string }) {
   );
 }
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://dionisweb.com/#website",
-      url: "https://dionisweb.com/",
-      name: "DionisWeb",
-      description: "Freelance website for landing pages, business websites and portfolio websites.",
-      inLanguage: "en",
-      publisher: {
-        "@id": "https://dionisweb.com/#person"
-      }
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://dionisweb.com/#webpage",
-      url: "https://dionisweb.com/",
-      name: "Dionis Grecu | Freelance Landing Page Developer and Website Builder",
-      isPartOf: {
-        "@id": "https://dionisweb.com/#website"
-      },
-      about: {
-        "@id": "https://dionisweb.com/#person"
-      },
-      description: "Landing pages and business websites built by a freelance front-end developer for service businesses and personal brands."
-    },
-    {
-      "@type": "Person",
-      "@id": "https://dionisweb.com/#person",
-      name: "Dionis Grecu",
-      url: "https://dionisweb.com/",
-      image: "https://dionisweb.com/assets/111.png",
-      jobTitle: "Freelance Landing Page Developer",
-      email: emailAddress,
-      worksFor: {
-        "@id": "https://dionisweb.com/#service"
-      },
-      description: "Freelance front-end developer building landing pages, business websites and portfolio websites in Next.js, React, Astro and static HTML with Tailwind.",
-      sameAs: [instagramUrl, whatsappUrl, "https://www.fiverr.com/dgrecu011"]
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": "https://dionisweb.com/#service",
-      name: "Landing Page and Website Development",
-      provider: {
-        "@id": "https://dionisweb.com/#person"
-      },
-      areaServed: "Worldwide",
-      serviceType: ["Landing Page Development", "Business Website Development", "Portfolio Website Development"],
-      url: "https://dionisweb.com/",
-      email: emailAddress,
-      description: "Custom landing pages, business websites and portfolio websites built by a freelancer in Next.js, React with Vite, Astro or static HTML and Tailwind.",
-      offers: {
-        "@type": "Offer",
-        priceCurrency: "USD",
-        price: "40",
-        availability: "https://schema.org/InStock",
-        description: "Freelance front-end development for landing pages, business websites and portfolio websites."
-      }
-    }
-  ]
-};
-
 export default function HomePage() {
+  const locale = getRequestLocale();
+  const metadata = getSiteMetadata(locale);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://dionisweb.com/#website",
+        url: "https://dionisweb.com/",
+        name: "Dionis Web",
+        alternateName: ["DionisWeb", "dionis web", "dionisweb.com"],
+        description: metadata.websiteDescription,
+        inLanguage: locale,
+        publisher: {
+          "@id": "https://dionisweb.com/#person"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://dionisweb.com/#webpage",
+        url: "https://dionisweb.com/",
+        name: metadata.title,
+        isPartOf: {
+          "@id": "https://dionisweb.com/#website"
+        },
+        about: {
+          "@id": "https://dionisweb.com/#person"
+        },
+        description: metadata.webPageDescription
+      },
+      {
+        "@type": "Person",
+        "@id": "https://dionisweb.com/#person",
+        name: "Dionis Grecu",
+        url: "https://dionisweb.com/",
+        image: "https://dionisweb.com/assets/111.png",
+        jobTitle: metadata.personJobTitle,
+        email: emailAddress,
+        worksFor: {
+          "@id": "https://dionisweb.com/#service"
+        },
+        description: metadata.personDescription,
+        sameAs: [instagramUrl, whatsappUrl, "https://www.fiverr.com/dgrecu011"]
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://dionisweb.com/#service",
+        name: "Dionis Web",
+        provider: {
+          "@id": "https://dionisweb.com/#person"
+        },
+        areaServed: metadata.areaServed,
+        serviceType: metadata.serviceTypes,
+        url: "https://dionisweb.com/",
+        email: emailAddress,
+        description: metadata.serviceDescription,
+        offers: {
+          "@type": "Offer",
+          priceCurrency: "USD",
+          price: "40",
+          availability: "https://schema.org/InStock",
+          description: metadata.offerDescription
+        }
+      }
+    ]
+  };
+
   return (
     <main className="relative isolate overflow-hidden">
       <HashScrollManager />

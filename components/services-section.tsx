@@ -4,13 +4,15 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
+import { useLocale } from "@/components/locale-provider";
 import { SectionIntro } from "@/components/section-intro";
-import { services, whatsappUrl } from "@/lib/site-data";
+import { getSiteData, whatsappUrl } from "@/lib/site-data";
 import { usePerformanceMode } from "@/lib/use-performance-mode";
 
-const featuredServices = services;
-
 export function ServicesSection() {
+  const locale = useLocale();
+  const { services } = getSiteData(locale);
+  const featuredServices = services.cards;
   const { isConstrained, hasMounted } = usePerformanceMode();
   const enableMotion = hasMounted && !isConstrained;
 
@@ -19,9 +21,9 @@ export function ServicesSection() {
       <div className="section-shell">
         <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12">
           <SectionIntro
-            eyebrow="Services"
-            title="Website services for businesses, freelancers and personal brands."
-            copy="From landing pages to service websites and portfolios, the goal is a clear structure, good mobile experience and a stack that matches the project."
+            eyebrow={services.eyebrow}
+            title={services.title}
+            copy={services.copy}
             className="max-w-none"
           />
 
@@ -60,7 +62,7 @@ export function ServicesSection() {
                         href={service.href}
                         className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white/88 px-3 py-2 text-xs uppercase tracking-[0.2em] text-stone-700 transition duration-300 hover:-translate-y-0.5 hover:border-stone-400 hover:bg-white hover:text-stone-950"
                       >
-                        Learn more
+                        {services.learnMoreLabel}
                         <ArrowUpRight className="h-3.5 w-3.5" />
                       </Link>
                       <a
@@ -69,7 +71,7 @@ export function ServicesSection() {
                         rel="noreferrer"
                         className="inline-flex items-center gap-2 rounded-full border border-transparent px-3 py-2 text-xs uppercase tracking-[0.2em] text-stone-500 transition duration-300 hover:text-stone-950"
                       >
-                        Ask
+                        {services.askLabel}
                       </a>
                     </div>
                   </div>

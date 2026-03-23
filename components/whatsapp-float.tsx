@@ -3,10 +3,13 @@
 import { MessageCircleMore } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 
-import { whatsappUrl } from "@/lib/site-data";
+import { useLocale } from "@/components/locale-provider";
+import { getSiteData, whatsappUrl } from "@/lib/site-data";
 import { usePerformanceMode } from "@/lib/use-performance-mode";
 
 export function WhatsAppFloat() {
+  const locale = useLocale();
+  const { whatsappFloatLabel } = getSiteData(locale);
   const shouldReduceMotion = useReducedMotion();
   const { isConstrained } = usePerformanceMode();
 
@@ -27,7 +30,7 @@ export function WhatsAppFloat() {
       <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[linear-gradient(135deg,#34d399_0%,#22c55e_100%)] text-white shadow-[0_14px_30px_rgba(34,197,94,0.28)]">
         <MessageCircleMore className="h-5 w-5" />
       </span>
-      <span className="hidden text-sm font-medium sm:block">Chat on WhatsApp</span>
+      <span className="hidden text-sm font-medium sm:block">{whatsappFloatLabel}</span>
     </motion.a>
   );
 }

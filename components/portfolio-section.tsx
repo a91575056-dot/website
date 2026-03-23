@@ -4,18 +4,18 @@ import { useState } from "react";
 import { ArrowUpRight, Play } from "lucide-react";
 import { motion } from "framer-motion";
 
+import { useLocale } from "@/components/locale-provider";
 import { SectionIntro } from "@/components/section-intro";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { ViewportVideo } from "@/components/viewport-video";
-import { portfolioItems, whatsappUrl } from "@/lib/site-data";
+import { getSiteData, type PortfolioItem, whatsappUrl } from "@/lib/site-data";
 import { usePerformanceMode } from "@/lib/use-performance-mode";
 
-type PortfolioItem = (typeof portfolioItems)[number];
-
-const featuredItems = portfolioItems;
-
 export function PortfolioSection() {
+  const locale = useLocale();
+  const { portfolio } = getSiteData(locale);
+  const featuredItems = portfolio.items;
   const [activeItem, setActiveItem] = useState<PortfolioItem | null>(null);
   const { isConstrained, hasMounted } = usePerformanceMode();
   const enableMotion = hasMounted && !isConstrained;
@@ -25,9 +25,9 @@ export function PortfolioSection() {
       <div className="section-shell">
         <div className="grid gap-8 lg:grid-cols-[0.74fr_1.26fr] lg:gap-12">
           <SectionIntro
-            eyebrow="Examples"
-            title="A few concrete website examples for the kinds of projects I usually take."
-            copy="These are example directions for real website types. I can adapt the structure, design and framework to your business, niche and content."
+            eyebrow={portfolio.eyebrow}
+            title={portfolio.title}
+            copy={portfolio.copy}
             className="max-w-none"
           />
 
@@ -66,7 +66,7 @@ export function PortfolioSection() {
                             {item.title}
                           </div>
                           <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/28 bg-white/14 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.24em] text-white shadow-[0_8px_24px_rgba(0,0,0,0.24)] backdrop-blur-md">
-                            Open video preview
+                            {portfolio.openVideoPreview}
                             <ArrowUpRight className="h-3.5 w-3.5" />
                           </div>
                         </div>
@@ -93,7 +93,7 @@ export function PortfolioSection() {
                     <p className="text-sm leading-7 text-stone-500">{item.result}</p>
                     <Button asChild variant="secondary" className="w-full justify-center">
                       <a href={whatsappUrl} target="_blank" rel="noreferrer">
-                        Request this style
+                        {portfolio.requestThisStyle}
                         <ArrowUpRight className="ml-2 h-4 w-4" />
                       </a>
                     </Button>
@@ -104,16 +104,42 @@ export function PortfolioSection() {
           </div>
         </div>
 
-        <Dialog open={Boolean(activeItem)} onOpenChange={(open) => !open && setActiveItem(null)}>
-          <DialogContent className="left-0 top-0 h-[100dvh] w-screen max-w-none translate-x-0 translate-y-0 rounded-none border-0 bg-[#f4efe7] p-0 text-stone-950 [&>button]:right-4 [&>button]:top-4 [&>button]:z-20 [&>button]:rounded-full [&>button]:border [&>button]:border-stone-300 [&>button]:bg-white/92 [&>button]:p-2 [&>button]:text-stone-900 [&>button]:opacity-100 sm:left-1/2 sm:top-1/2 sm:h-auto sm:w-[calc(100%-1.5rem)] sm:max-w-5xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[2rem] sm:border sm:border-stone-300 sm:p-4 sm:pt-6">
-            {activeItem ? (
-              <>
-                <DialogTitle className="sr-only">{activeItem.title} video preview</DialogTitle>
-                <DialogDescription className="sr-only">
-                  Full-screen portfolio video preview for {activeItem.title}. Tap or click outside to close.
-                </DialogDescription>
+        {activeItem ? (
+          <Dialog open onOpenChange={(open) => !open && setActiveItem(null)}>
+            <DialogContent className="left-0 top-0 h-[100dvh] w-screen max-w-none translate-x-0 translate-y-0 rounded-none border-0 bg-[#f4efe7] p-0 text-stone-950 [&>button]:right-4 [&>button]:top-4 [&>button]:z-20 [&>button]:rounded-full [&>button]:border [&>button]:border-stone-300 [&>button]:bg-white/92 [&>button]:p-2 [&>button]:text-stone-900 [&>button]:opacity-100 sm:left-1/2 sm:top-1/2 sm:h-auto sm:w-[calc(100%-1.5rem)] sm:max-w-5xl sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-[2rem] sm:border sm:border-stone-300 sm:p-4 sm:pt-6">
+              <DialogTitle className="sr-only">
+                {activeItem.title} {portfolio.videoPreviewSuffix}
+              </DialogTitle>
+              <DialogDescription className="sr-only">
+                {portfolio.fullscreenPreviewPrefix} {activeItem.title}. {portfolio.fullscreenPreviewHint}
+              </DialogDescription>
 
-                <div className="relative h-full bg-[#f4efe7] sm:hidden">
+              <div className="relative h-full bg-[#f4efe7] sm:hidden">
+                <video
+                  key={activeItem.video}
+                  src={activeItem.video}
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="metadata"
+                  className="h-full w-full object-contain"
+                />
+
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(244,239,231,0),rgba(244,239,231,0.92)_54%,rgba(244,239,231,0.98))] px-5 pb-6 pt-16">
+                  <div className="text-[10px] uppercase tracking-[0.24em] text-[#2f4de0]/78">{activeItem.meta}</div>
+                  <h3 className="mt-2 font-display text-2xl text-stone-950">{activeItem.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-stone-700">{activeItem.copy}</p>
+                </div>
+              </div>
+
+              <div className="hidden bg-[linear-gradient(180deg,rgba(251,247,241,0.98),rgba(245,239,231,0.96))] sm:block">
+                <div className="mb-5 px-0 pb-0 pt-0 pr-10">
+                  <div className="text-[11px] uppercase tracking-[0.28em] text-stone-400">{activeItem.label}</div>
+                  <h3 className="mt-2 font-display text-4xl text-stone-950">{activeItem.title}</h3>
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-stone-700">{activeItem.copy}</p>
+                </div>
+
+                <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-[26px] border border-stone-300 bg-[#111111]">
                   <video
                     key={activeItem.video}
                     src={activeItem.video}
@@ -123,37 +149,11 @@ export function PortfolioSection() {
                     preload="metadata"
                     className="h-full w-full object-contain"
                   />
-
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,rgba(244,239,231,0),rgba(244,239,231,0.92)_54%,rgba(244,239,231,0.98))] px-5 pb-6 pt-16">
-                    <div className="text-[10px] uppercase tracking-[0.24em] text-[#2f4de0]/78">{activeItem.meta}</div>
-                    <h3 className="mt-2 font-display text-2xl text-stone-950">{activeItem.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-stone-700">{activeItem.copy}</p>
-                  </div>
                 </div>
-
-                <div className="hidden bg-[linear-gradient(180deg,rgba(251,247,241,0.98),rgba(245,239,231,0.96))] sm:block">
-                  <div className="mb-5 px-0 pb-0 pt-0 pr-10">
-                    <div className="text-[11px] uppercase tracking-[0.28em] text-stone-400">{activeItem.label}</div>
-                    <h3 className="mt-2 font-display text-4xl text-stone-950">{activeItem.title}</h3>
-                    <p className="mt-3 max-w-2xl text-sm leading-7 text-stone-700">{activeItem.copy}</p>
-                  </div>
-
-                  <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-[26px] border border-stone-300 bg-[#111111]">
-                    <video
-                      key={activeItem.video}
-                      src={activeItem.video}
-                      controls
-                      autoPlay
-                      playsInline
-                      preload="metadata"
-                      className="h-full w-full object-contain"
-                    />
-                  </div>
-                </div>
-              </>
-            ) : null}
-          </DialogContent>
-        </Dialog>
+              </div>
+            </DialogContent>
+          </Dialog>
+        ) : null}
       </div>
     </section>
   );

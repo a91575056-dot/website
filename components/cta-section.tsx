@@ -4,11 +4,14 @@ import { useRef } from "react";
 import { ArrowRight, MessageCircleMore } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
+import { useLocale } from "@/components/locale-provider";
 import { Button } from "@/components/ui/button";
-import { ctaPoints, emailAddress, emailHref, instagramUrl, whatsappUrl } from "@/lib/site-data";
+import { emailAddress, emailHref, getSiteData, instagramUrl, whatsappUrl } from "@/lib/site-data";
 import { usePerformanceMode } from "@/lib/use-performance-mode";
 
 export function CtaSection() {
+  const locale = useLocale();
+  const { cta } = getSiteData(locale);
   const sectionRef = useRef<HTMLElement | null>(null);
   const { isConstrained, hasMounted } = usePerformanceMode();
   const enableMotion = hasMounted && !isConstrained;
@@ -45,17 +48,16 @@ export function CtaSection() {
 
           <div className="grid gap-8 lg:grid-cols-[1fr_22rem] lg:items-end">
             <div>
-              <div className="text-[11px] uppercase tracking-[0.26em] text-white/48">Contact</div>
+              <div className="text-[11px] uppercase tracking-[0.26em] text-white/48">{cta.eyebrow}</div>
               <h2 className="mt-4 max-w-3xl font-display text-[clamp(2.4rem,8vw,4.8rem)] leading-[0.94] tracking-[-0.06em]">
-                Need a website for your business, service or personal brand?
+                {cta.title}
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-8 text-white/70 sm:text-lg">
-                Send what the business does, what pages or sections you need and a few references. I can also advise the right
-                setup: Next.js, React with Vite, Astro or a lighter static build.
+                {cta.copy}
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
-                {ctaPoints.map((item) => (
+                {cta.points.map((item) => (
                   <span key={item} className="rounded-full border border-white/12 bg-white/8 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-white/70">
                     {item}
                   </span>
@@ -65,29 +67,27 @@ export function CtaSection() {
 
             <div className="flex flex-col gap-3">
               <div>
-                <div className="text-[11px] uppercase tracking-[0.26em] text-white/48">Fastest way to talk</div>
-                <div className="mt-2 font-display text-3xl text-white">WhatsApp</div>
-                <p className="mt-3 text-sm leading-7 text-white/62">
-                  Best for discussing price, timeline, project scope and which framework makes sense for the website.
-                </p>
+                <div className="text-[11px] uppercase tracking-[0.26em] text-white/48">{cta.fastestWayLabel}</div>
+                <div className="mt-2 font-display text-3xl text-white">{cta.whatsappTitle}</div>
+                <p className="mt-3 text-sm leading-7 text-white/62">{cta.whatsappCopy}</p>
               </div>
 
               <Button asChild className="w-full justify-center">
                 <a href={whatsappUrl} target="_blank" rel="noreferrer">
                   <MessageCircleMore className="mr-2 h-4 w-4" />
-                  Send project details
+                  {cta.primaryButton}
                 </a>
               </Button>
 
               <Button asChild variant="secondary" className="w-full justify-center border-white/14 bg-white/10 text-white hover:bg-white/16 hover:text-white">
                 <a href={instagramUrl} target="_blank" rel="noreferrer">
-                  See Instagram
+                  {cta.secondaryButton}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
 
               <p className="text-sm leading-7 text-white/46">
-                Prefer email?{" "}
+                {cta.emailPrefix}{" "}
                 <a href={emailHref} className="text-white transition hover:text-white/72">
                   {emailAddress}
                 </a>

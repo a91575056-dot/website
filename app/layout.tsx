@@ -1,88 +1,95 @@
 import type { Metadata } from "next";
-import { Inter, Inter_Tight } from "next/font/google";
+import { Inter } from "next/font/google";
+import { getRequestLocale } from "@/lib/get-request-locale";
+import { getSiteMetadata } from "@/lib/site-metadata";
 
 import { Providers } from "@/components/providers";
 import "@/app/globals.css";
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext", "cyrillic"],
   variable: "--font-sans"
 });
 
-const interTight = Inter_Tight({
-  subsets: ["latin"],
+const interDisplay = Inter({
+  subsets: ["latin", "latin-ext", "cyrillic"],
   variable: "--font-display"
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://dionisweb.com"),
-  title: "Dionis Grecu | Freelance Landing Page Developer and Website Builder",
-  description:
-    "Freelance front-end developer building landing pages, business websites and portfolio websites for brands, freelancers and service businesses at dionisweb.com.",
-  keywords: [
-    "dionisweb",
-    "dionisweb.com",
-    "Dionis Grecu",
-    "freelance landing page developer",
-    "landing page developer",
-    "landing pages",
-    "business websites",
-    "website developer",
-    "freelance web developer",
-    "front-end developer",
-    "portfolio websites",
-    "Next.js developer",
-    "React developer",
-    "website freelancer"
-  ],
-  applicationName: "DionisWeb",
-  authors: [{ name: "Dionis Grecu", url: "https://dionisweb.com" }],
-  creator: "Dionis Grecu",
-  publisher: "Dionis Grecu",
-  alternates: {
-    canonical: "https://dionisweb.com"
-  },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
+const googleSiteVerification =
+  process.env.GOOGLE_SITE_VERIFICATION ?? "YIdxbp_xeyGL0kExPastUhRCBs9-NSDEZPsscfwEokQ";
+
+export function generateMetadata(): Metadata {
+  const locale = getRequestLocale();
+  const metadata = getSiteMetadata(locale);
+
+  return {
+    metadataBase: new URL("https://dionisweb.com"),
+    title: metadata.title,
+    description: metadata.description,
+    keywords: metadata.keywords,
+    applicationName: "Dionis Web",
+    authors: [{ name: "Dionis Grecu", url: "https://dionisweb.com" }],
+    creator: "Dionis Grecu",
+    publisher: "Dionis Web",
+    alternates: {
+      canonical: "https://dionisweb.com"
+    },
+    icons: {
+      icon: "/icon.png",
+      apple: "/apple-icon.png"
+    },
+    ...(googleSiteVerification
+      ? {
+          verification: {
+            google: googleSiteVerification
+          }
+        }
+      : {}),
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1
-    }
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    title: "Dionis Grecu | Freelance Landing Page Developer and Website Builder",
-    description: "Landing pages and business websites built for service businesses, freelancers and personal brands.",
-    url: "https://dionisweb.com",
-    siteName: "DionisWeb",
-    images: [
-      {
-        url: "/assets/111.png",
-        width: 1024,
-        height: 1536,
-        alt: "Dionis Grecu, freelance landing page developer and website builder"
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1
       }
-    ]
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Dionis Grecu | Freelance Landing Page Developer and Website Builder",
-    description: "Landing pages and business websites built for service businesses, freelancers and personal brands.",
-    images: ["/assets/111.png"]
-  }
-};
+    },
+    openGraph: {
+      type: "website",
+      locale: metadata.openGraphLocale,
+      title: metadata.title,
+      description: metadata.webPageDescription,
+      url: "https://dionisweb.com",
+      siteName: "Dionis Web",
+      images: [
+        {
+          url: "/assets/111.png",
+          width: 1024,
+          height: 1536,
+          alt: metadata.imageAlt
+        }
+      ]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: metadata.title,
+      description: metadata.webPageDescription,
+      images: ["/assets/111.png"]
+    }
+  };
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = getRequestLocale();
+
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${interTight.variable} bg-background font-sans text-foreground antialiased`}>
-        <Providers>{children}</Providers>
+    <html lang={locale} suppressHydrationWarning>
+      <body className={`${inter.variable} ${interDisplay.variable} bg-background font-sans text-foreground antialiased`}>
+        <Providers locale={locale}>{children}</Providers>
       </body>
     </html>
   );

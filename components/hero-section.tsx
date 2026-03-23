@@ -5,14 +5,15 @@ import Image from "next/image";
 import { ArrowRight, MessageCircleMore } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
+import { useLocale } from "@/components/locale-provider";
 import { SectionLink } from "@/components/section-link";
 import { Button } from "@/components/ui/button";
-import { whatsappUrl } from "@/lib/site-data";
+import { getSiteData, whatsappUrl } from "@/lib/site-data";
 import { usePerformanceMode } from "@/lib/use-performance-mode";
 
-const heroPillars = ["Mobile-first", "Premium visual tone", "Cleaner contact path"];
-
 export function HeroSection() {
+  const locale = useLocale();
+  const { hero } = getSiteData(locale);
   const sectionRef = useRef<HTMLElement | null>(null);
   const { isConstrained, hasMounted } = usePerformanceMode();
   const shouldReduceMotion = useReducedMotion();
@@ -47,7 +48,7 @@ export function HeroSection() {
               transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               className="section-kicker"
             >
-              Front-end developer for landing pages and business websites
+              {hero.kicker}
             </motion.p>
 
             <motion.h1
@@ -57,9 +58,9 @@ export function HeroSection() {
               transition={{ duration: 0.65, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
               className="mt-4 max-w-4xl font-display text-[clamp(3rem,12vw,6.1rem)] leading-[0.92] tracking-[-0.07em] text-stone-950"
             >
-              Websites that look sharp,
+              {hero.titleLines[0]}
               <br />
-              explain fast and feel better on mobile.
+              {hero.titleLines[1]}
             </motion.h1>
 
             <motion.p
@@ -69,8 +70,7 @@ export function HeroSection() {
               transition={{ duration: 0.7, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
               className="mt-6 max-w-2xl text-base leading-8 text-stone-700 sm:text-lg"
             >
-              Landing pages and business websites built to look premium, explain the offer fast and make the contact step feel
-              obvious from the first screen.
+              {hero.copy}
             </motion.p>
 
             <motion.div
@@ -83,12 +83,12 @@ export function HeroSection() {
               <Button asChild size="lg">
                 <a href={whatsappUrl} target="_blank" rel="noreferrer">
                   <MessageCircleMore className="mr-2 h-4 w-4" />
-                  Start a project
+                  {hero.primaryCta}
                 </a>
               </Button>
               <Button asChild variant="secondary" size="lg">
                 <SectionLink targetId="portfolio">
-                  See selected work
+                  {hero.secondaryCta}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </SectionLink>
               </Button>
@@ -101,7 +101,7 @@ export function HeroSection() {
               transition={{ duration: 0.72, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
               className="mt-7 flex flex-wrap gap-2.5"
             >
-              {heroPillars.map((item, index) => (
+              {hero.pillars.map((item, index) => (
                 <motion.div
                   key={`${enableIntroMotion ? "hero-pillar-motion" : "hero-pillar-static"}-${item}`}
                   initial={enableIntroMotion ? { opacity: 0, y: 20 } : false}
@@ -139,14 +139,14 @@ export function HeroSection() {
                 <div>
                   <div className="text-[10px] uppercase tracking-[0.24em] text-white/44">Dionis Grecu</div>
                   <div className="mt-3 max-w-[12ch] font-display text-[2.2rem] leading-[0.92] tracking-[-0.065em] text-white sm:text-[2.5rem]">
-                    Front-end developer for modern business websites.
+                    {hero.cardTitle}
                   </div>
                   <p className="mt-4 max-w-md text-sm leading-7 text-white/64">
-                    Cleaner structure, stronger presentation and a better mobile experience from the first screen.
+                    {hero.cardCopy}
                   </p>
 
                   <div className="mt-5 inline-flex rounded-full border border-white/12 bg-white/10 px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-white/74">
-                    Available for freelance projects
+                    {hero.availability}
                   </div>
                 </div>
 
@@ -166,16 +166,16 @@ export function HeroSection() {
 
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="rounded-[24px] border border-stone-300/70 bg-white/84 px-5 py-4 sm:px-6 sm:py-5">
-                  <div className="text-[10px] uppercase tracking-[0.22em] text-[#2f4de0]/72">Best for</div>
+                  <div className="text-[10px] uppercase tracking-[0.22em] text-[#2f4de0]/72">{hero.bestForLabel}</div>
                   <div className="mt-2 text-sm font-semibold leading-7 text-stone-900 sm:text-[15px]">
-                    Landing pages, service businesses and personal brands that need a better first impression.
+                    {hero.bestForCopy}
                   </div>
                 </div>
 
                 <div className="rounded-[24px] border border-stone-300/70 bg-white/84 px-5 py-4 sm:px-6 sm:py-5">
-                  <div className="text-[10px] uppercase tracking-[0.22em] text-[#2f4de0]/72">Build style</div>
+                  <div className="text-[10px] uppercase tracking-[0.22em] text-[#2f4de0]/72">{hero.buildStyleLabel}</div>
                   <div className="mt-2 text-sm font-semibold leading-7 text-stone-900 sm:text-[15px]">
-                    Next.js, React and Tailwind with motion only where it improves the result.
+                    {hero.buildStyleCopy}
                   </div>
                 </div>
               </div>

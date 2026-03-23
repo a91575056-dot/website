@@ -7,13 +7,16 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { useLocale } from "@/components/locale-provider";
 import { SectionIntro } from "@/components/section-intro";
-import { processHighlights, processSteps } from "@/lib/site-data";
+import { getSiteData } from "@/lib/site-data";
 import { usePerformanceMode } from "@/lib/use-performance-mode";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function ProcessSection() {
+  const locale = useLocale();
+  const { process } = getSiteData(locale);
   const scope = useRef<HTMLElement | null>(null);
   const progressRef = useRef<HTMLDivElement | null>(null);
   const { isConstrained, hasMounted } = usePerformanceMode();
@@ -72,14 +75,14 @@ export function ProcessSection() {
         <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
           <div className="glass-panel h-fit rounded-[30px] px-5 py-6 sm:px-7 sm:py-7 lg:sticky lg:top-28">
             <SectionIntro
-              eyebrow="Process"
-              title="Simple process, clear scope and the right framework from the start."
-              copy="We decide what the website needs early: sections, style, content direction and development setup. Then I build and refine it until it is ready to publish."
+              eyebrow={process.eyebrow}
+              title={process.title}
+              copy={process.copy}
               className="max-w-none"
             />
 
             <div className="mt-7 grid gap-3">
-              {processHighlights.map((item) => (
+              {process.highlights.map((item) => (
                 <div key={item} className="tag-chip w-fit border-slate-200 bg-white/82 text-slate-600">
                   <BadgeCheck className="h-3.5 w-3.5 text-[#2f4de0]" />
                   {item}
@@ -96,7 +99,7 @@ export function ProcessSection() {
             />
 
             <div className="space-y-5">
-              {processSteps.map((step, index) => (
+              {process.steps.map((step, index) => (
                 <motion.article
                   key={`${enableMotion ? "motion" : "static"}-${step.step}`}
                   data-process-card
@@ -111,7 +114,9 @@ export function ProcessSection() {
                   </div>
 
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <div className="text-sm uppercase tracking-[0.24em] text-[#2f4de0]/78">Step {step.step}</div>
+                    <div className="text-sm uppercase tracking-[0.24em] text-[#2f4de0]/78">
+                      {process.stepLabel} {step.step}
+                    </div>
                     <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/82 px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-slate-500">
                       <Clock3 className="h-3.5 w-3.5 text-[#2f4de0]" />
                       {step.timeframe}
@@ -122,7 +127,7 @@ export function ProcessSection() {
                   <p className="mt-4 text-sm leading-7 text-slate-600">{step.copy}</p>
 
                   <div className="mt-6 rounded-[22px] border border-slate-200/80 bg-[linear-gradient(180deg,rgba(248,250,252,0.96),rgba(241,245,249,0.88))] p-4">
-                    <div className="text-[10px] uppercase tracking-[0.24em] text-slate-400">Deliverable</div>
+                    <div className="text-[10px] uppercase tracking-[0.24em] text-slate-400">{process.deliverableLabel}</div>
                     <div className="mt-2 text-sm leading-7 text-slate-700">{step.deliverable}</div>
                   </div>
                 </motion.article>

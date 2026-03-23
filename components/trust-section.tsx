@@ -4,11 +4,14 @@ import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 
 import { AnimatedCounter } from "@/components/animated-counter";
+import { useLocale } from "@/components/locale-provider";
 import { SectionIntro } from "@/components/section-intro";
-import { trustStats, trustStrip } from "@/lib/site-data";
+import { getSiteData } from "@/lib/site-data";
 import { usePerformanceMode } from "@/lib/use-performance-mode";
 
 export function TrustSection() {
+  const locale = useLocale();
+  const { trust } = getSiteData(locale);
   const { isConstrained, hasMounted } = usePerformanceMode();
   const enableMotion = hasMounted && !isConstrained;
 
@@ -18,14 +21,14 @@ export function TrustSection() {
         <div className="glass-panel px-5 py-6 sm:px-8 sm:py-9">
           <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
             <SectionIntro
-              eyebrow="What You Get"
-              title="Clear structure, mobile-first layout and a front-end stack chosen for the project."
-              copy="The website should look professional, load well on phones, feel easy to use and make it simple for visitors to contact you."
+              eyebrow={trust.eyebrow}
+              title={trust.title}
+              copy={trust.copy}
               className="max-w-none"
             />
 
             <div className="grid gap-4 sm:grid-cols-3">
-              {trustStats.map((item, index) => (
+              {trust.stats.map((item, index) => (
                 <motion.article
                   key={`${enableMotion ? "motion" : "static"}-${item.label}`}
                   initial={enableMotion ? { opacity: 0, y: 24, scale: 0.985, filter: "blur(8px)" } : false}
@@ -51,7 +54,7 @@ export function TrustSection() {
           <div className="soft-divider mt-8" />
 
           <div className="mt-6 flex flex-wrap gap-3">
-            {trustStrip.map((item, index) => (
+            {trust.strip.map((item, index) => (
               <motion.div
                 key={`${enableMotion ? "motion" : "static"}-${item}`}
                 initial={enableMotion ? { opacity: 0, y: 12 } : false}

@@ -4,13 +4,17 @@ import { Menu, MessageCircleMore } from "lucide-react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useRef, useState } from "react";
 
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { useLocale } from "@/components/locale-provider";
 import { SectionLink } from "@/components/section-link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { navItems, whatsappUrl } from "@/lib/site-data";
+import { getSiteData, whatsappUrl } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
+  const locale = useLocale();
+  const { navItems, header, brandRole } = getSiteData(locale);
   const { scrollY, scrollYProgress } = useScroll();
   const [isCompact, setIsCompact] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
@@ -73,7 +77,7 @@ export function SiteHeader() {
           <div className="flex h-16 items-center justify-between gap-4 border-b border-transparent sm:h-[4.5rem]">
             <SectionLink targetId="top" className="min-w-0" onNavigate={() => setIsOpen(false)}>
               <div className="text-sm font-semibold tracking-[-0.03em] text-stone-950 sm:text-base">Dionis Grecu</div>
-              <div className="text-[10px] uppercase tracking-[0.22em] text-stone-500 sm:text-[11px]">Front-end developer</div>
+              <div className="text-[10px] uppercase tracking-[0.22em] text-stone-500 sm:text-[11px]">{brandRole}</div>
             </SectionLink>
 
             <nav className="hidden items-center gap-7 text-sm text-stone-600 lg:flex">
@@ -85,9 +89,10 @@ export function SiteHeader() {
             </nav>
 
             <div className="hidden items-center gap-3 sm:flex">
+              <LanguageSwitcher />
               <Button asChild size="sm">
                 <a href={whatsappUrl} target="_blank" rel="noreferrer">
-                  Start a project
+                  {header.ctaLabel}
                 </a>
               </Button>
             </div>
@@ -95,19 +100,21 @@ export function SiteHeader() {
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger className="inline-flex rounded-full border border-stone-300 bg-[#fbf7f1] p-2.5 text-stone-700 shadow-[0_10px_24px_rgba(28,25,23,0.08)] lg:hidden">
                 <Menu className="h-5 w-5" />
-                <span className="sr-only">Open navigation</span>
+                <span className="sr-only">{header.openNavigationLabel}</span>
               </SheetTrigger>
               <SheetContent className="bg-[#f5efe7]">
-                <SheetTitle className="sr-only">Mobile navigation</SheetTitle>
-                <SheetDescription className="sr-only">Open the main navigation and contact actions for the website.</SheetDescription>
+                <SheetTitle className="sr-only">{header.sheetTitle}</SheetTitle>
+                <SheetDescription className="sr-only">{header.sheetDescription}</SheetDescription>
 
                 <div className="mt-10 flex flex-col gap-8">
                   <div>
-                    <div className="text-sm uppercase tracking-[0.24em] text-[#2f4de0]">Front-end developer</div>
+                    <div className="text-sm uppercase tracking-[0.24em] text-[#2f4de0]">{header.mobileTitle}</div>
                     <div className="mt-3 max-w-xs font-display text-2xl leading-tight tracking-[-0.05em] text-stone-950">
-                      Landing pages, business websites and portfolio websites with clear structure and a better mobile experience.
+                      {header.mobileDescription}
                     </div>
                   </div>
+
+                  <LanguageSwitcher compact onSelect={() => setIsOpen(false)} />
 
                   <div className="flex flex-col gap-3">
                     {navItems.map((item) => (
@@ -125,7 +132,7 @@ export function SiteHeader() {
                   <Button asChild className="w-full">
                     <a href={whatsappUrl} target="_blank" rel="noreferrer" onClick={() => setIsOpen(false)}>
                       <MessageCircleMore className="mr-2 h-4 w-4" />
-                      Talk on WhatsApp
+                      {header.whatsappLabel}
                     </a>
                   </Button>
                 </div>
