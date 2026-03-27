@@ -51,10 +51,10 @@ export function PortfolioSection() {
                     />
                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,6,8,0.22),rgba(6,6,8,0.34)_38%,rgba(6,6,8,0.9))]" />
                     <div className="absolute inset-x-4 top-4 flex items-center justify-between gap-3">
-                      <span className="rounded-full border border-white/30 bg-black/58 px-3 py-1.5 text-[10px] uppercase tracking-[0.24em] text-white shadow-[0_2px_18px_rgba(0,0,0,0.32)] backdrop-blur-md">
+                      <span className="overlay-chip">
                         {item.meta}
                       </span>
-                      <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/58 px-3 py-1.5 text-[10px] uppercase tracking-[0.24em] text-white shadow-[0_2px_18px_rgba(0,0,0,0.32)] backdrop-blur-md">
+                      <span className="overlay-chip">
                         <Play className="h-3 w-3 fill-current" />
                         {item.duration}
                       </span>
@@ -65,7 +65,8 @@ export function PortfolioSection() {
                           <div className="display-feature max-w-[11ch] text-white [text-shadow:0_4px_18px_rgba(0,0,0,0.42)]">
                             {item.title}
                           </div>
-                          <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/28 bg-white/14 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.24em] text-white shadow-[0_8px_24px_rgba(0,0,0,0.24)] backdrop-blur-md">
+                          <div className="mt-3 inline-flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.24em] text-white/76">
+                            <span aria-hidden className="h-px w-5 bg-white/34" />
                             {portfolio.openVideoPreview}
                             <ArrowUpRight className="h-3.5 w-3.5" />
                           </div>

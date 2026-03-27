@@ -118,9 +118,9 @@ const servicePageDataByLocale: Record<Locale, ServicePageLocaleBundle> = {
     pages: {
       landingPageDevelopment: {
         route: "/landing-page-development",
-        metadataTitle: "Landing Page Development | Dionis Grecu",
+        metadataTitle: "Landing Page Development for Service Businesses | Dionis Grecu",
         metadataDescription:
-          "Freelance landing page development for service businesses, freelancers and personal brands that need a clearer offer, better mobile UX and more enquiries.",
+          "Custom landing page development for service businesses, freelancers and personal brands that need a clearer offer, stronger mobile UX and more enquiries.",
         metadataImageAlt: "Dionis Grecu freelance landing page developer",
         keywords: [
           "dionis web",
@@ -199,9 +199,9 @@ const servicePageDataByLocale: Record<Locale, ServicePageLocaleBundle> = {
       },
       websiteDevelopment: {
         route: "/website-development",
-        metadataTitle: "Website Development | Dionis Grecu",
+        metadataTitle: "Website Development for Service Businesses | Dionis Grecu",
         metadataDescription:
-          "Freelance website development for service businesses, personal brands and small teams that need a stronger online presence and a better mobile experience.",
+          "Freelance website development for service businesses and personal brands that need a clearer site structure, stronger online presence and better mobile experience.",
         metadataImageAlt: "Dionis Grecu freelance website developer",
         keywords: [
           "dionis web",
@@ -280,9 +280,9 @@ const servicePageDataByLocale: Record<Locale, ServicePageLocaleBundle> = {
       },
       freelanceFrontEndDeveloper: {
         route: "/freelance-front-end-developer",
-        metadataTitle: "Freelance Front-End Developer | Dionis Grecu",
+        metadataTitle: "Freelance Front-End Developer for Founders & Agencies | Dionis Grecu",
         metadataDescription:
-          "Freelance front-end developer for landing pages and websites built in Next.js, React, Astro or static HTML and Tailwind for clients, founders, designers and agencies.",
+          "Freelance front-end development in Next.js, React, Astro or static HTML for landing pages and websites built from design files or a clear business direction.",
         metadataImageAlt: "Dionis Grecu freelance front-end developer",
         keywords: [
           "dionis web",

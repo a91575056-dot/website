@@ -8,7 +8,7 @@ import { TrustSection } from "@/components/trust-section";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { getRequestLocale } from "@/lib/get-request-locale";
 import { getSiteMetadata } from "@/lib/site-metadata";
-import { emailAddress, instagramUrl, whatsappUrl } from "@/lib/site-data";
+import { emailAddress, instagramUrl, tiktokUrl, whatsappUrl } from "@/lib/site-data";
 import { cn } from "@/lib/utils";
 
 const ServicesSection = dynamic(() => import("@/components/services-section"), {
@@ -80,7 +80,7 @@ export default function HomePage() {
           "@id": "https://dionisweb.com/#service"
         },
         description: metadata.personDescription,
-        sameAs: [instagramUrl, whatsappUrl, "https://www.fiverr.com/dgrecu011"]
+        sameAs: [instagramUrl, tiktokUrl, whatsappUrl, "https://www.fiverr.com/dgrecu011"]
       },
       {
         "@type": "ProfessionalService",

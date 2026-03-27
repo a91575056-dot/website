@@ -107,7 +107,7 @@ export function HeroSection() {
                   initial={enableIntroMotion ? { opacity: 0, y: 20 } : false}
                   animate={enableIntroMotion ? { opacity: 1, y: 0 } : undefined}
                   transition={{ duration: 0.64, delay: 0.36 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                  className="tag-chip border-stone-300/70 bg-white/84 text-stone-700"
+                  className="tag-chip"
                 >
                   {item}
                 </motion.div>
@@ -145,7 +145,7 @@ export function HeroSection() {
                     {hero.cardCopy}
                   </p>
 
-                  <div className="mt-5 inline-flex rounded-full border border-white/12 bg-white/10 px-3 py-2 text-[10px] uppercase tracking-[0.22em] text-white/74">
+                  <div className="tag-chip-dark mt-5">
                     {hero.availability}
                   </div>
                 </div>

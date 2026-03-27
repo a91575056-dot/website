@@ -58,7 +58,7 @@ export function CtaSection() {
 
               <div className="mt-6 flex flex-wrap gap-2">
                 {cta.points.map((item) => (
-                  <span key={item} className="rounded-full border border-white/12 bg-white/8 px-3 py-2 text-[11px] uppercase tracking-[0.18em] text-white/70">
+                  <span key={item} className="tag-chip-dark">
                     {item}
                   </span>
                 ))}

@@ -12,7 +12,7 @@ import {
   getServicePageLinks,
   type ServicePageId
 } from "@/lib/service-page-data";
-import { emailAddress, whatsappUrl } from "@/lib/site-data";
+import { emailAddress, instagramUrl, tiktokUrl, whatsappUrl } from "@/lib/site-data";
 
 export function ServicePageTemplate({ pageId }: { pageId: ServicePageId }) {
   const locale = getRequestLocale();
@@ -45,7 +45,7 @@ export function ServicePageTemplate({ pageId }: { pageId: ServicePageId }) {
         image: "https://dionisweb.com/assets/111.png",
         jobTitle: copy.personJobTitle,
         email: emailAddress,
-        sameAs: ["https://www.instagram.com/dionis.grecu", "https://www.fiverr.com/dgrecu011", whatsappUrl]
+        sameAs: [instagramUrl, tiktokUrl, "https://www.fiverr.com/dgrecu011", whatsappUrl]
       },
       {
         "@type": "ProfessionalService",

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
 
 import { AnimatedCounter } from "@/components/animated-counter";
 import { useLocale } from "@/components/locale-provider";
@@ -63,7 +62,6 @@ export function TrustSection() {
                 transition={{ duration: 0.6, delay: 0.1 + index * 0.05, ease: [0.22, 1, 0.36, 1] }}
                 className="tag-chip"
               >
-                <Sparkles className="h-3.5 w-3.5 text-[#2f4de0]" />
                 {item}
               </motion.div>
             ))}

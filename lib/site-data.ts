@@ -6,6 +6,8 @@ export const whatsappUrl =
 export const instagramUrl =
   "https://www.instagram.com/dionis.grecu?igsh=MW85eWY4bzZnaGdsbA%3D%3D&utm_source=qr";
 
+export const tiktokUrl = "https://www.tiktok.com/@dionisweb";
+
 export const emailAddress = "dioniswebstudio@gmail.com";
 
 export const emailHref = `mailto:${emailAddress}`;
@@ -52,7 +54,7 @@ export type ProcessStep = {
 };
 
 export type SocialLink = {
-  id: "email" | "instagram" | "fiverr" | "whatsapp";
+  id: "email" | "instagram" | "tiktok" | "fiverr" | "whatsapp";
   label: string;
   href: string;
 };
@@ -342,6 +344,7 @@ const siteDataByLocale: Record<Locale, SiteData> = {
     socialLinks: [
       { id: "email", label: "Email", href: emailHref },
       { id: "instagram", label: "Instagram", href: instagramUrl },
+      { id: "tiktok", label: "TikTok", href: tiktokUrl },
       { id: "fiverr", label: "Fiverr", href: "https://www.fiverr.com/dgrecu011" },
       { id: "whatsapp", label: "WhatsApp", href: whatsappUrl }
     ],
@@ -547,6 +550,7 @@ const siteDataByLocale: Record<Locale, SiteData> = {
     socialLinks: [
       { id: "email", label: "Email", href: emailHref },
       { id: "instagram", label: "Instagram", href: instagramUrl },
+      { id: "tiktok", label: "TikTok", href: tiktokUrl },
       { id: "fiverr", label: "Fiverr", href: "https://www.fiverr.com/dgrecu011" },
       { id: "whatsapp", label: "WhatsApp", href: whatsappUrl }
     ],
@@ -748,6 +752,7 @@ const siteDataByLocale: Record<Locale, SiteData> = {
     socialLinks: [
       { id: "email", label: "Email", href: emailHref },
       { id: "instagram", label: "Instagram", href: instagramUrl },
+      { id: "tiktok", label: "TikTok", href: tiktokUrl },
       { id: "fiverr", label: "Fiverr", href: "https://www.fiverr.com/dgrecu011" },
       { id: "whatsapp", label: "WhatsApp", href: whatsappUrl }
     ],

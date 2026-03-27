@@ -18,9 +18,9 @@ type SiteMetadataCopy = {
 
 const siteMetadataByLocale: Record<Locale, SiteMetadataCopy> = {
   en: {
-    title: "Dionis Web | Premium Landing Pages & Business Websites",
+    title: "Dionis Web | Dionis Grecu, Freelance Web Developer",
     description:
-      "Freelance web developer building premium landing pages and business websites with clear structure, strong mobile experience and faster contact paths.",
+      "Portfolio, services and project enquiries for landing pages, basic websites and front-end builds with clean structure and strong mobile UX.",
     keywords: [
       "dionis web",
       "dionisweb",
@@ -43,17 +43,18 @@ const siteMetadataByLocale: Record<Locale, SiteMetadataCopy> = {
     ],
     openGraphLocale: "en_US",
     imageAlt: "Dionis Grecu, freelance landing page developer and website builder",
-    websiteDescription: "Dionis Web is the freelance website of Dionis Grecu for premium landing pages, business websites and portfolio websites.",
+    websiteDescription:
+      "Dionis Web is the portfolio and freelance website of Dionis Grecu for landing pages, basic websites and front-end builds.",
     webPageDescription:
-      "Dionis Web is the freelance website of Dionis Grecu for premium landing pages and business websites with clearer structure and stronger mobile presentation.",
+      "Portfolio and freelance website of Dionis Grecu, focused on landing pages, basic websites and front-end builds with clearer structure and better mobile presentation.",
     personJobTitle: "Freelance Web Developer",
     personDescription:
-      "Dionis Grecu is the freelancer behind Dionis Web, building landing pages, basic websites and portfolio websites in Next.js, React, Astro and static HTML with Tailwind.",
+      "Dionis Grecu is the freelancer behind Dionis Web, building landing pages, basic websites and front-end projects in Next.js, React, Astro and static HTML with Tailwind.",
     areaServed: "Worldwide",
-    serviceTypes: ["Landing Page Development", "Business Website Development", "Portfolio Website Development"],
+    serviceTypes: ["Landing Page Development", "Business Website Development", "Front-End Development"],
     serviceDescription:
-      "Dionis Web provides premium freelance landing page development, business website development and portfolio website builds in Next.js, React with Vite, Astro or static HTML and Tailwind.",
-    offerDescription: "Premium freelance website development for landing pages, business websites and portfolio websites."
+      "Dionis Web offers freelance landing page development, business website development and front-end builds in Next.js, React with Vite, Astro or static HTML and Tailwind.",
+    offerDescription: "Freelance website development and front-end builds for landing pages, business websites and portfolio sites."
   },
   ro: {
     title: "Dionis Web | Landing Page-uri Premium și Website-uri de Business",

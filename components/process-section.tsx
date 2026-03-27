@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import { BadgeCheck, Clock3 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -83,8 +82,7 @@ export function ProcessSection() {
 
             <div className="mt-7 grid gap-3">
               {process.highlights.map((item) => (
-                <div key={item} className="tag-chip w-fit border-slate-200 bg-white/82 text-slate-600">
-                  <BadgeCheck className="h-3.5 w-3.5 text-[#2f4de0]" />
+                <div key={item} className="tag-chip w-fit text-slate-600">
                   {item}
                 </div>
               ))}
@@ -117,8 +115,7 @@ export function ProcessSection() {
                     <div className="text-sm uppercase tracking-[0.24em] text-[#2f4de0]/78">
                       {process.stepLabel} {step.step}
                     </div>
-                    <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/82 px-3 py-1.5 text-[11px] uppercase tracking-[0.22em] text-slate-500">
-                      <Clock3 className="h-3.5 w-3.5 text-[#2f4de0]" />
+                    <div className="tag-chip text-slate-500">
                       {step.timeframe}
                     </div>
                   </div>
