@@ -1,7 +1,8 @@
 "use client";
 
 import { MdOutlineEmail } from "react-icons/md";
-import { SiFiverr, SiInstagram, SiTiktok, SiWhatsapp } from "react-icons/si";
+import { SiInstagram, SiTiktok, SiWhatsapp } from "react-icons/si";
+import { TbBrandFiverr } from "react-icons/tb";
 
 import { useLocale } from "@/components/locale-provider";
 import { Reveal } from "@/components/reveal";
@@ -12,7 +13,7 @@ const socialIconMap = {
   email: MdOutlineEmail,
   instagram: SiInstagram,
   tiktok: SiTiktok,
-  fiverr: SiFiverr,
+  fiverr: TbBrandFiverr,
   whatsapp: SiWhatsapp
 } as const;
 
@@ -42,7 +43,6 @@ export function SiteFooter() {
               <div className="flex flex-wrap gap-4 text-sm text-stone-600">
                 {socialLinks.map((item) => {
                   const Icon = socialIconMap[item.id];
-                  const isFiverr = item.id === "fiverr";
 
                   return (
                     <a
@@ -51,12 +51,14 @@ export function SiteFooter() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={item.label}
-                      className={`inline-flex items-center transition hover:text-stone-950 ${
-                        isFiverr ? "justify-center" : "gap-2"
-                      }`}
+                      className="inline-flex items-center gap-2 transition hover:text-stone-950"
                     >
-                      {Icon ? <Icon className={isFiverr ? "h-6 w-6 shrink-0" : "h-4 w-4 shrink-0"} /> : null}
-                      {isFiverr ? <span className="sr-only">{item.label}</span> : <span>{item.label}</span>}
+                      {Icon ? (
+                        <span className="flex h-4 w-4 shrink-0 items-center justify-center" aria-hidden>
+                          <Icon className="h-full w-full" />
+                        </span>
+                      ) : null}
+                      <span>{item.label}</span>
                     </a>
                   );
                 })}

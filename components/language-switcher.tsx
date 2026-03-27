@@ -1,11 +1,11 @@
 "use client";
 
 import { useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { useLocale } from "@/components/locale-provider";
 import { getSiteData } from "@/lib/site-data";
-import { localeCookieName, localeOptions, type Locale } from "@/lib/i18n";
+import { getLocalizedPath, localeOptions, stripLocaleFromPathname, type Locale } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type LanguageSwitcherProps = {
@@ -18,6 +18,7 @@ export function LanguageSwitcher({ className, compact = false, onSelect }: Langu
   const locale = useLocale();
   const { header } = getSiteData(locale);
   const router = useRouter();
+  const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
 
   const handleSelect = (nextLocale: Locale) => {
@@ -26,10 +27,14 @@ export function LanguageSwitcher({ className, compact = false, onSelect }: Langu
       return;
     }
 
-    document.cookie = `${localeCookieName}=${nextLocale}; path=/; max-age=31536000; samesite=lax`;
+    const nextPath = getLocalizedPath(nextLocale, stripLocaleFromPathname(pathname));
+    const search = typeof window === "undefined" ? "" : window.location.search;
+    const hash = typeof window === "undefined" ? "" : window.location.hash;
+    const nextHref = `${nextPath}${search}${hash}`;
+
     onSelect?.();
     startTransition(() => {
-      router.refresh();
+      router.push(nextHref, { scroll: false });
     });
   };
 

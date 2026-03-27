@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import type { Locale } from "@/lib/i18n";
+import { getLocaleAlternates, getLocalizedUrl, siteImagePath, siteName } from "@/lib/site-config";
 
 export type ServicePageId = "landingPageDevelopment" | "websiteDevelopment" | "freelanceFrontEndDeveloper";
 
@@ -955,6 +956,7 @@ export function getServicePageLinks(locale: Locale) {
 
 export function getServicePageMetadata(pageId: ServicePageId, locale: Locale): Metadata {
   const page = getServicePageData(pageId, locale);
+  const pageUrl = getLocalizedUrl(locale, page.route);
 
   return {
     title: page.metadataTitle,
@@ -965,17 +967,18 @@ export function getServicePageMetadata(pageId: ServicePageId, locale: Locale): M
       follow: true
     },
     alternates: {
-      canonical: `https://dionisweb.com${page.route}`
+      canonical: pageUrl,
+      languages: getLocaleAlternates(page.route)
     },
     openGraph: {
       title: page.metadataTitle,
       description: page.metadataDescription,
-      url: `https://dionisweb.com${page.route}`,
-      siteName: "Dionis Web",
+      url: pageUrl,
+      siteName,
       type: "website",
       images: [
         {
-          url: "/assets/111.png",
+          url: siteImagePath,
           width: 1024,
           height: 1536,
           alt: page.metadataImageAlt
@@ -986,7 +989,7 @@ export function getServicePageMetadata(pageId: ServicePageId, locale: Locale): M
       card: "summary_large_image",
       title: page.metadataTitle,
       description: page.metadataDescription,
-      images: ["/assets/111.png"]
+      images: [siteImagePath]
     }
   };
 }

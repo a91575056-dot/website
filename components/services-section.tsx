@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 import { useLocale } from "@/components/locale-provider";
+import { getLocalizedPath } from "@/lib/i18n";
 import { SectionIntro } from "@/components/section-intro";
 import { getSiteData, whatsappUrl } from "@/lib/site-data";
 import { usePerformanceMode } from "@/lib/use-performance-mode";
@@ -59,7 +60,7 @@ export function ServicesSection() {
 
                     <div className="flex flex-wrap items-center gap-2 self-start lg:justify-end">
                       <Link
-                        href={service.href}
+                        href={getLocalizedPath(locale, service.href)}
                         className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white/88 px-3 py-2 text-xs uppercase tracking-[0.2em] text-stone-700 transition duration-300 hover:-translate-y-0.5 hover:border-stone-400 hover:bg-white hover:text-stone-950"
                       >
                         {services.learnMoreLabel}

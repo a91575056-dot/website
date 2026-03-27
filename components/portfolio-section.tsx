@@ -21,7 +21,7 @@ export function PortfolioSection() {
   const enableMotion = hasMounted && !isConstrained;
 
   return (
-    <section id="portfolio" className="py-14 sm:py-20">
+    <section id="portfolio" className="py-14 sm:py-20" suppressHydrationWarning>
       <div className="section-shell">
         <div className="grid gap-8 lg:grid-cols-[0.74fr_1.26fr] lg:gap-12">
           <SectionIntro

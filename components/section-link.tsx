@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { MouseEvent, ReactNode } from "react";
 
+import { useLocale } from "@/components/locale-provider";
+import { getLocalizedSectionHref, stripLocaleFromPathname } from "@/lib/i18n";
 import { scrollToSection } from "@/lib/section-scroll";
 
 type SectionLinkProps = {
@@ -14,11 +16,12 @@ type SectionLinkProps = {
 };
 
 export function SectionLink({ targetId, className, children, onNavigate }: SectionLinkProps) {
+  const locale = useLocale();
   const pathname = usePathname();
-  const href = targetId === "top" ? "/" : `/#${targetId}`;
+  const href = getLocalizedSectionHref(locale, targetId);
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    if (pathname !== "/") {
+    if (stripLocaleFromPathname(pathname) !== "/") {
       onNavigate?.();
       return;
     }

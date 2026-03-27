@@ -5,82 +5,86 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { WhatsAppFloat } from "@/components/whatsapp-float";
 import { Button } from "@/components/ui/button";
-import { getRequestLocale } from "@/lib/get-request-locale";
+import { getLocalizedPath, getLocalizedSectionHref, type Locale } from "@/lib/i18n";
 import {
   getServicePageCopy,
   getServicePageData,
   getServicePageLinks,
   type ServicePageId
 } from "@/lib/service-page-data";
+import { absoluteUrl, getLocalizedUrl, siteImagePath, siteUrl } from "@/lib/site-config";
 import { emailAddress, instagramUrl, tiktokUrl, whatsappUrl } from "@/lib/site-data";
 
-export function ServicePageTemplate({ pageId }: { pageId: ServicePageId }) {
-  const locale = getRequestLocale();
+export function ServicePageTemplate({ pageId, locale }: { pageId: ServicePageId; locale: Locale }) {
   const page = getServicePageData(pageId, locale);
   const copy = getServicePageCopy(locale);
   const relatedPages = getServicePageLinks(locale).filter((item) => item.href !== page.route);
+  const pagePath = getLocalizedPath(locale, page.route);
+  const pageUrl = absoluteUrl(pagePath);
+  const homeUrl = getLocalizedUrl(locale, "/");
+  const portfolioHref = getLocalizedSectionHref(locale, "portfolio");
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "WebPage",
-        "@id": `https://dionisweb.com${page.route}#webpage`,
-        url: `https://dionisweb.com${page.route}`,
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
         name: page.metadataTitle,
         description: page.metadataDescription,
         inLanguage: locale,
         isPartOf: {
-          "@id": "https://dionisweb.com/#website"
+          "@id": `${siteUrl}/#website`
         },
         about: {
-          "@id": "https://dionisweb.com/#person"
+          "@id": `${siteUrl}/#person`
         }
       },
       {
         "@type": "Person",
-        "@id": "https://dionisweb.com/#person",
+        "@id": `${siteUrl}/#person`,
         name: "Dionis Grecu",
-        url: "https://dionisweb.com/",
-        image: "https://dionisweb.com/assets/111.png",
+        url: homeUrl,
+        image: absoluteUrl(siteImagePath),
         jobTitle: copy.personJobTitle,
         email: emailAddress,
         sameAs: [instagramUrl, tiktokUrl, "https://www.fiverr.com/dgrecu011", whatsappUrl]
       },
       {
         "@type": "ProfessionalService",
-        "@id": `https://dionisweb.com${page.route}#service`,
+        "@id": `${pageUrl}#service`,
         name: page.schemaServiceName,
-        url: `https://dionisweb.com${page.route}`,
+        url: pageUrl,
         email: emailAddress,
         description: page.metadataDescription,
         serviceType: page.schemaServiceTypes,
         areaServed: copy.areaServed,
         provider: {
-          "@id": "https://dionisweb.com/#person"
+          "@id": `${siteUrl}/#person`
         }
       },
       {
         "@type": "BreadcrumbList",
-        "@id": `https://dionisweb.com${page.route}#breadcrumb`,
+        "@id": `${pageUrl}#breadcrumb`,
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: copy.breadcrumbHomeLabel,
-            item: "https://dionisweb.com/"
+            item: homeUrl
           },
           {
             "@type": "ListItem",
             position: 2,
             name: page.eyebrow,
-            item: `https://dionisweb.com${page.route}`
+            item: pageUrl
           }
         ]
       },
       {
         "@type": "FAQPage",
-        "@id": `https://dionisweb.com${page.route}#faq`,
+        "@id": `${pageUrl}#faq`,
         mainEntity: page.faqs.map((faq) => ({
           "@type": "Question",
           name: faq.question,
@@ -120,7 +124,7 @@ export function ServicePageTemplate({ pageId }: { pageId: ServicePageId }) {
                   </a>
                 </Button>
                 <Button asChild variant="secondary" size="lg">
-                  <Link href="/#portfolio">
+                  <Link href={portfolioHref}>
                     {copy.heroSecondaryButton}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
@@ -218,7 +222,7 @@ export function ServicePageTemplate({ pageId }: { pageId: ServicePageId }) {
             {relatedPages.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={getLocalizedPath(locale, item.href)}
                 className="interactive-card glass-panel rounded-[28px] px-5 py-5 sm:px-6 sm:py-6"
               >
                 <div className="text-[10px] uppercase tracking-[0.24em] text-[#2f4de0]/76">{copy.relatedPageLabel}</div>
@@ -254,7 +258,7 @@ export function ServicePageTemplate({ pageId }: { pageId: ServicePageId }) {
                   </a>
                 </Button>
                 <Button asChild variant="secondary" className="w-full justify-center border-white/14 bg-white/10 text-white hover:bg-white/16 hover:text-white">
-                  <Link href="/#portfolio">
+                  <Link href={portfolioHref}>
                     {copy.finalCtaSecondary}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
