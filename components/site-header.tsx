@@ -88,7 +88,7 @@ export function SiteHeader() {
               ))}
             </nav>
 
-            <div className="hidden items-center gap-3 sm:flex">
+            <div className="hidden shrink-0 items-center gap-3 lg:flex">
               <LanguageSwitcher />
               <Button asChild size="sm">
                 <a href={whatsappUrl} target="_blank" rel="noreferrer">
@@ -98,9 +98,15 @@ export function SiteHeader() {
             </div>
 
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger className="inline-flex rounded-full border border-stone-300 bg-[#fbf7f1] p-2.5 text-stone-700 shadow-[0_10px_24px_rgba(28,25,23,0.08)] lg:hidden">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">{header.openNavigationLabel}</span>
+              <SheetTrigger asChild>
+                <button
+                  type="button"
+                  className="inline-flex shrink-0 rounded-full border border-stone-300 bg-[#fbf7f1] p-2.5 text-stone-700 shadow-[0_10px_24px_rgba(28,25,23,0.08)] lg:hidden"
+                  aria-label={header.openNavigationLabel}
+                >
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">{header.openNavigationLabel}</span>
+                </button>
               </SheetTrigger>
               <SheetContent className="bg-[#f5efe7]">
                 <SheetTitle className="sr-only">{header.sheetTitle}</SheetTitle>
