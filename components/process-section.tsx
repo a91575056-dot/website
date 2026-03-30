@@ -71,8 +71,8 @@ export function ProcessSection() {
   return (
     <section id="process" ref={scope} className="py-16 sm:py-24">
       <div className="section-shell">
-        <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
-          <div className="glass-panel h-fit rounded-[30px] px-5 py-6 sm:px-7 sm:py-7 lg:sticky lg:top-28">
+        <div className="grid gap-8 xl:grid-cols-[0.82fr_1.18fr]">
+          <div className="glass-panel h-fit rounded-[30px] px-5 py-6 sm:px-7 sm:py-7 xl:sticky xl:top-28">
             <SectionIntro
               eyebrow={process.eyebrow}
               title={process.title}

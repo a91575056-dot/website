@@ -497,6 +497,14 @@
   }
 }
 
+@media (min-width: 768px) and (max-width: 1199px) {
+  .hero-title-balanced {
+    font-size: clamp(3.15rem, 7.7vw, 4.95rem);
+    line-height: 0.98;
+    letter-spacing: -0.034em;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

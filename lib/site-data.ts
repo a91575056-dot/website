@@ -209,33 +209,22 @@ const siteDataByLocale: Record<Locale, SiteData> = {
       title: "A few concrete website examples for the kinds of projects I usually take.",
       copy:
         "These are example directions for real website types. I can adapt the structure, design and framework to your business, niche and content.",
-      openVideoPreview: "Open video preview",
+      openVideoPreview: "Open live website",
       requestThisStyle: "Request this style",
       videoPreviewSuffix: "video preview",
       fullscreenPreviewPrefix: "Full-screen portfolio video preview for",
       fullscreenPreviewHint: "Tap or click outside to close.",
       items: [
         {
-          title: "Beauty Landing Page",
+          title: "Coffee Shop Landing Page",
           label: "Landing page example",
-          meta: "Beauty studio direction",
+          meta: "Coffee bar direction",
           duration: "00:24",
-          copy: "A landing page focused on services, treatments, trust and a faster booking path for beauty businesses.",
-          image: "/assets/portfolio-barber.jpg",
+          copy: "A landing page focused on menu highlights, atmosphere, trust and a faster table-booking path for coffee businesses.",
+          image: "/assets/image.png",
           video: "/assets/2026-02-09 21-31-55 (2).mp4",
-          stack: ["Service sections", "Booking CTA", "Trust blocks"],
-          result: "Good fit for beauty studio, salon, lashes, brows, skincare or appointment-based services."
-        },
-        {
-          title: "Barber Shop Landing Page",
-          label: "Landing page example",
-          meta: "Barber shop direction",
-          duration: "00:35",
-          copy: "A landing page with prices, gallery, services and a clearer booking flow for barber shops.",
-          image: "/assets/portfolio-barber.jpg",
-          video: "/assets/portfolio-showcase-03.mp4",
-          stack: ["Booking CTA", "Pricing", "Gallery"],
-          result: "Good fit for barber shops, grooming studios and other appointment-based local businesses."
+          stack: ["Menu sections", "Booking CTA", "Trust blocks"],
+          result: "Good fit for coffee shops, cafes, brunch bars, bakery cafes or other hospitality businesses with reservations."
         }
       ]
     },
@@ -415,33 +404,22 @@ const siteDataByLocale: Record<Locale, SiteData> = {
       title: "Câteva exemple concrete de site-uri pentru tipurile de proiecte pe care le iau de obicei.",
       copy:
         "Acestea sunt direcții de exemplu pentru tipuri reale de site-uri. Pot adapta structura, designul și framework-ul pentru businessul, nișa și conținutul tău.",
-      openVideoPreview: "Vezi preview video",
+      openVideoPreview: "Intră pe site live",
       requestThisStyle: "Cer stilul acesta",
       videoPreviewSuffix: "preview video",
       fullscreenPreviewPrefix: "Preview video fullscreen pentru",
       fullscreenPreviewHint: "Apasă în afară pentru a închide.",
       items: [
         {
-          title: "Landing Page Beauty",
+          title: "Landing Page Cafenea",
           label: "Exemplu de landing page",
-          meta: "Direcție pentru studio beauty",
+          meta: "Directie pentru cafenea",
           duration: "00:24",
-          copy: "Un landing page axat pe servicii, tratamente, încredere și un traseu mai rapid spre programare pentru businessuri beauty.",
-          image: "/assets/portfolio-barber.jpg",
+          copy: "Un landing page axat pe meniu, atmosfera, incredere si un traseu mai rapid spre rezervare pentru businessuri din zona de cafea.",
+          image: "/assets/image.png",
           video: "/assets/2026-02-09 21-31-55 (2).mp4",
-          stack: ["Secțiuni de servicii", "CTA pentru programare", "Blocuri de încredere"],
-          result: "Potrivit pentru studio beauty, salon, lashes, brows, skincare sau alte servicii pe bază de programare."
-        },
-        {
-          title: "Landing Page Barber Shop",
-          label: "Exemplu de landing page",
-          meta: "Direcție pentru barber shop",
-          duration: "00:35",
-          copy: "Un landing page cu prețuri, galerie, servicii și un flow mai clar de programare pentru barber shop-uri.",
-          image: "/assets/portfolio-barber.jpg",
-          video: "/assets/portfolio-showcase-03.mp4",
-          stack: ["CTA programare", "Prețuri", "Galerie"],
-          result: "Potrivit pentru barber shop-uri, studiouri de grooming și alte businessuri locale bazate pe programări."
+          stack: ["Sectiuni de meniu", "CTA pentru rezervare", "Blocuri de incredere"],
+          result: "Potrivit pentru cafenele, coffee shop-uri, brunch bar-uri, bakery cafe sau alte localuri cu rezervari."
         }
       ]
     },
@@ -621,7 +599,7 @@ const siteDataByLocale: Record<Locale, SiteData> = {
       title: "Несколько конкретных примеров сайтов для тех типов проектов, которые я беру чаще всего.",
       copy:
         "Это примерные направления для реальных типов сайтов. Я могу адаптировать структуру, дизайн и технологический стек под ваш бизнес, нишу и контент.",
-      openVideoPreview: "Открыть видео-превью",
+      openVideoPreview: "Открыть live-сайт",
       requestThisStyle: "Хочу такой стиль",
       videoPreviewSuffix: "видео-превью",
       fullscreenPreviewPrefix: "Полноэкранное портфолио-видео для",
@@ -633,21 +611,10 @@ const siteDataByLocale: Record<Locale, SiteData> = {
           meta: "Направление для бьюти-студии",
           duration: "00:24",
           copy: "Лендинг с фокусом на услугах, процедурах, доверии и более быстром пути к записи для бьюти-бизнеса.",
-          image: "/assets/portfolio-barber.jpg",
+          image: "/assets/image.png",
           video: "/assets/2026-02-09 21-31-55 (2).mp4",
           stack: ["Секции услуг", "CTA на запись", "Блоки доверия"],
           result: "Подходит для бьюти-студий, салонов, lash- и brow-мастеров, skincare-услуг и других форматов работы по записи."
-        },
-        {
-          title: "Лендинг для барбершопа",
-          label: "Пример лендинга",
-          meta: "Направление для барбершопа",
-          duration: "00:35",
-          copy: "Лендинг с ценами, галереей, услугами и более понятным сценарием записи для барбершопа.",
-          image: "/assets/portfolio-barber.jpg",
-          video: "/assets/portfolio-showcase-03.mp4",
-          stack: ["CTA на запись", "Цены", "Галерея"],
-          result: "Подходит для барбершопов, студий груминга и других локальных бизнесов, работающих по записи."
         }
       ]
     },

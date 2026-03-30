@@ -39,8 +39,8 @@ export function HeroSection() {
       />
 
       <div className="section-shell">
-        <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.94fr)_minmax(360px,1.06fr)] lg:gap-12">
-          <div className="order-2 max-w-3xl lg:order-1">
+        <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,0.94fr)_minmax(360px,1.06fr)] xl:gap-12">
+          <div className="max-w-3xl">
             <motion.p
               key={enableIntroMotion ? "hero-kicker-motion" : "hero-kicker-static"}
               initial={enableIntroMotion ? { opacity: 0, y: 16 } : false}
@@ -56,7 +56,7 @@ export function HeroSection() {
               initial={enableIntroMotion ? { opacity: 0, y: 20 } : false}
               animate={enableIntroMotion ? { opacity: 1, y: 0 } : undefined}
               transition={{ duration: 0.65, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="display-hero mt-4 max-w-4xl text-stone-950"
+              className="display-hero hero-title-balanced mt-4 max-w-4xl text-stone-950"
             >
               {hero.titleLines[0]}
               <br />
@@ -121,61 +121,68 @@ export function HeroSection() {
             animate={enableIntroMotion ? { opacity: 1, y: 0 } : undefined}
             transition={{ duration: 0.78, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
             style={enableDepthMotion ? { y: cardY, scale: cardScale, opacity: cardOpacity } : undefined}
-            className="glass-panel premium-outline order-1 relative rounded-[34px] p-3 sm:p-4 lg:order-2"
+            className="glass-panel premium-outline relative overflow-hidden rounded-[36px] p-5 sm:p-6 lg:p-7"
           >
             <motion.div
               aria-hidden
-              className="pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(96,165,250,0.28),transparent_68%)] blur-3xl"
+              className="pointer-events-none absolute -right-16 -top-20 h-56 w-56 rounded-full bg-[radial-gradient(circle,rgba(47,77,224,0.24),transparent_70%)] blur-3xl"
               style={enableDepthMotion ? { y: orbY } : undefined}
             />
             <motion.div
               aria-hidden
-              className="pointer-events-none absolute -left-10 bottom-14 h-28 w-28 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.36),transparent_72%)] blur-3xl"
+              className="pointer-events-none absolute -left-14 bottom-0 h-44 w-44 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.4),transparent_72%)] blur-3xl"
               style={enableDepthMotion ? { y: cardY } : undefined}
             />
 
-            <div className="grid gap-3">
-              <div className="grid gap-4 rounded-[30px] bg-[#161616] p-5 text-white shadow-[0_22px_60px_rgba(28,25,23,0.16)] sm:grid-cols-[minmax(0,1fr)_12rem] sm:p-6">
-                <div>
-                  <div className="text-[10px] uppercase tracking-[0.24em] text-white/44">Dionis Grecu</div>
-                  <div className="display-feature mt-3 max-w-[12ch] text-white">
+            <div className="grid gap-8">
+              <div className="grid gap-7 lg:grid-cols-[minmax(0,1.04fr)_minmax(240px,0.96fr)] lg:items-center">
+                <div className="order-1 lg:order-1">
+                  <div className="text-[10px] uppercase tracking-[0.24em] text-[#2f4de0]/70">Dionis Grecu</div>
+                  <div className="display-feature text-balance mt-3 max-w-[23ch] text-stone-950 lg:max-w-[16ch]">
                     {hero.cardTitle}
                   </div>
-                  <p className="mt-4 max-w-md text-sm leading-7 text-white/64">
+                  <p className="mt-4 max-w-[54ch] text-sm leading-7 text-stone-700 sm:text-[15px]">
                     {hero.cardCopy}
                   </p>
-
-                  <div className="tag-chip-dark mt-5">
-                    {hero.availability}
-                  </div>
                 </div>
 
-                <div className="relative min-h-[18rem] overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.04]">
-                  <Image
-                    src="/assets/111.png"
-                    alt="Dionis Grecu"
-                    width={1024}
-                    height={1536}
-                    priority
-                    sizes="(max-width: 640px) 100vw, 192px"
-                    className="h-full w-full object-cover object-[center_14%]"
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,20,20,0.02),rgba(20,20,20,0.08)_42%,rgba(20,20,20,0.58))]" />
+                <div className="order-2 lg:order-2">
+                  <div className="relative mx-auto w-full max-w-[20rem] sm:max-w-[22rem]">
+                    <div className="pointer-events-none absolute inset-0 rounded-full bg-[radial-gradient(circle,rgba(47,77,224,0.36),transparent_68%)] blur-2xl" />
+                    <div className="relative rounded-full bg-[linear-gradient(145deg,rgba(47,77,224,0.48),rgba(125,211,252,0.42))] p-[4px] shadow-[0_24px_56px_rgba(30,41,59,0.26)]">
+                      <div className="relative aspect-square overflow-hidden rounded-full border border-white/80 bg-[#e7edf7]">
+                        <Image
+                          src="/assets/111.png"
+                          alt="Dionis Grecu"
+                          fill
+                          priority
+                          sizes="(max-width: 639px) 84vw, (max-width: 1023px) 66vw, 360px"
+                          className="object-cover object-[center_22%] scale-[1.02]"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-[24px] border border-stone-300/70 bg-white/84 px-5 py-4 sm:px-6 sm:py-5">
-                  <div className="text-[10px] uppercase tracking-[0.22em] text-[#2f4de0]/72">{hero.bestForLabel}</div>
-                  <div className="mt-2 text-sm font-semibold leading-7 text-stone-900 sm:text-[15px]">
-                    {hero.bestForCopy}
-                  </div>
+              <div className="grid gap-5 border-t border-stone-300/65 pt-5">
+                <div className="tag-chip text-[13px] sm:text-sm">
+                  {hero.availability}
                 </div>
 
-                <div className="rounded-[24px] border border-stone-300/70 bg-white/84 px-5 py-4 sm:px-6 sm:py-5">
-                  <div className="text-[10px] uppercase tracking-[0.22em] text-[#2f4de0]/72">{hero.buildStyleLabel}</div>
-                  <div className="mt-2 text-sm font-semibold leading-7 text-stone-900 sm:text-[15px]">
-                    {hero.buildStyleCopy}
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <div className="text-[10px] uppercase tracking-[0.22em] text-[#2f4de0]/72">{hero.bestForLabel}</div>
+                    <div className="mt-2 text-sm font-medium leading-7 text-stone-800 sm:text-[15px]">
+                      {hero.bestForCopy}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="text-[10px] uppercase tracking-[0.22em] text-[#2f4de0]/72">{hero.buildStyleLabel}</div>
+                    <div className="mt-2 text-sm font-medium leading-7 text-stone-800 sm:text-[15px]">
+                      {hero.buildStyleCopy}
+                    </div>
                   </div>
                 </div>
               </div>

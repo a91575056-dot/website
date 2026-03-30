@@ -20,7 +20,7 @@ export function ServicesSection() {
   return (
     <section id="services" className="py-14 sm:py-20">
       <div className="section-shell">
-        <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12">
+        <div className="grid gap-8 xl:grid-cols-[0.82fr_1.18fr] xl:gap-12">
           <SectionIntro
             eyebrow={services.eyebrow}
             title={services.title}
@@ -40,7 +40,7 @@ export function ServicesSection() {
                   whileHover={enableMotion ? { y: -10, scale: 1.01 } : undefined}
                   className="interactive-card glass-panel relative rounded-[28px] px-5 py-5 sm:px-6"
                 >
-                  <div className="grid gap-4 lg:grid-cols-[7rem_minmax(0,1fr)_auto] lg:items-start lg:gap-6">
+                  <div className="grid gap-4 xl:grid-cols-[7rem_minmax(0,1fr)_auto] xl:items-start xl:gap-6">
                     <div className="text-[11px] uppercase tracking-[0.24em] text-[#2f4de0]/82">{service.eyebrow}</div>
 
                     <div>
@@ -58,7 +58,7 @@ export function ServicesSection() {
                       <p className="mt-4 text-sm leading-6 text-stone-500">{service.footer}</p>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-2 self-start lg:justify-end">
+                    <div className="flex flex-wrap items-center gap-2 self-start xl:justify-end">
                       <Link
                         href={getLocalizedPath(locale, service.href)}
                         className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white/88 px-3 py-2 text-xs uppercase tracking-[0.2em] text-stone-700 transition duration-300 hover:-translate-y-0.5 hover:border-stone-400 hover:bg-white hover:text-stone-950"

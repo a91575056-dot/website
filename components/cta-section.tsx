@@ -32,7 +32,7 @@ export function CtaSection() {
           whileInView={enableMotion ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" } : undefined}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-[34px] bg-[#151515] px-5 py-7 text-white shadow-[0_28px_80px_rgba(28,25,23,0.16)] sm:px-8 sm:py-9 lg:px-10"
+          className="relative overflow-hidden rounded-[34px] bg-[#151515] px-5 py-7 text-white shadow-[0_28px_80px_rgba(28,25,23,0.16)] sm:px-8 sm:py-9 xl:px-10"
         >
           <motion.div
             aria-hidden
@@ -46,7 +46,7 @@ export function CtaSection() {
           />
           <div aria-hidden className="pointer-events-none absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-white/55 to-transparent" />
 
-          <div className="grid gap-8 lg:grid-cols-[1fr_22rem] lg:items-end">
+          <div className="grid gap-8 xl:grid-cols-[1fr_22rem] xl:items-end">
             <div>
               <div className="text-[11px] uppercase tracking-[0.26em] text-white/48">{cta.eyebrow}</div>
               <h2 className="display-section mt-4 max-w-3xl text-white">

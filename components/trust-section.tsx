@@ -18,7 +18,7 @@ export function TrustSection() {
     <section className="pb-16 sm:pb-24">
       <div className="section-shell">
         <div className="glass-panel px-5 py-6 sm:px-8 sm:py-9">
-          <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+          <div className="grid gap-8 xl:grid-cols-[0.82fr_1.18fr] xl:items-end">
             <SectionIntro
               eyebrow={trust.eyebrow}
               title={trust.title}

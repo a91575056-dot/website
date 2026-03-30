@@ -13,7 +13,7 @@ export function FaqSection() {
   return (
     <section id="faq" className="py-14 sm:py-20">
       <div className="section-shell">
-        <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-12">
+        <div className="grid gap-8 xl:grid-cols-[0.82fr_1.18fr] xl:gap-12">
           <SectionIntro eyebrow={faq.eyebrow} title={faq.title} copy={faq.copy} className="max-w-none" />
 
           <Reveal delay={0.08} y={20} blur={8}>
