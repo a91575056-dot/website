@@ -40,6 +40,7 @@ export type PortfolioItem = {
   duration: string;
   copy: string;
   image: string;
+  liveUrl: string;
   video: string;
   stack: string[];
   result: string;
@@ -216,15 +217,28 @@ const siteDataByLocale: Record<Locale, SiteData> = {
       fullscreenPreviewHint: "Tap or click outside to close.",
       items: [
         {
+          title: "Maison Noire Restaurant Website",
+          label: "Live website project",
+          meta: "Fine dining direction",
+          duration: "00:24",
+          copy: "A premium restaurant website focused on atmosphere, menu storytelling and a clear reservation flow from the first screen.",
+          image: "/assets/maison-noire-cover.png",
+          liveUrl: "https://famous-sfogliatella-6ed931.netlify.app/",
+          video: "/assets/2026-02-09 21-31-55 (2).mp4",
+          stack: ["Luxury hero section", "Reservation CTA", "Story-driven sections"],
+          result: "Great fit for restaurants, fine-dining venues and hospitality brands that need a stronger premium presentation.",
+        },
+        {
           title: "Coffee Shop Landing Page",
-          label: "Landing page example",
+          label: "Live website project",
           meta: "Coffee bar direction",
           duration: "00:24",
           copy: "A landing page focused on menu highlights, atmosphere, trust and a faster table-booking path for coffee businesses.",
           image: "/assets/image.png",
+          liveUrl: "https://ephemeral-kangaroo-901767.netlify.app/",
           video: "/assets/2026-02-09 21-31-55 (2).mp4",
           stack: ["Menu sections", "Booking CTA", "Trust blocks"],
-          result: "Good fit for coffee shops, cafes, brunch bars, bakery cafes or other hospitality businesses with reservations."
+          result: "Good fit for coffee shops, cafes, brunch bars, bakery cafes or other hospitality businesses with reservations.",
         }
       ]
     },
@@ -411,15 +425,28 @@ const siteDataByLocale: Record<Locale, SiteData> = {
       fullscreenPreviewHint: "Apasă în afară pentru a închide.",
       items: [
         {
+          title: "Website Restaurant Maison Noire",
+          label: "Proiect website live",
+          meta: "Directie fine dining",
+          duration: "00:24",
+          copy: "Un website premium pentru restaurant, construit in jurul atmosferei, povestii meniului si unui traseu clar catre rezervare din primul ecran.",
+          image: "/assets/maison-noire-cover.png",
+          liveUrl: "https://famous-sfogliatella-6ed931.netlify.app/",
+          video: "/assets/2026-02-09 21-31-55 (2).mp4",
+          stack: ["Hero de impact", "CTA pentru rezervare", "Sectiuni storytelling"],
+          result: "Potrivit pentru restaurante, localuri fine dining si businessuri HoReCa care au nevoie de o prezentare premium mai puternica.",
+        },
+        {
           title: "Landing Page Cafenea",
-          label: "Exemplu de landing page",
+          label: "Proiect website live",
           meta: "Directie pentru cafenea",
           duration: "00:24",
           copy: "Un landing page axat pe meniu, atmosfera, incredere si un traseu mai rapid spre rezervare pentru businessuri din zona de cafea.",
           image: "/assets/image.png",
+          liveUrl: "https://ephemeral-kangaroo-901767.netlify.app/",
           video: "/assets/2026-02-09 21-31-55 (2).mp4",
           stack: ["Sectiuni de meniu", "CTA pentru rezervare", "Blocuri de incredere"],
-          result: "Potrivit pentru cafenele, coffee shop-uri, brunch bar-uri, bakery cafe sau alte localuri cu rezervari."
+          result: "Potrivit pentru cafenele, coffee shop-uri, brunch bar-uri, bakery cafe sau alte localuri cu rezervari.",
         }
       ]
     },
@@ -606,15 +633,28 @@ const siteDataByLocale: Record<Locale, SiteData> = {
       fullscreenPreviewHint: "Нажмите вне окна, чтобы закрыть.",
       items: [
         {
-          title: "Лендинг для бьюти-студии",
-          label: "Пример лендинга",
-          meta: "Направление для бьюти-студии",
+          title: "Сайт ресторана Maison Noire",
+          label: "Live-сайт проекта",
+          meta: "Направление fine dining",
           duration: "00:24",
-          copy: "Лендинг с фокусом на услугах, процедурах, доверии и более быстром пути к записи для бьюти-бизнеса.",
-          image: "/assets/image.png",
+          copy: "Премиальный сайт ресторана с фокусом на атмосферу, подачу меню и понятный путь к бронированию уже с первого экрана.",
+          image: "/assets/maison-noire-cover.png",
+          liveUrl: "https://famous-sfogliatella-6ed931.netlify.app/",
           video: "/assets/2026-02-09 21-31-55 (2).mp4",
-          stack: ["Секции услуг", "CTA на запись", "Блоки доверия"],
-          result: "Подходит для бьюти-студий, салонов, lash- и brow-мастеров, skincare-услуг и других форматов работы по записи."
+          stack: ["Премиальный hero-блок", "CTA на бронирование", "Storytelling-секции"],
+          result: "Подходит для ресторанов, fine-dining заведений и брендов HoReCa, которым нужна более сильная премиальная подача.",
+        },
+        {
+          title: "Лендинг кофейни",
+          label: "Live-сайт проекта",
+          meta: "Направление для кофейни",
+          duration: "00:24",
+          copy: "Лендинг с фокусом на меню, атмосферу, доверие и более быстрый путь к бронированию столика для кофейного бизнеса.",
+          image: "/assets/image.png",
+          liveUrl: "https://ephemeral-kangaroo-901767.netlify.app/",
+          video: "/assets/2026-02-09 21-31-55 (2).mp4",
+          stack: ["Секции меню", "CTA на бронирование", "Блоки доверия"],
+          result: "Подходит для кофеен, кафе, brunch-баров, bakery cafe и других форматов с бронированием.",
         }
       ]
     },
