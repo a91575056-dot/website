@@ -71,29 +71,29 @@ const homeFaqByLocale: Record<Locale, HomeFaqContent> = {
   },
   ru: {
     eyebrow: "FAQ",
-    title: "Chastye voprosy pered startom lendinga ili saita.",
+    title: "Частые вопросы перед стартом лендинга или сайта.",
     copy:
-      "Zdes sobrany voprosy, kotorye chashche vsego poyavlyayutsya pered nachalom proekta. Eto pomogaet i posetitelyam, i SEO po bolee konkretnym zaprosam.",
+      "Здесь собраны вопросы, которые чаще всего появляются перед стартом проекта. Это помогает и посетителям, и SEO по более конкретным запросам.",
     items: [
       {
-        question: "Skolko stoit proekt?",
+        question: "Сколько стоит проект?",
         answer:
-          "Nebolshie lendingi i basic saity startuyut ot 40 USD. Itogovaya tsena zavisit ot obema rabot, kolichestva sektsiy, gotovnosti kontenta, kolichestva pravok i nalichiya custom motion ili neskolkikh yazykov."
+          "Небольшие лендинги и базовые сайты стартуют от 40 USD. Итоговая цена зависит от объема работ, количества секций, готовности контента, количества правок и наличия custom motion или нескольких языков."
       },
       {
-        question: "Skolko vremeni obychno zanimaet proekt?",
+        question: "Сколько времени обычно занимает проект?",
         answer:
-          "Prostoy lending mozhno sobrat dostatochno bystro, esli ponyatny napravlenie, kontent i referensy. Bolee krupnye saity zanimayut bolshe vremeni, potomu chto v nikh bolshe struktury, kontenta i etapov polirovki."
+          "Простой лендинг можно собрать достаточно быстро, если понятны направление, контент и референсы. Более крупные сайты занимают больше времени, потому что в них больше структуры, контента и этапов полировки."
       },
       {
-        question: "Nuzhno li mne samomu gotovit teksty i izobrazheniya?",
+        question: "Нужно ли мне самому готовить тексты и изображения?",
         answer:
-          "Vy mozhete prislat gotovye teksty, zametki, primery sajtov ili tekushchiy sait. Ya pomogu vystroit strukturu kontenta tak, chtoby itogovaya stranitsa chitalas yasno, dazhe esli vse eshche ne polnostyu podgotovleno."
+          "Вы можете прислать готовые тексты, заметки, примеры сайтов или текущий сайт. Я помогу выстроить структуру контента так, чтобы итоговая страница читалась ясно, даже если все еще не полностью подготовлено."
       },
       {
-        question: "Mozhno li prodolzhit rabotu nad saitom posle zapuska?",
+        question: "Можно ли продолжить работу над сайтом после запуска?",
         answer:
-          "Da. Posle publikatsii pervoy versii ya mogu pomoch s dalneyshimi izmeneniyami, novymi sektsiyami, vizualnoy polirovkoy i front-end obnovleniyami."
+          "Да. После публикации первой версии я могу помочь с дальнейшими изменениями, новыми секциями, визуальной полировкой и front-end обновлениями."
       }
     ]
   }
